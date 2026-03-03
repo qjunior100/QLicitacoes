@@ -5,11 +5,8 @@
 
 [[redirects]]
   from = "/download"
-  to = "/ativar.html"
-  status = 200
+  to = "https://github.com/qjunior100/QLicitacoes/releases/download/1.0/QLicitacoes.zip"
+  status = 301
 
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-Content-Type-Options = "nosniff"
+[build]
+  publish = "."
