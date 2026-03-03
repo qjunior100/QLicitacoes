@@ -1110,4 +1110,44 @@
     btn.addEventListener('click', () => {
       const item = btn.parentElement;
       const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i => i.clas
+      sList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Nav shrink on scroll
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 50);
+  });
+</script>
+
+<script>
+var isAnual = false;
+var dadosP = {
+  basico: {
+    mes: { p: 'R$29<span>,90/mes</span>', s: 'Faturado mensalmente', l: 'https://go.hotmart.com/A104730085G?dp=1' },
+    ano: { p: 'R$299<span>,90/ano</span>', s: 'R$24,99/mes - economize 16%', l: 'https://go.hotmart.com/L104730161T?dp=1' }
+  },
+  completo: {
+    mes: { p: 'R$49<span>,90/mes</span>', s: 'Faturado mensalmente', l: 'https://go.hotmart.com/P104730205D?dp=1' },
+    ano: { p: 'R$499<span>,90/ano</span>', s: 'R$41,66/mes - economize 17%', l: 'https://go.hotmart.com/I104730232F?dp=1' }
+  }
+};
+function togglePlanos() {
+  isAnual = !isAnual;
+  document.getElementById('toggle-ball').style.left = isAnual ? '32px' : '2px';
+  document.getElementById('label-mensal').style.color = isAnual ? '#8A9BBE' : '#F0A500';
+  document.getElementById('label-mensal').style.fontWeight = isAnual ? '500' : '600';
+  document.getElementById('label-anual').style.color = isAnual ? '#F0A500' : '#8A9BBE';
+  document.getElementById('label-anual').style.fontWeight = isAnual ? '600' : '500';
+  var k = isAnual ? 'ano' : 'mes';
+  document.getElementById('preco-basico').innerHTML = dadosP.basico[k].p;
+  document.getElementById('sub-basico').textContent = dadosP.basico[k].s;
+  document.getElementById('link-basico').href = dadosP.basico[k].l;
+  document.getElementById('preco-completo').innerHTML = dadosP.completo[k].p;
+  document.getElementById('sub-completo').textContent = dadosP.completo[k].s;
+  document.getElementById('link-completo').href = dadosP.completo[k].l;
+}
+</script>
+</body>
+</html>
