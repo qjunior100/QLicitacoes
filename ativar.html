@@ -479,12 +479,13 @@
         Sua chave de acesso foi gerada e enviada para <strong id="email-conf"></strong>.<br>
         Verifique sua caixa de entrada (e o spam).
       </div>
-      <a href="https://qlicitacoes.com.br/download" class="download-btn">⬇️ Baixar QLicitações</a>
+      <a href="https://github.com/qjunior100/QLicitacoes/releases/download/1.0/QLicitacoes.zip" class="download-btn">⬇️ Baixar QLicitações</a>
       <div class="sucesso-info">
         <strong>Como ativar:</strong><br>
-        1. Baixe e execute o QLicitações.exe<br>
-        2. Insira a chave recebida no email<br>
-        3. Configure sua empresa e comece a buscar licitações
+        1. Baixe e extraia o arquivo .zip<br>
+        2. Execute o QLicitacoes.exe<br>
+        3. Insira a chave recebida no email<br>
+        4. Configure sua empresa e comece a buscar licitações
       </div>
     </div>
 
@@ -493,10 +494,10 @@
 
 <footer>
   <a href="/">QLicitações</a> &nbsp;·&nbsp;
-  <a href="mailto:suporte@qlicitacoes.com.br">suporte@qlicitacoes.com.br</a>
+  <a href="/cdn-cgi/l/email-protection#7a090f0a15080e1f3a0b161319130e1b19151f0954191517541808"><span class="__cf_email__" data-cfemail="e09395908f929485a0918c8983899481838f8593ce838f8dce8292">[email&#160;protected]</span></a>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // ── CONFIGURAÇÃO ──
   const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0l_8SucreoK86Sn3nZ3rqrJuVVJMCTHEzMnL4tQjN3QFq8i8SWYdUk5SLyOSAVd3v/exec";
 
@@ -614,14 +615,4 @@
   }
 
   function esconderErro(step) {
-    const el = document.getElementById("msg-" + step);
-    if (el) el.style.display = "none";
-  }
-
-  // Enter no campo de email
-  document.getElementById("input-email").addEventListener("keydown", e => {
-    if (e.key === "Enter") irStep2();
-  });
-</script>
-</body>
-</html>
+    const el = do
