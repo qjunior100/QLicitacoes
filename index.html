@@ -860,12 +860,26 @@
     <div class="section-tag">Preços</div>
     <h2 class="section-title">Escolha o plano<br>ideal para você</h2>
     <p class="section-sub">Sem contrato de fidelidade. Cancele quando quiser.</p>
+
+    <!-- Toggle Mensal / Anual -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:48px;">
+      <span id="label-mensal" style="font-size:.95rem;font-weight:600;color:var(--gold);">Mensal</span>
+      <div onclick="togglePlanos()" id="toggle-wrap"
+        style="width:56px;height:28px;background:rgba(240,165,0,0.2);border:1px solid var(--gold);border-radius:99px;cursor:pointer;position:relative;transition:background .3s;">
+        <div id="toggle-ball"
+          style="width:22px;height:22px;background:var(--gold);border-radius:50%;position:absolute;top:2px;left:2px;transition:left .3s;"></div>
+      </div>
+      <span id="label-anual" style="font-size:.95rem;font-weight:500;color:var(--cinza);">
+        Anual <span style="background:rgba(240,165,0,0.15);color:var(--gold);font-size:.75rem;padding:2px 8px;border-radius:99px;margin-left:4px;">até 17% off</span>
+      </span>
+    </div>
+
     <div class="planos-grid">
 
       <div class="plano-card reveal">
         <div class="plano-nome">Básico</div>
-        <div class="plano-preco">R$29<span>,90/mês</span></div>
-        <div class="plano-anual">ou R$ 299,90/ano — economize 16%</div>
+        <div class="plano-preco" id="preco-basico">R$29<span>,90/mês</span></div>
+        <div class="plano-anual" id="sub-basico">Faturado mensalmente</div>
         <div class="plano-desc">Monitoramento de licitações para um segmento específico do seu ramo de atuação.</div>
         <ul class="plano-lista">
           <li>1 segmento de atuação</li>
@@ -876,14 +890,14 @@
           <li>Agendamento diário</li>
           <li>Suporte por email</li>
         </ul>
-        <a href="https://pay.hotmart.com/P7316102T" class="btn-plano btn-plano-outline">Assinar Básico →</a>
+        <a id="link-basico" href="https://go.hotmart.com/A104730085G?dp=1" class="btn-plano btn-plano-outline">Assinar Básico →</a>
       </div>
 
       <div class="plano-card destaque reveal">
         <div class="plano-badge">⭐ MAIS POPULAR</div>
         <div class="plano-nome">Completo</div>
-        <div class="plano-preco">R$49<span>,90/mês</span></div>
-        <div class="plano-anual">ou R$ 499,90/ano — economize 17%</div>
+        <div class="plano-preco" id="preco-completo">R$49<span>,90/mês</span></div>
+        <div class="plano-anual" id="sub-completo">Faturado mensalmente</div>
         <div class="plano-desc">Acesso total a todos os segmentos. Ideal para empresas que atuam em múltiplas frentes.</div>
         <ul class="plano-lista">
           <li class="destaque-item">Todos os 10 segmentos</li>
@@ -894,7 +908,7 @@
           <li>Agendamento diário</li>
           <li>Prioridade no suporte</li>
         </ul>
-        <a href="https://pay.hotmart.com/P7316157T" class="btn-plano btn-plano-gold">Assinar Completo →</a>
+        <a id="link-completo" href="https://go.hotmart.com/P104730205D?dp=1" class="btn-plano btn-plano-gold">Assinar Completo →</a>
       </div>
 
     </div>
@@ -1058,6 +1072,34 @@
   setTimeout(() => {
     document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
   }, 800);
+
+
+  // Toggle Mensal/Anual
+  var isAnual = false;
+  var dados = {
+    basico:   { mes: ['R$29<span>,90/mes</span>', 'Faturado mensalmente', 'https://go.hotmart.com/A104730085G?dp=1'],
+                ano: ['R$299<span>,90/ano</span>', 'Equivale a R$24,99/mes - economize 16%', 'https://go.hotmart.com/L104730161T?dp=1'] },
+    completo: { mes: ['R$49<span>,90/mes</span>', 'Faturado mensalmente', 'https://go.hotmart.com/P104730205D?dp=1'],
+                ano: ['R$499<span>,90/ano</span>', 'Equivale a R$41,66/mes - economize 17%', 'https://go.hotmart.com/I104730232F?dp=1'] }
+  };
+  function togglePlanos() {
+    isAnual = !isAnual;
+    var ball = document.getElementById('toggle-ball');
+    var lMes = document.getElementById('label-mensal');
+    var lAno = document.getElementById('label-anual');
+    ball.style.left = isAnual ? '32px' : '2px';
+    lMes.style.color = isAnual ? 'var(--cinza)' : 'var(--gold)';
+    lMes.style.fontWeight = isAnual ? '500' : '600';
+    lAno.style.color = isAnual ? 'var(--gold)' : 'var(--cinza)';
+    lAno.style.fontWeight = isAnual ? '600' : '500';
+    var k = isAnual ? 'ano' : 'mes';
+    document.getElementById('preco-basico').innerHTML = dados.basico[k][0];
+    document.getElementById('sub-basico').textContent = dados.basico[k][1];
+    document.getElementById('link-basico').href = dados.basico[k][2];
+    document.getElementById('preco-completo').innerHTML = dados.completo[k][0];
+    document.getElementById('sub-completo').textContent = dados.completo[k][1];
+    document.getElementById('link-completo').href = dados.completo[k][2];
+  }
 
   // ── FAQ accordion ──
   document.querySelectorAll('.faq-pergunta').forEach(btn => {
