@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QLicitações — Monitor de Licitações Públicas</title>
+  <meta name="description" content="Monitore licitações públicas automaticamente. O QLicitações rastreia o PNCP todos os dias e entrega as melhores oportunidades para o seu negócio.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --azul:    #0D1F3C;
+      --azul2:   #122447;
+      --azul3:   #1B3A6B;
+      --gold:    #F0A500;
+      --gold2:   #FFB830;
+      --branco:  #F0F4FA;
+      --cinza:   #8A9BBE;
+      --card-bg: #111E35;
+      --borda:   rgba(240,165,0,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--azul);
+      color: var(--branco);
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      background: rgba(13,31,60,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--borda);
+      transition: padding .3s;
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: -0.5px;
+    }
+
+    .nav-logo span { color: var(--branco); }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--cinza);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 400;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover { color: var(--branco); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--azul) !important;
+      font-weight: 600 !important;
+      padding: 10px 24px;
+      border-radius: 6px;
+      transition: background .2s, transform .1s !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold2) !important;
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 20px 80px;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(240,165,0,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(240,165,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(240,165,0,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent);
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 800px; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(240,165,0,0.1);
+      border: 1px solid rgba(240,165,0,0.3);
+      color: var(--gold);
+      font-size: .8rem;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+      letter-spacing: .5px;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .5; transform: scale(1.4); }
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--cinza);
+      line-height: 1.7;
+      max-width: 580px;
+      margin: 0 auto 40px;
+      font-weight: 300;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--azul);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 16px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 0 30px rgba(240,165,0,0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--gold2);
+      transform: translateY(-2px);
+      box-shadow: 0 0 40px rgba(240,165,0,0.5);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--branco);
+      font-size: 1rem;
+      font-weight: 400;
+      padding: 16px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 1px solid rgba(240,240,255,0.2);
+      transition: border-color .2s, background .2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(240,240,255,0.5);
+      background: rgba(240,240,255,0.05);
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 1px solid var(--borda);
+      flex-wrap: wrap;
+    }
+
+    .stat-item { text-align: center; }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
+
+    .stat-label {
+      font-size: .82rem;
+      color: var(--cinza);
+      margin-top: 4px;
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 100px 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-size: .78rem;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-sub {
+      color: var(--cinza);
+      font-size: 1.05rem;
+      font-weight: 300;
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 60px;
+    }
+
+    /* ── COMO FUNCIONA ── */
+    .como-funciona { background: var(--azul2); }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2px;
+      margin-top: 60px;
+    }
+
+    .step {
+      background: var(--card-bg);
+      padding: 40px 32px;
+      position: relative;
+      transition: background .2s;
+    }
+
+    .step:hover { background: #162540; }
+
+    .step-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: rgba(240,165,0,0.12);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .step-icon {
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+    }
+
+    .step h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--branco);
+    }
+
+    .step p {
+      font-size: .9rem;
+      color: var(--cinza);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    .step-connector {
+      position: absolute;
+      right: -1px; top: 50%;
+      transform: translateY(-50%);
+      width: 2px; height: 40px;
+      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    }
+
+    /* ── FUNCIONALIDADES ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--borda);
+      border-radius: 12px;
+      padding: 32px;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(240,165,0,0.4);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      width: 48px; height: 48px;
+      background: rgba(240,165,0,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      font-size: .88rem;
+      color: var(--cinza);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    /* ── PLANOS ── */
+    .planos { background: var(--azul2); }
+
+    .planos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      align-items: start;
+    }
+
+    .plano-card {
+      background: var(--card-bg);
+      border: 1px solid var(--borda);
+      border-radius: 16px;
+      padding: 40px 36px;
+      position: relative;
+      transition: border-color .2s;
+    }
+
+    .plano-card.destaque {
+      border-color: var(--gold);
+      background: linear-gradient(135deg, #162540 0%, #111E35 100%);
+    }
+
+    .plano-badge {
+      position: absolute;
+      top: -14px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: var(--azul);
+      font-family: 'Syne', sans-serif;
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 5px 18px;
+      border-radius: 999px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .plano-nome {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--cinza);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .plano-preco {
+      font-family: 'Syne', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--branco);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .plano-preco span {
+      font-size: 1.2rem;
+      color: var(--cinza);
+      font-weight: 400;
+    }
+
+    .plano-anual {
+      font-size: .85rem;
+      color: var(--gold);
+      margin-bottom: 28px;
+    }
+
+    .plano-desc {
+      font-size: .9rem;
+      color: var(--cinza);
+      line-height: 1.6;
+      margin-bottom: 28px;
+      font-weight: 300;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--borda);
+    }
+
+    .plano-lista {
+      list-style: none;
+      margin-bottom: 36px;
+    }
+
+    .plano-lista li {
+      font-size: .9rem;
+      color: var(--cinza);
+      padding: 8px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-weight: 300;
+    }
+
+    .plano-lista li::before {
+      content: '✓';
+      color: var(--gold);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .plano-lista li.destaque-item { color: var(--branco); font-weight: 400; }
+
+    .btn-plano {
+      display: block;
+      text-align: center;
+      padding: 16px;
+      border-radius: 8px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: .95rem;
+      text-decoration: none;
+      transition: all .2s;
+    }
+
+    .btn-plano-gold {
+      background: var(--gold);
+      color: var(--azul);
+      box-shadow: 0 0 24px rgba(240,165,0,0.3);
+    }
+
+    .btn-plano-gold:hover {
+      background: var(--gold2);
+      box-shadow: 0 0 36px rgba(240,165,0,0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn-plano-outline {
+      background: transparent;
+      color: var(--branco);
+      border: 1px solid rgba(240,240,255,0.25);
+    }
+
+    .btn-plano-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ── SEGMENTOS ── */
+    .segmentos-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 40px;
+    }
+
+    .seg-tag {
+      background: rgba(240,165,0,0.08);
+      border: 1px solid rgba(240,165,0,0.2);
+      color: var(--branco);
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: .88rem;
+      font-weight: 400;
+      transition: all .2s;
+      cursor: default;
+    }
+
+    .seg-tag:hover {
+      background: rgba(240,165,0,0.18);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ── AFILIADOS ── */
+    .afiliados {
+      background: linear-gradient(135deg, var(--azul2) 0%, var(--azul) 100%);
+    }
+
+    .afiliados-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .afiliados-numeros {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .afil-card {
+      background: var(--card-bg);
+      border: 1px solid var(--borda);
+      border-radius: 12px;
+      padding: 28px 24px;
+    }
+
+    .afil-val {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
+
+    .afil-label {
+      font-size: .82rem;
+      color: var(--cinza);
+      margin-top: 4px;
+      line-height: 1.4;
+      font-weight: 300;
+    }
+
+    /* ── FAQ ── */
+    .faq-lista { max-width: 720px; }
+
+    .faq-item {
+      border-bottom: 1px solid var(--borda);
+      padding: 24px 0;
+    }
+
+    .faq-pergunta {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      user-select: none;
+    }
+
+    .faq-pergunta::after {
+      content: '+';
+      font-size: 1.4rem;
+      color: var(--gold);
+      flex-shrink: 0;
+      transition: transform .2s;
+    }
+
+    .faq-item.open .faq-pergunta::after { transform: rotate(45deg); }
+
+    .faq-resposta {
+      font-size: .9rem;
+      color: var(--cinza);
+      line-height: 1.7;
+      font-weight: 300;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease, padding .3s;
+    }
+
+    .faq-item.open .faq-resposta {
+      max-height: 300px;
+      padding-top: 16px;
+    }
+
+    /* ── CTA FINAL ── */
+    .cta-final {
+      text-align: center;
+      background: var(--azul2);
+      padding: 120px 20px;
+    }
+
+    .cta-glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse, rgba(240,165,0,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #080F1E;
+      padding: 48px 20px;
+      text-align: center;
+      border-top: 1px solid var(--borda);
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    footer p {
+      font-size: .82rem;
+      color: var(--cinza);
+      font-weight: 300;
+    }
+
+    footer a { color: var(--cinza); text-decoration: none; }
+    footer a:hover { color: var(--gold); }
+
+    /* ── ANIMAÇÕES DE ENTRADA ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVO ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .afiliados-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-stats { gap: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav>
+  <div class="nav-logo">QL<span>icitações</span></div>
+  <ul class="nav-links">
+    <li><a href="#como-funciona">Como funciona</a></li>
+    <li><a href="#planos">Planos</a></li>
+    <li><a href="#segmentos">Segmentos</a></li>
+    <li><a href="#afiliados">Afiliados</a></li>
+    <li><a href="#planos" class="nav-cta">Começar agora</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Integrado ao PNCP — Portal Nacional de Contratações Públicas</div>
+    <h1>Nunca mais perca uma <em>licitação pública</em></h1>
+    <p>O QLicitações monitora o PNCP automaticamente todos os dias e entrega apenas as oportunidades relevantes para o seu negócio — filtradas por segmento, estado e palavras-chave.</p>
+    <div class="hero-btns">
+      <a href="#planos" class="btn-primary">Começar agora →</a>
+      <a href="#como-funciona" class="btn-secondary">Como funciona</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Segmentos monitorados</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">27</div>
+        <div class="stat-label">Estados disponíveis</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Automático</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">R$29</div>
+        <div class="stat-label">A partir de /mês</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMO FUNCIONA ── -->
+<section class="como-funciona" id="como-funciona">
+  <div class="container">
+    <div class="section-tag">Passo a passo</div>
+    <h2 class="section-title">Simples de configurar,<br>poderoso no resultado</h2>
+    <p class="section-sub">Em menos de 5 minutos você está monitorando licitações do seu segmento automaticamente.</p>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <div class="step-icon">🛒</div>
+        <h3>Escolha seu plano</h3>
+        <p>Básico para um segmento específico ou Completo para todos os segmentos. Pague e receba sua chave por email.</p>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <div class="step-icon">⚙️</div>
+        <h3>Instale e ative</h3>
+        <p>Baixe o QLicitações, insira sua chave e configure a empresa, estados e palavras-chave de interesse.</p>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <div class="step-icon">🔍</div>
+        <h3>Monitore automaticamente</h3>
+        <p>O sistema busca licitações todos os dias no horário que você definir. Funciona em segundo plano.</p>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">04</div>
+        <div class="step-icon">📊</div>
+        <h3>Receba o relatório</h3>
+        <p>Resultados classificados por prioridade entregues em Excel no seu email. Oportunidades na palma da mão.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FUNCIONALIDADES ── -->
+<section id="funcionalidades">
+  <div class="container">
+    <div class="section-tag">Funcionalidades</div>
+    <h2 class="section-title">Tudo que você precisa<br>em um só lugar</h2>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">🎯</div>
+        <h3>Filtros inteligentes</h3>
+        <p>Filtre por segmento, estado e palavras-chave personalizadas. Receba apenas o que importa para o seu negócio.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔴</div>
+        <h3>Priorização automática</h3>
+        <p>Licitações classificadas em Alta, Média prioridade e Prazo Urgente. Saiba onde focar sua atenção.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📋</div>
+        <h3>Relatório em Excel</h3>
+        <p>Exportação automática com todos os dados formatados. Compartilhe facilmente com sua equipe ou contador.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📧</div>
+        <h3>Envio por email</h3>
+        <p>Resultados enviados automaticamente para o email cadastrado. Acompanhe mesmo longe do computador.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">⏰</div>
+        <h3>Agendamento automático</h3>
+        <p>Configure o horário da busca diária. O sistema roda sozinho enquanto você trabalha em outras coisas.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🗺️</div>
+        <h3>Cobertura nacional</h3>
+        <p>Selecione um ou mais estados para monitorar. Do Acre ao Rio Grande do Sul, todos os 27 estados disponíveis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SEGMENTOS ── -->
+<section id="segmentos" style="background: var(--azul2);">
+  <div class="container">
+    <div class="section-tag">Mercado atendido</div>
+    <h2 class="section-title">Qual é o seu<br>segmento?</h2>
+    <p class="section-sub">O Plano Básico monitora um segmento específico. O Plano Completo monitora todos simultaneamente.</p>
+    <div class="segmentos-grid">
+      <span class="seg-tag">🏗️ Obras e Engenharias</span>
+      <span class="seg-tag">🏥 Saúde</span>
+      <span class="seg-tag">🧹 Limpeza e Conservação</span>
+      <span class="seg-tag">🔒 Vigilância e Segurança</span>
+      <span class="seg-tag">💻 Tecnologia da Informação</span>
+      <span class="seg-tag">🍽️ Alimentação e Nutrição</span>
+      <span class="seg-tag">🚛 Transporte e Logística</span>
+      <span class="seg-tag">🔧 Manutenção de Equipamentos</span>
+      <span class="seg-tag">📚 Educação e Capacitação</span>
+      <span class="seg-tag">📑 Consultoria e Assessoria</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── PLANOS ── -->
+<section id="planos">
+  <div class="container">
+    <div class="section-tag">Preços</div>
+    <h2 class="section-title">Escolha o plano<br>ideal para você</h2>
+    <p class="section-sub">Sem contrato de fidelidade. Cancele quando quiser.</p>
+    <div class="planos-grid">
+
+      <div class="plano-card reveal">
+        <div class="plano-nome">Básico</div>
+        <div class="plano-preco">R$29<span>,90/mês</span></div>
+        <div class="plano-anual">ou R$ 189,90/ano — economize 47%</div>
+        <div class="plano-desc">Monitoramento de licitações para um segmento específico do seu ramo de atuação.</div>
+        <ul class="plano-lista">
+          <li>1 segmento de atuação</li>
+          <li>Todos os 27 estados</li>
+          <li>Palavras-chave personalizadas</li>
+          <li>Relatório Excel automático</li>
+          <li>Envio por email</li>
+          <li>Agendamento diário</li>
+          <li>Suporte por email</li>
+        </ul>
+        <a href="https://pay.hotmart.com/basico" class="btn-plano btn-plano-outline">Assinar Básico →</a>
+      </div>
+
+      <div class="plano-card destaque reveal">
+        <div class="plano-badge">⭐ MAIS POPULAR</div>
+        <div class="plano-nome">Completo</div>
+        <div class="plano-preco">R$49<span>,90/mês</span></div>
+        <div class="plano-anual">ou R$ 389,90/ano — economize 35%</div>
+        <div class="plano-desc">Acesso total a todos os segmentos. Ideal para empresas que atuam em múltiplas frentes.</div>
+        <ul class="plano-lista">
+          <li class="destaque-item">Todos os 10 segmentos</li>
+          <li class="destaque-item">Todos os 27 estados</li>
+          <li>Palavras-chave ilimitadas</li>
+          <li>Relatório Excel automático</li>
+          <li>Envio por email</li>
+          <li>Agendamento diário</li>
+          <li>Prioridade no suporte</li>
+        </ul>
+        <a href="https://pay.hotmart.com/completo" class="btn-plano btn-plano-gold">Assinar Completo →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── AFILIADOS ── -->
+<section class="afiliados" id="afiliados">
+  <div class="container">
+    <div class="afiliados-inner">
+      <div class="reveal">
+        <div class="section-tag">Programa de afiliados</div>
+        <h2 class="section-title">Indique e<br>ganhe todo mês</h2>
+        <p style="color: var(--cinza); font-size: 1rem; line-height: 1.7; font-weight: 300; margin-bottom: 32px;">
+          Divulgue o QLicitações para sua audiência e receba comissão recorrente em cada venda. Quanto mais clientes você trouxer, mais você ganha — todo mês, automaticamente.
+        </p>
+        <a href="https://hotmart.com/afiliados/qlicitacoes" class="btn-primary">Quero ser afiliado →</a>
+      </div>
+      <div class="afiliados-numeros reveal">
+        <div class="afil-card">
+          <div class="afil-val">10%</div>
+          <div class="afil-label">Comissão por venda</div>
+        </div>
+        <div class="afil-card">
+          <div class="afil-val">Recorrente</div>
+          <div class="afil-label">Todo mês enquanto o cliente ativo</div>
+        </div>
+        <div class="afil-card">
+          <div class="afil-val">2 links</div>
+          <div class="afil-label">Simples de divulgar</div>
+        </div>
+        <div class="afil-card">
+          <div class="afil-val">Hotmart</div>
+          <div class="afil-label">Pagamento automático e seguro</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section id="faq" style="background: var(--azul2);">
+  <div class="container">
+    <div class="section-tag">Dúvidas</div>
+    <h2 class="section-title">Perguntas frequentes</h2>
+    <div class="faq-lista">
+      <div class="faq-item">
+        <div class="faq-pergunta">O QLicitações funciona em Mac ou Linux?</div>
+        <div class="faq-resposta">Por enquanto o QLicitações é exclusivo para Windows 10 ou superior. Versões para outros sistemas estão em nosso roadmap.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-pergunta">De onde vêm os dados das licitações?</div>
+        <div class="faq-resposta">Todos os dados são obtidos diretamente do PNCP — Portal Nacional de Contratações Públicas, a base oficial do governo federal. Os dados são sempre atualizados e confiáveis.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-pergunta">Posso cancelar a assinatura a qualquer momento?</div>
+        <div class="faq-resposta">Sim. Não há fidelidade ou multa. Você cancela quando quiser diretamente pelo Hotmart e a licença permanece ativa até o final do período pago.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-pergunta">Posso usar em mais de um computador?</div>
+        <div class="faq-resposta">Cada chave de licença é vinculada a um computador. Para usar em outra máquina entre em contato com nosso suporte e faremos a transferência.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-pergunta">O que acontece quando minha assinatura vence?</div>
+        <div class="faq-resposta">Para assinaturas mensais o Hotmart renova automaticamente. Se o pagamento não for aprovado a licença é suspensa e reativada assim que regularizado.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-pergunta">Posso trocar de segmento no Plano Básico?</div>
+        <div class="faq-resposta">O Plano Básico é fixo para o segmento escolhido na compra. Para acesso a múltiplos segmentos recomendamos o Plano Completo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA FINAL ── -->
+<section class="cta-final" style="position:relative;">
+  <div class="cta-glow"></div>
+  <div class="container" style="position:relative; z-index:1;">
+    <div class="hero-badge" style="margin: 0 auto 28px;">Comece hoje mesmo</div>
+    <h2 class="section-title reveal" style="max-width:600px; margin:0 auto 20px;">Licitações esperando<br>pelo seu negócio</h2>
+    <p class="reveal" style="color: var(--cinza); font-size:1rem; font-weight:300; max-width:480px; margin:0 auto 40px; line-height:1.7;">
+      Cada dia sem monitorar pode ser uma oportunidade perdida para o concorrente. Comece agora por menos de R$1 por dia.
+    </p>
+    <div class="hero-btns reveal">
+      <a href="#planos" class="btn-primary">Ver planos →</a>
+      <a href="mailto:suporte@qlicitacoes.com.br" class="btn-secondary">Falar com suporte</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">QLicitações</div>
+  <p style="margin-bottom:12px;">Monitor de Licitações Públicas — Integrado ao PNCP</p>
+  <p><a href="mailto:suporte@qlicitacoes.com.br">suporte@qlicitacoes.com.br</a> &nbsp;·&nbsp; <a href="/ativar.html">Ativar licença</a></p>
+  <p style="margin-top:24px; font-size:.75rem; opacity:.5;">© 2026 QLicitações. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+  // ── Scroll reveal ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── FAQ accordion ──
+  document.querySelectorAll('.faq-pergunta').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // ── Nav shrink on scroll ──
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.padding =
+      window.scrollY > 60 ? '14px 60px' : '20px 60px';
+  });
+</script>
+</body>
+</html>
