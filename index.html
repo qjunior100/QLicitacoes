@@ -717,6 +717,7 @@
     <li><a href="#planos">Planos</a></li>
     <li><a href="#segmentos">Segmentos</a></li>
     <li><a href="#afiliados">Afiliados</a></li>
+    <li><a href="#contato">Contato</a></li>
     <li><a href="#planos" class="nav-cta">Começar agora</a></li>
   </ul>
 </nav>
@@ -963,6 +964,54 @@
       <div class="faq-item">
         <div class="faq-pergunta">Posso trocar de segmento no Plano Básico?</div>
         <div class="faq-resposta">O Plano Básico é fixo para o segmento escolhido na compra. Para acesso a múltiplos segmentos recomendamos o Plano Completo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;">
+      <div class="reveal">
+        <div class="section-tag">Contato</div>
+        <h2 class="section-title">Fale com<br>a gente</h2>
+        <p style="color:var(--cinza);font-size:1rem;font-weight:300;line-height:1.7;margin-bottom:32px;">Tem duvidas antes de assinar, precisa de suporte ou quer saber mais sobre o programa de afiliados? Envie sua mensagem e retornamos em ate 1 dia util.</p>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;align-items:center;gap:12px;color:var(--cinza);font-size:.9rem;"><div style="width:36px;height:36px;background:rgba(240,165,0,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;">📬</div>Respondemos em ate 1 dia util</div>
+          <div style="display:flex;align-items:center;gap:12px;color:var(--cinza);font-size:.9rem;"><div style="width:36px;height:36px;background:rgba(240,165,0,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;">🔒</div>Seus dados nao sao compartilhados</div>
+        </div>
+      </div>
+      <div class="reveal">
+        <form name="contato" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="background:var(--card-bg);border:1px solid var(--borda);border-radius:16px;padding:36px;">
+          <input type="hidden" name="form-name" value="contato">
+          <p style="display:none;"><input name="bot-field"></p>
+          <div style="margin-bottom:18px;">
+            <label style="display:block;font-size:.82rem;font-weight:500;color:var(--cinza);margin-bottom:8px;">Nome *</label>
+            <input type="text" name="nome" required placeholder="Seu nome" style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(240,165,0,0.2);border-radius:8px;padding:13px 16px;color:var(--branco);font-family:'DM Sans',sans-serif;font-size:.95rem;outline:none;" onfocus="this.style.borderColor='#F0A500'" onblur="this.style.borderColor='rgba(240,165,0,0.2)'">
+          </div>
+          <div style="margin-bottom:18px;">
+            <label style="display:block;font-size:.82rem;font-weight:500;color:var(--cinza);margin-bottom:8px;">Email *</label>
+            <input type="email" name="email" required placeholder="seuemail@exemplo.com" style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(240,165,0,0.2);border-radius:8px;padding:13px 16px;color:var(--branco);font-family:'DM Sans',sans-serif;font-size:.95rem;outline:none;" onfocus="this.style.borderColor='#F0A500'" onblur="this.style.borderColor='rgba(240,165,0,0.2)'">
+          </div>
+          <div style="margin-bottom:18px;">
+            <label style="display:block;font-size:.82rem;font-weight:500;color:var(--cinza);margin-bottom:8px;">Assunto *</label>
+            <select name="assunto" required style="width:100%;background:rgba(18,36,71,0.95);border:1px solid rgba(240,165,0,0.2);border-radius:8px;padding:13px 16px;color:#F0F4FA;font-family:'DM Sans',sans-serif;font-size:.95rem;outline:none;">
+              <option value="" disabled selected>Selecione...</option>
+              <option value="Suporte tecnico">Suporte tecnico</option>
+              <option value="Duvida antes da compra">Duvida antes da compra</option>
+              <option value="Programa de afiliados">Programa de afiliados</option>
+              <option value="Cancelamento ou reembolso">Cancelamento ou reembolso</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </div>
+          <div style="margin-bottom:24px;">
+            <label style="display:block;font-size:.82rem;font-weight:500;color:var(--cinza);margin-bottom:8px;">Mensagem *</label>
+            <textarea name="mensagem" required rows="5" placeholder="Descreva sua duvida ou mensagem..." style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(240,165,0,0.2);border-radius:8px;padding:13px 16px;color:var(--branco);font-family:'DM Sans',sans-serif;font-size:.95rem;outline:none;resize:vertical;" onfocus="this.style.borderColor='#F0A500'" onblur="this.style.borderColor='rgba(240,165,0,0.2)'"></textarea>
+          </div>
+          <button type="submit" style="width:100%;background:#F0A500;color:#0D1F3C;border:none;border-radius:8px;padding:16px;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 0 24px rgba(240,165,0,0.25);" onmouseover="this.style.background='#FFB830'" onmouseout="this.style.background='#F0A500'">Enviar mensagem →</button>
+        </form>
       </div>
     </div>
   </div>
