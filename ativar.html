@@ -9,377 +9,64 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --azul:   #0D1F3C;
-      --azul2:  #122447;
-      --azul3:  #1B3A6B;
-      --gold:   #F0A500;
-      --gold2:  #FFB830;
-      --branco: #F0F4FA;
-      --cinza:  #8A9BBE;
-      --card:   #111E35;
-      --borda:  rgba(240,165,0,0.15);
-      --verde:  #22C55E;
-      --erro:   #EF4444;
+      --azul:   #0D1F3C; --azul2: #122447;
+      --gold:   #F0A500; --gold2: #FFB830;
+      --branco: #F0F4FA; --cinza: #8A9BBE;
+      --card:   #111E35; --borda: rgba(240,165,0,0.15);
     }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--azul);
-      color: var(--branco);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.4;
-    }
-
-    /* ── HEADER ── */
-    header {
-      position: relative;
-      z-index: 1;
-      padding: 24px 40px;
-      border-bottom: 1px solid var(--borda);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: var(--gold);
-      text-decoration: none;
-    }
-
-    .logo span { color: var(--branco); }
-
-    /* ── MAIN ── */
-    main {
-      flex: 1;
-      position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 60px 20px;
-    }
-
-    .glow {
-      position: fixed;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 700px; height: 500px;
-      background: radial-gradient(ellipse, rgba(240,165,0,0.08) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    /* ── CARD ── */
-    .card {
-      background: var(--card);
-      border: 1px solid var(--borda);
-      border-radius: 20px;
-      padding: 52px 48px;
-      width: 100%;
-      max-width: 540px;
-      position: relative;
-    }
-
-    .card-step {
-      font-size: .75rem;
-      color: var(--gold);
-      font-weight: 500;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    .card-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.7rem;
-      font-weight: 800;
-      margin-bottom: 8px;
-      letter-spacing: -0.5px;
-    }
-
-    .card-sub {
-      font-size: .9rem;
-      color: var(--cinza);
-      font-weight: 300;
-      line-height: 1.6;
-      margin-bottom: 36px;
-    }
-
-    /* ── PROGRESS ── */
-    .progress-bar {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 40px;
-    }
-
-    .progress-step {
-      height: 3px;
-      flex: 1;
-      background: rgba(240,165,0,0.15);
-      border-radius: 2px;
-      transition: background .4s;
-    }
-
-    .progress-step.active { background: var(--gold); }
-
-    /* ── FORM ── */
-    .field { margin-bottom: 20px; }
-
-    .field label {
-      display: block;
-      font-size: .82rem;
-      font-weight: 500;
-      color: var(--cinza);
-      margin-bottom: 8px;
-      letter-spacing: .3px;
-    }
-
-    .field input, .field select {
-      width: 100%;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(240,165,0,0.2);
-      border-radius: 8px;
-      padding: 14px 16px;
-      color: var(--branco);
-      font-family: 'DM Sans', sans-serif;
-      font-size: .95rem;
-      outline: none;
-      transition: border-color .2s, background .2s;
-      -webkit-appearance: none;
-    }
-
-    .field input:focus, .field select:focus {
-      border-color: var(--gold);
-      background: rgba(240,165,0,0.04);
-    }
-
-    .field input::placeholder { color: rgba(138,155,190,0.5); }
-
-    .field select option {
-      background: var(--azul2);
-      color: var(--branco);
-    }
-
-    /* ── SEGMENTOS GRID ── */
-    .seg-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 24px;
-    }
-
-    .seg-btn {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(240,165,0,0.15);
-      border-radius: 8px;
-      padding: 14px 12px;
-      color: var(--cinza);
-      font-family: 'DM Sans', sans-serif;
-      font-size: .82rem;
-      font-weight: 400;
-      cursor: pointer;
-      transition: all .2s;
-      text-align: left;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .seg-btn:hover {
-      border-color: rgba(240,165,0,0.4);
-      color: var(--branco);
-      background: rgba(240,165,0,0.05);
-    }
-
-    .seg-btn.selected {
-      border-color: var(--gold);
-      background: rgba(240,165,0,0.1);
-      color: var(--branco);
-    }
-
-    .seg-btn .seg-emoji { font-size: 1.1rem; }
-
-    /* ── BTN ── */
-    .btn-ativar {
-      width: 100%;
-      background: var(--gold);
-      color: var(--azul);
-      border: none;
-      border-radius: 8px;
-      padding: 16px;
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background .2s, transform .15s, box-shadow .2s;
-      box-shadow: 0 0 24px rgba(240,165,0,0.25);
-      margin-top: 8px;
-    }
-
-    .btn-ativar:hover:not(:disabled) {
-      background: var(--gold2);
-      transform: translateY(-1px);
-      box-shadow: 0 0 36px rgba(240,165,0,0.4);
-    }
-
-    .btn-ativar:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-    }
-
-    /* ── STATUS ── */
-    .status-msg {
-      margin-top: 16px;
-      padding: 14px 16px;
-      border-radius: 8px;
-      font-size: .88rem;
-      font-weight: 400;
-      display: none;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .status-msg.erro {
-      background: rgba(239,68,68,0.1);
-      border: 1px solid rgba(239,68,68,0.3);
-      color: #FCA5A5;
-      display: flex;
-    }
-
-    .status-msg.carregando {
-      background: rgba(240,165,0,0.08);
-      border: 1px solid var(--borda);
-      color: var(--cinza);
-      display: flex;
-    }
-
-    /* ── SUCESSO ── */
-    .sucesso-card {
-      text-align: center;
-      display: none;
-    }
-
-    .sucesso-icon {
-      width: 80px; height: 80px;
-      background: rgba(34,197,94,0.1);
-      border: 1px solid rgba(34,197,94,0.3);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      margin: 0 auto 24px;
-      animation: pop .4s ease;
-    }
-
-    @keyframes pop {
-      0% { transform: scale(0.5); opacity: 0; }
-      80% { transform: scale(1.1); }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    .sucesso-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.6rem;
-      font-weight: 800;
-      margin-bottom: 12px;
-    }
-
-    .sucesso-sub {
-      font-size: .92rem;
-      color: var(--cinza);
-      line-height: 1.65;
-      font-weight: 300;
-      margin-bottom: 28px;
-    }
-
-    .download-btn {
-      display: inline-block;
-      background: var(--gold);
-      color: var(--azul);
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: .95rem;
-      padding: 16px 40px;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background .2s;
-      box-shadow: 0 0 24px rgba(240,165,0,0.3);
-    }
-
-    .download-btn:hover { background: var(--gold2); }
-
-    .sucesso-info {
-      margin-top: 24px;
-      padding: 16px;
-      background: rgba(240,165,0,0.05);
-      border: 1px solid var(--borda);
-      border-radius: 8px;
-      font-size: .82rem;
-      color: var(--cinza);
-      line-height: 1.6;
-    }
-
-    /* ── SPINNER ── */
-    .spinner {
-      width: 18px; height: 18px;
-      border: 2px solid rgba(138,155,190,0.3);
-      border-top-color: var(--gold);
-      border-radius: 50%;
-      animation: spin .7s linear infinite;
-      flex-shrink: 0;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ── FOOTER ── */
-    footer {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 24px;
-      font-size: .78rem;
-      color: var(--cinza);
-      font-weight: 300;
-      border-top: 1px solid var(--borda);
-    }
-
-    footer a { color: var(--cinza); text-decoration: none; }
-    footer a:hover { color: var(--gold); }
-
-    @media (max-width: 560px) {
-      .card { padding: 36px 24px; }
-      .seg-grid { grid-template-columns: 1fr; }
-    }
+    body { font-family:'DM Sans',sans-serif; background:var(--azul); color:var(--branco); min-height:100vh; display:flex; flex-direction:column; }
+    body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events:none; z-index:0; opacity:0.4; }
+    header { position:relative; z-index:1; padding:24px 40px; border-bottom:1px solid var(--borda); }
+    .logo { font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:800; color:var(--gold); text-decoration:none; }
+    .logo span { color:var(--branco); }
+    main { flex:1; position:relative; z-index:1; display:flex; align-items:center; justify-content:center; padding:60px 20px; }
+    .glow { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); width:700px; height:500px; background:radial-gradient(ellipse,rgba(240,165,0,0.08) 0%,transparent 65%); pointer-events:none; }
+    .card { background:var(--card); border:1px solid var(--borda); border-radius:20px; padding:52px 48px; width:100%; max-width:540px; }
+    .card-step { font-size:.75rem; color:var(--gold); font-weight:500; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; }
+    .card-title { font-family:'Syne',sans-serif; font-size:1.7rem; font-weight:800; margin-bottom:8px; letter-spacing:-0.5px; }
+    .card-sub { font-size:.9rem; color:var(--cinza); font-weight:300; line-height:1.6; margin-bottom:36px; }
+    .progress-bar { display:flex; gap:6px; margin-bottom:40px; }
+    .progress-step { height:3px; flex:1; background:rgba(240,165,0,0.15); border-radius:2px; transition:background .4s; }
+    .progress-step.active { background:var(--gold); }
+    .field { margin-bottom:20px; }
+    .field label { display:block; font-size:.82rem; font-weight:500; color:var(--cinza); margin-bottom:8px; }
+    .field input { width:100%; background:rgba(255,255,255,0.04); border:1px solid rgba(240,165,0,0.2); border-radius:8px; padding:14px 16px; color:var(--branco); font-family:'DM Sans',sans-serif; font-size:.95rem; outline:none; transition:border-color .2s,background .2s; }
+    .field input:focus { border-color:var(--gold); background:rgba(240,165,0,0.04); }
+    .field input::placeholder { color:rgba(138,155,190,0.5); }
+    .seg-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:24px; }
+    .seg-btn { background:rgba(255,255,255,0.03); border:1px solid rgba(240,165,0,0.15); border-radius:8px; padding:14px 12px; color:var(--cinza); font-family:'DM Sans',sans-serif; font-size:.82rem; cursor:pointer; transition:all .2s; text-align:left; display:flex; align-items:center; gap:8px; }
+    .seg-btn:hover { border-color:rgba(240,165,0,0.4); color:var(--branco); background:rgba(240,165,0,0.05); }
+    .seg-btn.selected { border-color:var(--gold); background:rgba(240,165,0,0.1); color:var(--branco); }
+    .btn-ativar { width:100%; background:var(--gold); color:var(--azul); border:none; border-radius:8px; padding:16px; font-family:'Syne',sans-serif; font-weight:700; font-size:1rem; cursor:pointer; transition:background .2s,transform .15s,box-shadow .2s; box-shadow:0 0 24px rgba(240,165,0,0.25); margin-top:8px; }
+    .btn-ativar:hover:not(:disabled) { background:var(--gold2); transform:translateY(-1px); box-shadow:0 0 36px rgba(240,165,0,0.4); }
+    .btn-ativar:disabled { opacity:.6; cursor:not-allowed; }
+    .status-msg { margin-top:16px; padding:14px 16px; border-radius:8px; font-size:.88rem; display:none; align-items:center; gap:10px; }
+    .status-msg.erro { background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); color:#FCA5A5; display:flex; }
+    .status-msg.carregando { background:rgba(240,165,0,0.08); border:1px solid var(--borda); color:var(--cinza); display:flex; }
+    .sucesso-card { text-align:center; display:none; }
+    .sucesso-icon { width:80px; height:80px; background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.3); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem; margin:0 auto 24px; animation:pop .4s ease; }
+    @keyframes pop { 0%{transform:scale(0.5);opacity:0} 80%{transform:scale(1.1)} 100%{transform:scale(1);opacity:1} }
+    .sucesso-title { font-family:'Syne',sans-serif; font-size:1.6rem; font-weight:800; margin-bottom:12px; }
+    .sucesso-sub { font-size:.92rem; color:var(--cinza); line-height:1.65; font-weight:300; margin-bottom:28px; }
+    .download-btn { display:inline-block; background:var(--gold); color:var(--azul); font-family:'Syne',sans-serif; font-weight:700; font-size:.95rem; padding:16px 40px; border-radius:8px; text-decoration:none; transition:background .2s; box-shadow:0 0 24px rgba(240,165,0,0.3); }
+    .download-btn:hover { background:var(--gold2); }
+    .sucesso-info { margin-top:24px; padding:16px; background:rgba(240,165,0,0.05); border:1px solid var(--borda); border-radius:8px; font-size:.82rem; color:var(--cinza); line-height:1.6; text-align:left; }
+    .spinner { width:18px; height:18px; border:2px solid rgba(138,155,190,0.3); border-top-color:var(--gold); border-radius:50%; animation:spin .7s linear infinite; flex-shrink:0; }
+    @keyframes spin { to{transform:rotate(360deg)} }
+    footer { position:relative; z-index:1; text-align:center; padding:24px; font-size:.78rem; color:var(--cinza); font-weight:300; border-top:1px solid var(--borda); }
+    footer a { color:var(--cinza); text-decoration:none; }
+    footer a:hover { color:var(--gold); }
+    @media(max-width:560px){.card{padding:36px 24px}.seg-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-
 <div class="glow"></div>
-
-<header>
-  <a href="/" class="logo">QL<span>icitações</span></a>
-</header>
-
+<header><a href="/" class="logo">QL<span>icitações</span></a></header>
 <main>
   <div class="card">
 
-    <!-- ── STEP 1: Email ── -->
+    <!-- STEP 1 -->
     <div id="step1">
       <div class="progress-bar">
         <div class="progress-step active"></div>
@@ -389,20 +76,15 @@
       <div class="card-step">Passo 1 de 3</div>
       <div class="card-title">Confirme seu email</div>
       <div class="card-sub">Use o mesmo email informado na compra no Hotmart.</div>
-
       <div class="field">
         <label>Email da compra *</label>
         <input type="email" id="input-email" placeholder="seuemail@exemplo.com">
       </div>
-
       <button class="btn-ativar" onclick="irStep2()">Continuar →</button>
-
-      <div class="status-msg erro" id="msg-step1">
-        <span>⚠️</span><span id="txt-step1"></span>
-      </div>
+      <div class="status-msg erro" id="msg-step1"><span>⚠️</span><span id="txt-step1"></span></div>
     </div>
 
-    <!-- ── STEP 2: Segmento ── -->
+    <!-- STEP 2 -->
     <div id="step2" style="display:none;">
       <div class="progress-bar">
         <div class="progress-step active"></div>
@@ -412,28 +94,23 @@
       <div class="card-step">Passo 2 de 3</div>
       <div class="card-title">Escolha seu segmento</div>
       <div class="card-sub" id="sub-step2">Selecione o segmento de licitações que deseja monitorar.</div>
-
       <div class="seg-grid" id="seg-grid">
-        <button class="seg-btn" data-seg="Obras e Engenharias" onclick="selecionarSeg(this)"><span class="seg-emoji">🏗️</span>Obras e Engenharias</button>
-        <button class="seg-btn" data-seg="Saude" onclick="selecionarSeg(this)"><span class="seg-emoji">🏥</span>Saúde</button>
-        <button class="seg-btn" data-seg="Limpeza e Conservacao" onclick="selecionarSeg(this)"><span class="seg-emoji">🧹</span>Limpeza e Conservação</button>
-        <button class="seg-btn" data-seg="Vigilancia e Seguranca" onclick="selecionarSeg(this)"><span class="seg-emoji">🔒</span>Vigilância e Segurança</button>
-        <button class="seg-btn" data-seg="Tecnologia da Informacao" onclick="selecionarSeg(this)"><span class="seg-emoji">💻</span>Tecnologia da Informação</button>
-        <button class="seg-btn" data-seg="Alimentacao e Nutricao" onclick="selecionarSeg(this)"><span class="seg-emoji">🍽️</span>Alimentação e Nutrição</button>
-        <button class="seg-btn" data-seg="Transporte e Logistica" onclick="selecionarSeg(this)"><span class="seg-emoji">🚛</span>Transporte e Logística</button>
-        <button class="seg-btn" data-seg="Manutencao de Equipamentos" onclick="selecionarSeg(this)"><span class="seg-emoji">🔧</span>Manutenção de Equip.</button>
-        <button class="seg-btn" data-seg="Educacao e Capacitacao" onclick="selecionarSeg(this)"><span class="seg-emoji">📚</span>Educação e Capacitação</button>
-        <button class="seg-btn" data-seg="Consultoria e Assessoria" onclick="selecionarSeg(this)"><span class="seg-emoji">📑</span>Consultoria e Assessoria</button>
+        <button class="seg-btn" data-seg="Obras e Engenharias" onclick="selecionarSeg(this)"><span>🏗️</span>Obras e Engenharias</button>
+        <button class="seg-btn" data-seg="Saude" onclick="selecionarSeg(this)"><span>🏥</span>Saúde</button>
+        <button class="seg-btn" data-seg="Limpeza e Conservacao" onclick="selecionarSeg(this)"><span>🧹</span>Limpeza e Conservação</button>
+        <button class="seg-btn" data-seg="Vigilancia e Seguranca" onclick="selecionarSeg(this)"><span>🔒</span>Vigilância e Segurança</button>
+        <button class="seg-btn" data-seg="Tecnologia da Informacao" onclick="selecionarSeg(this)"><span>💻</span>Tecnologia da Informação</button>
+        <button class="seg-btn" data-seg="Alimentacao e Nutricao" onclick="selecionarSeg(this)"><span>🍽️</span>Alimentação e Nutrição</button>
+        <button class="seg-btn" data-seg="Transporte e Logistica" onclick="selecionarSeg(this)"><span>🚛</span>Transporte e Logística</button>
+        <button class="seg-btn" data-seg="Manutencao de Equipamentos" onclick="selecionarSeg(this)"><span>🔧</span>Manutenção de Equip.</button>
+        <button class="seg-btn" data-seg="Educacao e Capacitacao" onclick="selecionarSeg(this)"><span>📚</span>Educação e Capacitação</button>
+        <button class="seg-btn" data-seg="Consultoria e Assessoria" onclick="selecionarSeg(this)"><span>📑</span>Consultoria e Assessoria</button>
       </div>
-
       <button class="btn-ativar" id="btn-step2" onclick="irStep3()" disabled>Confirmar segmento →</button>
-
-      <div class="status-msg erro" id="msg-step2">
-        <span>⚠️</span><span id="txt-step2"></span>
-      </div>
+      <div class="status-msg erro" id="msg-step2"><span>⚠️</span><span id="txt-step2"></span></div>
     </div>
 
-    <!-- ── STEP 3: Gerar chave ── -->
+    <!-- STEP 3 -->
     <div id="step3" style="display:none;">
       <div class="progress-bar">
         <div class="progress-step active"></div>
@@ -443,40 +120,33 @@
       <div class="card-step">Passo 3 de 3</div>
       <div class="card-title">Confirme seus dados</div>
       <div class="card-sub">Verifique as informações antes de gerar sua chave de acesso.</div>
-
-      <div style="background: rgba(240,165,0,0.06); border: 1px solid var(--borda); border-radius: 10px; padding: 20px; margin-bottom: 24px;">
-        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-          <span style="color:var(--cinza); font-size:.85rem;">Email</span>
-          <span id="conf-email" style="font-size:.85rem; font-weight:500;"></span>
+      <div style="background:rgba(240,165,0,0.06);border:1px solid var(--borda);border-radius:10px;padding:20px;margin-bottom:24px;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+          <span style="color:var(--cinza);font-size:.85rem;">Email</span>
+          <span id="conf-email" style="font-size:.85rem;font-weight:500;"></span>
         </div>
-        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-          <span style="color:var(--cinza); font-size:.85rem;">Plano</span>
-          <span id="conf-plano" style="font-size:.85rem; font-weight:500; color:var(--gold);"></span>
+        <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+          <span style="color:var(--cinza);font-size:.85rem;">Plano</span>
+          <span id="conf-plano" style="font-size:.85rem;font-weight:500;color:var(--gold);"></span>
         </div>
-        <div style="display:flex; justify-content:space-between;">
-          <span style="color:var(--cinza); font-size:.85rem;">Segmento</span>
-          <span id="conf-seg" style="font-size:.85rem; font-weight:500;"></span>
+        <div style="display:flex;justify-content:space-between;">
+          <span style="color:var(--cinza);font-size:.85rem;">Segmento</span>
+          <span id="conf-seg" style="font-size:.85rem;font-weight:500;"></span>
         </div>
       </div>
-
       <button class="btn-ativar" id="btn-gerar" onclick="gerarChave()">Gerar minha chave de acesso</button>
-
-      <div class="status-msg carregando" id="msg-carregando">
-        <div class="spinner"></div>
-        <span>Gerando sua chave, aguarde...</span>
+      <div class="status-msg carregando" id="msg-carregando" style="display:none;">
+        <div class="spinner"></div><span>Gerando sua chave, aguarde...</span>
       </div>
-
-      <div class="status-msg erro" id="msg-step3">
-        <span>⚠️</span><span id="txt-step3"></span>
-      </div>
+      <div class="status-msg erro" id="msg-step3" style="display:none;"><span>⚠️</span><span id="txt-step3"></span></div>
     </div>
 
-    <!-- ── SUCESSO ── -->
+    <!-- SUCESSO -->
     <div class="sucesso-card" id="step-sucesso">
       <div class="sucesso-icon">✓</div>
       <div class="sucesso-title">Chave enviada!</div>
       <div class="sucesso-sub">
-        Sua chave de acesso foi gerada e enviada para <strong id="email-conf"></strong>.<br>
+        Sua chave foi gerada e enviada para <strong id="email-conf"></strong>.<br>
         Verifique sua caixa de entrada (e o spam).
       </div>
       <a href="https://github.com/qjunior100/QLicitacoes/releases/download/1.0/QLicitacoes.zip" class="download-btn">⬇️ Baixar QLicitações</a>
@@ -484,8 +154,8 @@
         <strong>Como ativar:</strong><br>
         1. Baixe e extraia o arquivo .zip<br>
         2. Execute o QLicitacoes.exe<br>
-        3. Insira a chave recebida no email<br>
-        4. Configure sua empresa e comece a buscar licitações
+        3. Se o Windows alertar, clique em "Mais informações" e depois "Executar assim mesmo"<br>
+        4. Insira a chave recebida no email e configure sua empresa
       </div>
     </div>
 
@@ -494,32 +164,21 @@
 
 <footer>
   <a href="/">QLicitações</a> &nbsp;·&nbsp;
-  <a href="/cdn-cgi/l/email-protection#7a090f0a15080e1f3a0b161319130e1b19151f0954191517541808"><span class="__cf_email__" data-cfemail="e09395908f929485a0918c8983899481838f8593ce838f8dce8292">[email&#160;protected]</span></a>
+  <a href="mailto:suporte@qlicitacoes.com.br">suporte@qlicitacoes.com.br</a>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // ── CONFIGURAÇÃO ──
+<script>
   const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0l_8SucreoK86Sn3nZ3rqrJuVVJMCTHEzMnL4tQjN3QFq8i8SWYdUk5SLyOSAVd3v/exec";
 
-  // Mapeamento produto Hotmart → plano
-  // Preencher com os IDs reais após cadastro no Hotmart
   const PLANOS_HOTMART = {
-    "PROD_BASICO_MES":    { plano: "Basico",   dias: 30,  nome: "Básico Mensal"   },
-    "PROD_BASICO_ANO":    { plano: "Basico",   dias: 365, nome: "Básico Anual"    },
-    "PROD_COMPLETO_MES":  { plano: "Completo", dias: 30,  nome: "Completo Mensal" },
-    "PROD_COMPLETO_ANO":  { plano: "Completo", dias: 365, nome: "Completo Anual"  },
+    "7316102": { plano: "Basico",   dias: 30,  nome: "Básico Mensal"   },
+    "7316135": { plano: "Basico",   dias: 365, nome: "Básico Anual"    },
+    "7316157": { plano: "Completo", dias: 30,  nome: "Completo Mensal" },
+    "7316169": { plano: "Completo", dias: 365, nome: "Completo Anual"  },
   };
 
-  let dadosCompra = {
-    email: "",
-    plano: "Basico",
-    planoNome: "Básico",
-    segmento: "",
-    dias: 30,
-    produtoId: ""
-  };
+  let dadosCompra = { email:"", plano:"Basico", planoNome:"Básico", segmento:"", dias:30, produtoId:"" };
 
-  // Pegar produto da URL (?produto=PROD_BASICO_MES)
   const urlParams = new URLSearchParams(window.location.search);
   const produtoParam = urlParams.get("produto") || "";
   if (PLANOS_HOTMART[produtoParam]) {
@@ -529,28 +188,21 @@
     dadosCompra.produtoId = produtoParam;
   }
 
-  // Se Completo, esconder grid de segmentos
   if (dadosCompra.plano === "Completo") {
-    document.getElementById("sub-step2").textContent =
-      "Plano Completo — todos os segmentos estão liberados automaticamente.";
+    document.getElementById("sub-step2").textContent = "Plano Completo — todos os segmentos estão liberados automaticamente.";
     document.getElementById("seg-grid").style.display = "none";
     dadosCompra.segmento = "*";
     document.getElementById("btn-step2").disabled = false;
   }
 
-  // ── STEP 1: validar email ──
   function irStep2() {
     const email = document.getElementById("input-email").value.trim().toLowerCase();
-    if (!email || !email.includes("@") || !email.includes(".")) {
-      mostrarErro("step1", "Informe um email válido.");
-      return;
-    }
+    if (!email || !email.includes("@") || !email.includes(".")) { mostrarErro("step1","Informe um email válido."); return; }
     dadosCompra.email = email;
     document.getElementById("step1").style.display = "none";
     document.getElementById("step2").style.display = "block";
   }
 
-  // ── STEP 2: selecionar segmento ──
   function selecionarSeg(btn) {
     document.querySelectorAll(".seg-btn").forEach(b => b.classList.remove("selected"));
     btn.classList.add("selected");
@@ -559,40 +211,26 @@
   }
 
   function irStep3() {
-    if (dadosCompra.plano === "Basico" && !dadosCompra.segmento) {
-      mostrarErro("step2", "Selecione um segmento para continuar.");
-      return;
-    }
+    if (dadosCompra.plano === "Basico" && !dadosCompra.segmento) { mostrarErro("step2","Selecione um segmento."); return; }
     document.getElementById("conf-email").textContent = dadosCompra.email;
     document.getElementById("conf-plano").textContent = dadosCompra.planoNome;
-    document.getElementById("conf-seg").textContent =
-      dadosCompra.segmento === "*" ? "Todos os segmentos" : dadosCompra.segmento;
-
+    document.getElementById("conf-seg").textContent = dadosCompra.segmento === "*" ? "Todos os segmentos" : dadosCompra.segmento;
     document.getElementById("step2").style.display = "none";
     document.getElementById("step3").style.display = "block";
   }
 
-  // ── STEP 3: gerar chave via Apps Script ──
   async function gerarChave() {
     document.getElementById("btn-gerar").disabled = true;
     document.getElementById("msg-carregando").style.display = "flex";
-    esconderErro("step3");
-
+    document.getElementById("msg-step3").style.display = "none";
     try {
       const params = new URLSearchParams({
-        acao:      "gerar_web",
-        email:     dadosCompra.email,
-        plano:     dadosCompra.plano,
-        dias:      dadosCompra.dias,
-        segmentos: dadosCompra.segmento,
-        produto:   dadosCompra.produtoId,
+        acao:"gerar_web", email:dadosCompra.email, plano:dadosCompra.plano,
+        dias:dadosCompra.dias, segmentos:dadosCompra.segmento, produto:dadosCompra.produtoId
       });
-
       const resp = await fetch(APPS_SCRIPT_URL + "?" + params.toString());
       const data = await resp.json();
-
       document.getElementById("msg-carregando").style.display = "none";
-
       if (data.ok) {
         document.getElementById("step3").style.display = "none";
         document.getElementById("email-conf").textContent = dadosCompra.email;
@@ -601,18 +239,20 @@
         mostrarErro("step3", data.motivo || "Erro ao gerar chave. Contate o suporte.");
         document.getElementById("btn-gerar").disabled = false;
       }
-    } catch (err) {
+    } catch(err) {
       document.getElementById("msg-carregando").style.display = "none";
-      mostrarErro("step3", "Erro de conexão. Verifique sua internet e tente novamente.");
+      mostrarErro("step3","Erro de conexão. Verifique sua internet e tente novamente.");
       document.getElementById("btn-gerar").disabled = false;
     }
   }
 
   function mostrarErro(step, msg) {
-    const el = document.getElementById("msg-" + step);
-    const txt = document.getElementById("txt-" + step);
+    const el = document.getElementById("msg-"+step);
+    const txt = document.getElementById("txt-"+step);
     if (el && txt) { txt.textContent = msg; el.style.display = "flex"; }
   }
 
-  function esconderErro(step) {
-    const el = do
+  document.getElementById("input-email").addEventListener("keydown", e => { if(e.key==="Enter") irStep2(); });
+</script>
+</body>
+</html>
