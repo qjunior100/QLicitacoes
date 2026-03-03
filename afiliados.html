@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programa de Afiliados — QLicitações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--azul:#0D1F3C;--azul2:#122447;--gold:#F0A500;--gold2:#FFB830;--branco:#F0F4FA;--cinza:#8A9BBE;--borda:rgba(240,165,0,0.15);--card-bg:rgba(255,255,255,0.04);}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{background:var(--azul);color:var(--branco);font-family:'DM Sans',sans-serif;min-height:100vh;}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;border-bottom:1px solid var(--borda);}
+    .nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:var(--gold);text-decoration:none;}
+    .nav-back{color:var(--cinza);text-decoration:none;font-size:.9rem;transition:color .2s;}
+    .nav-back:hover{color:var(--branco);}
+    .hero{text-align:center;padding:80px 24px 60px;background:linear-gradient(180deg,rgba(240,165,0,0.05) 0%,transparent 100%);}
+    .tag{display:inline-block;background:rgba(240,165,0,0.12);color:var(--gold);border:1px solid rgba(240,165,0,0.3);border-radius:99px;padding:6px 18px;font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px;}
+    h1{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:800;line-height:1.1;margin-bottom:20px;}
+    h1 span{color:var(--gold);}
+    .sub{color:var(--cinza);font-size:1rem;font-weight:300;max-width:520px;margin:0 auto 16px;line-height:1.7;}
+    .comissao{font-size:1.1rem;font-weight:600;color:var(--gold);margin-top:8px;}
+    .info{max-width:700px;margin:0 auto;padding:0 24px 60px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;text-align:center;}
+    .info-item{background:var(--card-bg);border:1px solid var(--borda);border-radius:12px;padding:24px 16px;}
+    .info-val{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--gold);}
+    .info-label{color:var(--cinza);font-size:.82rem;margin-top:6px;}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:900px;margin:0 auto;padding:0 24px 60px;}
+    .card{background:var(--card-bg);border:1px solid var(--borda);border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;gap:12px;transition:border-color .2s,transform .2s;}
+    .card:hover{border-color:var(--gold);transform:translateY(-3px);}
+    .card-badge{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 12px;border-radius:99px;width:fit-content;}
+    .badge-completo{background:rgba(240,165,0,0.15);color:var(--gold);}
+    .badge-basico{background:rgba(138,155,190,0.15);color:var(--cinza);}
+    .card-plano{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;}
+    .card-ciclo{color:var(--cinza);font-size:.85rem;}
+    .card-preco{font-size:1rem;color:var(--branco);font-weight:500;}
+    .card-comissao{font-size:.85rem;color:var(--gold);font-weight:500;margin-top:4px;}
+    .card-btn{display:block;text-align:center;padding:13px 16px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;text-decoration:none;transition:all .2s;margin-top:8px;}
+    .btn-gold{background:var(--gold);color:var(--azul);box-shadow:0 0 20px rgba(240,165,0,0.25);}
+    .btn-gold:hover{background:var(--gold2);}
+    .btn-outline{border:1px solid var(--borda);color:var(--branco);}
+    .btn-outline:hover{border-color:var(--gold);background:rgba(240,165,0,0.06);}
+    .aviso{max-width:700px;margin:0 auto 60px;padding:0 24px;text-align:center;color:var(--cinza);font-size:.85rem;line-height:1.6;}
+    @media(max-width:600px){nav{padding:16px 20px;}.info{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">QLicitações</a>
+  <a href="/" class="nav-back">← Voltar ao site</a>
+</nav>
+<div class="hero">
+  <div class="tag">Programa de Afiliados</div>
+  <h1>Indique e ganhe<br><span>todo mês</span></h1>
+  <p class="sub">Escolha um ou mais produtos para divulgar. Para cada venda você recebe comissão recorrente enquanto o cliente estiver ativo.</p>
+  <p class="comissao">5% de comissão recorrente em todas as renovações</p>
+</div>
+<div class="info">
+  <div class="info-item"><div class="info-val">5%</div><div class="info-label">Comissão recorrente</div></div>
+  <div class="info-item"><div class="info-val">Auto</div><div class="info-label">Pagamento via Hotmart</div></div>
+  <div class="info-item"><div class="info-val">4</div><div class="info-label">Produtos disponíveis</div></div>
+</div>
+<div class="cards">
+  <div class="card">
+    <span class="card-badge badge-completo">Completo</span>
+    <div class="card-plano">Plano Completo</div>
+    <div class="card-ciclo">Cobrança mensal</div>
+    <div class="card-preco">R$49,90/mês</div>
+    <div class="card-comissao">Você ganha ~R$2,50 por mês por cliente</div>
+    <a href="https://affiliate.hotmart.com/affiliate-recruiting/view/4275Q104730226" target="_blank" class="card-btn btn-gold">Ser afiliado →</a>
+  </div>
+  <div class="card">
+    <span class="card-badge badge-completo">Completo</span>
+    <div class="card-plano">Plano Completo</div>
+    <div class="card-ciclo">Cobrança anual</div>
+    <div class="card-preco">R$499,90/ano</div>
+    <div class="card-comissao">Você ganha ~R$25,00 por venda</div>
+    <a href="https://affiliate.hotmart.com/affiliate-recruiting/view/4296Q104730253" target="_blank" class="card-btn btn-gold">Ser afiliado →</a>
+  </div>
+  <div class="card">
+    <span class="card-badge badge-basico">Básico</span>
+    <div class="card-plano">Plano Básico</div>
+    <div class="card-ciclo">Cobrança mensal</div>
+    <div class="card-preco">R$29,90/mês</div>
+    <div class="card-comissao">Você ganha ~R$1,50 por mês por cliente</div>
+    <a href="https://affiliate.hotmart.com/affiliate-recruiting/view/4188Q104730106" target="_blank" class="card-btn btn-outline">Ser afiliado →</a>
+  </div>
+  <div class="card">
+    <span class="card-badge badge-basico">Básico</span>
+    <div class="card-plano">Plano Básico</div>
+    <div class="card-ciclo">Cobrança anual</div>
+    <div class="card-preco">R$299,90/ano</div>
+    <div class="card-comissao">Você ganha ~R$15,00 por venda</div>
+    <a href="https://affiliate.hotmart.com/affiliate-recruiting/view/4249Q104730182" target="_blank" class="card-btn btn-outline">Ser afiliado →</a>
+  </div>
+</div>
+<p class="aviso">Ao clicar em "Ser afiliado" você será direcionado ao Hotmart para concluir seu cadastro. Você pode se afiliar a quantos produtos quiser. O pagamento das comissões é automático pelo Hotmart.</p>
+</body>
+</html>

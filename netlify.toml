@@ -10,3 +10,8 @@
 
 [build]
   publish = "."
+
+[[redirects]]
+  from = "/afiliados"
+  to = "/afiliados.html"
+  status = 200
