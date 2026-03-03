@@ -247,20 +247,26 @@ let modoAtual = "nova";
   if (produto && PLANOS_HOTMART[produto]) {
     const cfg = PLANOS_HOTMART[produto];
     dadosCompra = { email: email || "", produtoId: produto, plano: cfg.plano, dias: cfg.dias, segmento: cfg.segmento || "", nomeP: cfg.nome };
-    // Pular direto para confirmação
     if (email) {
       document.getElementById("step-modo").style.display = "none";
       preencherConfirmacao();
       document.getElementById("step-confirmar").style.display = "block";
     } else {
-      document.getElementById("email-nova").value = "";
+      // Pre-preencher email e plano vindos da URL
+      if (email) document.getElementById("email-nova").value = email;
       document.getElementById("produto-select").value = produto;
-      atualizarSegmento();
-      // Scroll suave para o campo segmento se for Basico
-      setTimeout(function(){
-        const seg = document.getElementById("campo-segmento");
-        if(seg && seg.style.display !== "none") seg.scrollIntoView({behavior:"smooth",block:"center"});
-      }, 300);
+      // Forçar exibição do campo segmento se for plano Basico
+      const isBasico = cfg.plano === "Basico";
+      const campoSeg = document.getElementById("campo-segmento");
+      campoSeg.style.display = isBasico ? "block" : "none";
+      // Destacar segmento para o cliente não perder
+      if (isBasico) {
+        campoSeg.style.border = "1px solid rgba(240,165,0,0.4)";
+        campoSeg.style.borderRadius = "8px";
+        campoSeg.style.padding = "12px";
+        campoSeg.style.background = "rgba(240,165,0,0.05)";
+        campoSeg.style.marginBottom = "16px";
+      }
     }
   }
 })();
