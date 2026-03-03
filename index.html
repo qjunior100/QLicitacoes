@@ -1050,9 +1050,14 @@
         observer.unobserve(e.target);
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.05, rootMargin: "0px 0px -40px 0px" });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Fallback: garante que nada fica escondido se o observer falhar
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+  }, 800);
 
   // ── FAQ accordion ──
   document.querySelectorAll('.faq-pergunta').forEach(btn => {
