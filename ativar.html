@@ -100,9 +100,9 @@
           <label>Plano adquirido</label>
           <select id="produto-select">
             <option value="">Selecione...</option>
-            <option value="7316102">Básico Mensal — R$29,90/mês</option>
+            <option value="7318490">Básico Mensal — R$29,90/mês</option>
             <option value="7316135">Básico Anual — R$299,90/ano</option>
-            <option value="7316157">Completo Mensal — R$49,90/mês</option>
+            <option value="7318600">Completo Mensal — R$49,90/mês</option>
             <option value="7316169">Completo Anual — R$499,90/ano</option>
           </select>
         </div>
@@ -219,16 +219,16 @@
 </main>
 
 <footer>
-  <a href="/">QLicitações</a> &nbsp;·&nbsp; suporte@qlicitacoes.com.br
+  <a href="/">QLicitações</a> &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="077472776875736247766b6e646e7366646862742964686a296575">[email&#160;protected]</a>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0l_8SucreoK86Sn3nZ3rqrJuVVJMCTHEzMnL4tQjN3QFq8i8SWYdUk5SLyOSAVd3v/exec";
 
 const PLANOS_HOTMART = {
-  "7316102": { plano: "Basico",   dias: 30,  nome: "Básico Mensal"   },
+  "7318490": { plano: "Basico",   dias: 30,  nome: "Básico Mensal"   },
   "7316135": { plano: "Basico",   dias: 365, nome: "Básico Anual"    },
-  "7316157": { plano: "Completo", segmento: "*", dias: 30,  nome: "Completo Mensal" },
+  "7318600": { plano: "Completo", segmento: "*", dias: 30,  nome: "Completo Mensal" },
   "7316169": { plano: "Completo", segmento: "*", dias: 365, nome: "Completo Anual"  }
 };
 
@@ -373,13 +373,4 @@ async function recuperarChave() {
       }
       document.getElementById("step-recuperar-sucesso").style.display = "block";
     } else {
-      mostrarErro("erro-recuperar", data.motivo || "Nenhuma chave encontrada para esse email.");
-    }
-  } catch(e) {
-    document.getElementById("loading-recuperar").style.display = "none";
-    mostrarErro("erro-recuperar", "Erro de conexão. Tente novamente.");
-  }
-}
-</script>
-</body>
-</html>
+      mostrarErro("erro-recuperar", data.motivo || "Nenhum
