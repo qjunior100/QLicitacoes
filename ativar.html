@@ -144,18 +144,24 @@
     <!-- SUCESSO -->
     <div class="sucesso-card" id="step-sucesso">
       <div class="sucesso-icon">✓</div>
-      <div class="sucesso-title">Chave enviada!</div>
+      <div class="sucesso-title">Acesso liberado!</div>
       <div class="sucesso-sub">
         Sua chave foi gerada e enviada para <strong id="email-conf"></strong>.<br>
         Verifique sua caixa de entrada (e o spam).
       </div>
-      <a href="https://github.com/qjunior100/QLicitacoes/releases/download/1.0/QLicitacoes.zip" class="download-btn">⬇️ Baixar QLicitações</a>
+      <div id="aviso-email" style="display:none;background:rgba(240,165,0,0.15);border:1px solid rgba(240,165,0,0.4);border-radius:8px;padding:12px 16px;margin:16px 0;color:#F0A500;font-size:.9rem;"></div>
+      <div id="chave-wrapper" style="display:none;margin:20px 0;">
+        <div style="font-size:.8rem;color:#8A9BBE;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Sua chave de acesso</div>
+        <div id="chave-display" style="background:rgba(240,165,0,0.1);border:1px solid rgba(240,165,0,0.4);border-radius:8px;padding:14px 20px;font-family:monospace;font-size:1.1rem;color:#F0A500;letter-spacing:2px;word-break:break-all;"></div>
+        <div style="font-size:.75rem;color:#8A9BBE;margin-top:8px;">Anote esta chave — ela tambem sera enviada para seu email.</div>
+      </div>
+      <a href="https://github.com/qjunior100/QLicitacoes/releases/download/1.0/QLicitacoes.zip" class="download-btn">⬇️ Baixar QLicitacoes</a>
       <div class="sucesso-info">
         <strong>Como ativar:</strong><br>
         1. Baixe e extraia o arquivo .zip<br>
         2. Execute o QLicitacoes.exe<br>
-        3. Se o Windows alertar, clique em "Mais informações" e depois "Executar assim mesmo"<br>
-        4. Insira a chave recebida no email e configure sua empresa
+        3. Se o Windows alertar, clique em "Mais informacoes" e depois "Executar assim mesmo"<br>
+        4. Insira a chave acima no app e configure sua empresa
       </div>
     </div>
 
@@ -164,7 +170,7 @@
 
 <footer>
   <a href="/">QLicitações</a> &nbsp;·&nbsp;
-  <a href="mailto:suporte@qlicitacoes.com.br">suporte@qlicitacoes.com.br</a>
+  <a href="/cdn-cgi/l/email-protection#9be8eeebf4e9effedbeaf7f2f8f2effaf8f4fee8b5f8f4f6b5f9e9"><span class="__cf_email__" data-cfemail="a8dbddd8c7dadccde8d9c4c1cbc1dcc9cbc7cddb86cbc7c586cada">[email&#160;protected]</span></a>
 </footer>
 
 <script>
@@ -234,6 +240,21 @@
       if (data.ok) {
         document.getElementById("step3").style.display = "none";
         document.getElementById("email-conf").textContent = dadosCompra.email;
+        // Mostrar chave diretamente na tela
+        if (data.chave) {
+          const chaveEl = document.getElementById("chave-display");
+          if (chaveEl) {
+            chaveEl.textContent = data.chave;
+            document.getElementById("chave-wrapper").style.display = "block";
+          }
+        }
+        if (data.avisoEmail) {
+          const avisoEl = document.getElementById("aviso-email");
+          if (avisoEl) {
+            avisoEl.textContent = data.avisoEmail;
+            avisoEl.style.display = "block";
+          }
+        }
         document.getElementById("step-sucesso").style.display = "block";
       } else {
         mostrarErro("step3", data.motivo || "Erro ao gerar chave. Contate o suporte.");
@@ -248,11 +269,4 @@
 
   function mostrarErro(step, msg) {
     const el = document.getElementById("msg-"+step);
-    const txt = document.getElementById("txt-"+step);
-    if (el && txt) { txt.textContent = msg; el.style.display = "flex"; }
-  }
-
-  document.getElementById("input-email").addEventListener("keydown", e => { if(e.key==="Enter") irStep2(); });
-</script>
-</body>
-</html>
+    const tx
