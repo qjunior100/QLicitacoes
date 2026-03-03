@@ -479,7 +479,7 @@
     .plano-lista {
       flex-grow: 1;
       list-style: none;
-      margin-bottom: 36px;
+      margin-bottom: 28px;
     }
 
     .plano-lista li {
@@ -512,7 +512,7 @@
       font-size: .95rem;
       text-decoration: none;
       transition: all .2s;
-      margin-top: 28px;
+      margin-top: auto;
     }
 
     .btn-plano-gold {
@@ -933,7 +933,7 @@
       </div>
       <div class="afiliados-numeros reveal">
         <div class="afil-card">
-          <div class="afil-val">10%</div>
+          <div class="afil-val">5%</div>
           <div class="afil-label">Comissão por venda</div>
         </div>
         <div class="afil-card">
@@ -1077,40 +1077,12 @@
     document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
   }, 800);
 
-
-  // Toggle Mensal/Anual
-  var isAnual = false;
-  var dados = {
-    basico:   { mes: ['R$29<span>,90/mes</span>', 'Faturado mensalmente', 'https://go.hotmart.com/A104730085G?dp=1'],
-                ano: ['R$299<span>,90/ano</span>', 'Equivale a R$24,99/mes - economize 16%', 'https://go.hotmart.com/L104730161T?dp=1'] },
-    completo: { mes: ['R$49<span>,90/mes</span>', 'Faturado mensalmente', 'https://go.hotmart.com/P104730205D?dp=1'],
-                ano: ['R$499<span>,90/ano</span>', 'Equivale a R$41,66/mes - economize 17%', 'https://go.hotmart.com/I104730232F?dp=1'] }
-  };
-  function togglePlanos() {
-    isAnual = !isAnual;
-    var ball = document.getElementById('toggle-ball');
-    var lMes = document.getElementById('label-mensal');
-    var lAno = document.getElementById('label-anual');
-    ball.style.left = isAnual ? '32px' : '2px';
-    lMes.style.color = isAnual ? 'var(--cinza)' : 'var(--gold)';
-    lMes.style.fontWeight = isAnual ? '500' : '600';
-    lAno.style.color = isAnual ? 'var(--gold)' : 'var(--cinza)';
-    lAno.style.fontWeight = isAnual ? '600' : '500';
-    var k = isAnual ? 'ano' : 'mes';
-    document.getElementById('preco-basico').innerHTML = dados.basico[k][0];
-    document.getElementById('sub-basico').textContent = dados.basico[k][1];
-    document.getElementById('link-basico').href = dados.basico[k][2];
-    document.getElementById('preco-completo').innerHTML = dados.completo[k][0];
-    document.getElementById('sub-completo').textContent = dados.completo[k][1];
-    document.getElementById('link-completo').href = dados.completo[k][2];
-  }
-
   // ── FAQ accordion ──
   document.querySelectorAll('.faq-pergunta').forEach(btn => {
     btn.addEventListener('click', () => {
       const item = btn.parentElement;
       const isOpen = item.classList.contains('open');
-      sList.remove('open'));
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
       if (!isOpen) item.classList.add('open');
     });
   });
