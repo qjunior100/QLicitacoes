@@ -5,163 +5,213 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ativar Licença — QLicitações</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --azul:   #0D1F3C; --azul2: #122447;
-      --gold:   #F0A500; --gold2: #FFB830;
-      --branco: #F0F4FA; --cinza: #8A9BBE;
-      --card:   #111E35; --borda: rgba(240,165,0,0.15);
-    }
-    body { font-family:'DM Sans',sans-serif; background:var(--azul); color:var(--branco); min-height:100vh; display:flex; flex-direction:column; }
-    body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events:none; z-index:0; opacity:0.4; }
-    header { position:relative; z-index:1; padding:24px 40px; border-bottom:1px solid var(--borda); }
-    .logo { font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:800; color:var(--gold); text-decoration:none; }
-    .logo span { color:var(--branco); }
-    main { flex:1; position:relative; z-index:1; display:flex; align-items:center; justify-content:center; padding:60px 20px; }
-    .glow { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); width:700px; height:500px; background:radial-gradient(ellipse,rgba(240,165,0,0.08) 0%,transparent 65%); pointer-events:none; }
-    .card { background:var(--card); border:1px solid var(--borda); border-radius:20px; padding:52px 48px; width:100%; max-width:540px; }
-    .card-step { font-size:.75rem; color:var(--gold); font-weight:500; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; }
-    .card-title { font-family:'Syne',sans-serif; font-size:1.7rem; font-weight:800; margin-bottom:8px; letter-spacing:-0.5px; }
-    .card-sub { font-size:.9rem; color:var(--cinza); font-weight:300; line-height:1.6; margin-bottom:36px; }
-    .progress-bar { display:flex; gap:6px; margin-bottom:40px; }
-    .progress-step { height:3px; flex:1; background:rgba(240,165,0,0.15); border-radius:2px; transition:background .4s; }
-    .progress-step.active { background:var(--gold); }
-    .field { margin-bottom:20px; }
-    .field label { display:block; font-size:.82rem; font-weight:500; color:var(--cinza); margin-bottom:8px; }
-    .field input { width:100%; background:rgba(255,255,255,0.04); border:1px solid rgba(240,165,0,0.2); border-radius:8px; padding:14px 16px; color:var(--branco); font-family:'DM Sans',sans-serif; font-size:.95rem; outline:none; transition:border-color .2s,background .2s; }
-    .field input:focus { border-color:var(--gold); background:rgba(240,165,0,0.04); }
-    .field input::placeholder { color:rgba(138,155,190,0.5); }
-    .seg-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:24px; }
-    .seg-btn { background:rgba(255,255,255,0.03); border:1px solid rgba(240,165,0,0.15); border-radius:8px; padding:14px 12px; color:var(--cinza); font-family:'DM Sans',sans-serif; font-size:.82rem; cursor:pointer; transition:all .2s; text-align:left; display:flex; align-items:center; gap:8px; }
-    .seg-btn:hover { border-color:rgba(240,165,0,0.4); color:var(--branco); background:rgba(240,165,0,0.05); }
-    .seg-btn.selected { border-color:var(--gold); background:rgba(240,165,0,0.1); color:var(--branco); }
-    .btn-ativar { width:100%; background:var(--gold); color:var(--azul); border:none; border-radius:8px; padding:16px; font-family:'Syne',sans-serif; font-weight:700; font-size:1rem; cursor:pointer; transition:background .2s,transform .15s,box-shadow .2s; box-shadow:0 0 24px rgba(240,165,0,0.25); margin-top:8px; }
-    .btn-ativar:hover:not(:disabled) { background:var(--gold2); transform:translateY(-1px); box-shadow:0 0 36px rgba(240,165,0,0.4); }
-    .btn-ativar:disabled { opacity:.6; cursor:not-allowed; }
-    .status-msg { margin-top:16px; padding:14px 16px; border-radius:8px; font-size:.88rem; display:none; align-items:center; gap:10px; }
-    .status-msg.erro { background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); color:#FCA5A5; display:flex; }
-    .status-msg.carregando { background:rgba(240,165,0,0.08); border:1px solid var(--borda); color:var(--cinza); display:flex; }
-    .sucesso-card { text-align:center; display:none; }
-    .sucesso-icon { width:80px; height:80px; background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.3); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem; margin:0 auto 24px; animation:pop .4s ease; }
-    @keyframes pop { 0%{transform:scale(0.5);opacity:0} 80%{transform:scale(1.1)} 100%{transform:scale(1);opacity:1} }
-    .sucesso-title { font-family:'Syne',sans-serif; font-size:1.6rem; font-weight:800; margin-bottom:12px; }
-    .sucesso-sub { font-size:.92rem; color:var(--cinza); line-height:1.65; font-weight:300; margin-bottom:28px; }
-    .download-btn { display:inline-block; background:var(--gold); color:var(--azul); font-family:'Syne',sans-serif; font-weight:700; font-size:.95rem; padding:16px 40px; border-radius:8px; text-decoration:none; transition:background .2s; box-shadow:0 0 24px rgba(240,165,0,0.3); }
-    .download-btn:hover { background:var(--gold2); }
-    .sucesso-info { margin-top:24px; padding:16px; background:rgba(240,165,0,0.05); border:1px solid var(--borda); border-radius:8px; font-size:.82rem; color:var(--cinza); line-height:1.6; text-align:left; }
-    .spinner { width:18px; height:18px; border:2px solid rgba(138,155,190,0.3); border-top-color:var(--gold); border-radius:50%; animation:spin .7s linear infinite; flex-shrink:0; }
-    @keyframes spin { to{transform:rotate(360deg)} }
-    footer { position:relative; z-index:1; text-align:center; padding:24px; font-size:.78rem; color:var(--cinza); font-weight:300; border-top:1px solid var(--borda); }
-    footer a { color:var(--cinza); text-decoration:none; }
-    footer a:hover { color:var(--gold); }
-    @media(max-width:560px){.card{padding:36px 24px}.seg-grid{grid-template-columns:1fr}}
+    :root{--azul:#0D1F3C;--gold:#F0A500;--gold2:#FFB830;--branco:#F0F4FA;--cinza:#8A9BBE;--borda:rgba(240,165,0,0.15);--card-bg:rgba(255,255,255,0.04);--erro:#FF5A5A;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{background:var(--azul);color:var(--branco);font-family:"DM Sans",sans-serif;min-height:100vh;display:flex;flex-direction:column;}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;border-bottom:1px solid var(--borda);}
+    .nav-logo{font-family:"Syne",sans-serif;font-weight:800;font-size:1.4rem;color:var(--gold);text-decoration:none;}
+    .nav-back{color:var(--cinza);text-decoration:none;font-size:.9rem;transition:color .2s;}
+    .nav-back:hover{color:var(--branco);}
+    main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
+    .card{background:var(--card-bg);border:1px solid var(--borda);border-radius:20px;padding:48px 44px;width:100%;max-width:520px;}
+    /* Steps */
+    .steps{display:flex;gap:8px;margin-bottom:36px;}
+    .step-bar{height:3px;flex:1;border-radius:99px;background:rgba(240,165,0,0.15);transition:background .3s;}
+    .step-bar.ativo{background:var(--gold);}
+    .step-label{font-size:.72rem;color:var(--gold);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+    h2{font-family:"Syne",sans-serif;font-size:1.9rem;font-weight:800;margin-bottom:10px;line-height:1.15;}
+    .sub{color:var(--cinza);font-size:.92rem;font-weight:300;line-height:1.6;margin-bottom:28px;}
+    /* Input */
+    .field{margin-bottom:16px;}
+    .field label{display:block;font-size:.82rem;color:var(--cinza);margin-bottom:7px;font-weight:500;}
+    .field input,.field select{width:100%;padding:13px 16px;background:rgba(255,255,255,0.05);border:1px solid var(--borda);border-radius:8px;color:var(--branco);font-family:"DM Sans",sans-serif;font-size:.95rem;outline:none;transition:border-color .2s;}
+    .field input:focus,.field select:focus{border-color:var(--gold);}
+    .field select option{background:#0D1F3C;}
+    /* Botão */
+    .btn{width:100%;padding:15px;background:var(--gold);color:var(--azul);font-family:"Syne",sans-serif;font-weight:700;font-size:1rem;border:none;border-radius:8px;cursor:pointer;transition:background .2s;margin-top:8px;}
+    .btn:hover{background:var(--gold2);}
+    .btn:disabled{opacity:.5;cursor:not-allowed;}
+    /* Confirmação */
+    .confirm-box{background:rgba(255,255,255,0.03);border:1px solid var(--borda);border-radius:12px;padding:20px 24px;margin-bottom:24px;}
+    .confirm-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;}
+    .confirm-row:not(:last-child){border-bottom:1px solid rgba(255,255,255,0.05);}
+    .confirm-label{color:var(--cinza);font-size:.88rem;}
+    .confirm-val{font-weight:600;font-size:.92rem;}
+    .confirm-val.gold{color:var(--gold);}
+    /* Chave */
+    .chave-box{background:rgba(240,165,0,0.08);border:1px solid rgba(240,165,0,0.3);border-radius:12px;padding:20px 24px;margin:20px 0;text-align:center;}
+    .chave-label{font-size:.75rem;color:var(--cinza);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;}
+    .chave-val{font-family:monospace;font-size:1.2rem;color:var(--gold);letter-spacing:3px;word-break:break-all;font-weight:700;}
+    .chave-hint{font-size:.75rem;color:var(--cinza);margin-top:10px;}
+    /* Sucesso icon */
+    .sucesso-icon{width:64px;height:64px;background:rgba(240,165,0,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 20px;}
+    .sucesso-title{font-family:"Syne",sans-serif;font-size:1.6rem;font-weight:800;text-align:center;margin-bottom:10px;}
+    .sucesso-sub{color:var(--cinza);font-size:.9rem;text-align:center;line-height:1.6;margin-bottom:24px;}
+    /* Download */
+    .download-btn{display:block;text-align:center;padding:15px;background:var(--gold);color:var(--azul);font-family:"Syne",sans-serif;font-weight:700;font-size:1rem;border-radius:8px;text-decoration:none;transition:background .2s;margin-bottom:20px;}
+    .download-btn:hover{background:var(--gold2);}
+    /* Info */
+    .info-box{background:rgba(255,255,255,0.03);border:1px solid var(--borda);border-radius:10px;padding:18px 20px;font-size:.83rem;color:var(--cinza);line-height:1.8;}
+    .info-box strong{color:var(--branco);}
+    /* Erro */
+    .erro-box{background:rgba(255,90,90,0.1);border:1px solid rgba(255,90,90,0.3);border-radius:8px;padding:12px 16px;font-size:.85rem;color:var(--erro);display:none;margin-top:12px;}
+    /* Aviso email */
+    .aviso-email{background:rgba(240,165,0,0.1);border:1px solid rgba(240,165,0,0.3);border-radius:8px;padding:12px 16px;font-size:.85rem;color:var(--gold);display:none;margin-bottom:16px;}
+    /* Loading */
+    .loading{display:none;align-items:center;justify-content:center;gap:12px;padding:16px;color:var(--cinza);font-size:.9rem;}
+    .spinner{width:20px;height:20px;border:2px solid var(--borda);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+    /* Tabs modo */
+    .modo-tabs{display:flex;gap:8px;margin-bottom:28px;}
+    .modo-tab{flex:1;padding:10px;border:1px solid var(--borda);border-radius:8px;background:transparent;color:var(--cinza);font-family:"DM Sans",sans-serif;font-size:.88rem;cursor:pointer;transition:all .2s;text-align:center;}
+    .modo-tab.ativo{border-color:var(--gold);color:var(--gold);background:rgba(240,165,0,0.08);}
+    footer{text-align:center;padding:24px;border-top:1px solid var(--borda);color:var(--cinza);font-size:.82rem;}
+    footer a{color:var(--cinza);text-decoration:none;}
+    @media(max-width:560px){nav{padding:16px 20px;}.card{padding:32px 24px;}}
   </style>
 </head>
 <body>
-<div class="glow"></div>
-<header><a href="/" class="logo">QL<span>icitações</span></a></header>
+<nav>
+  <a href="/" class="nav-logo">QLicitações</a>
+  <a href="/" class="nav-back">← Voltar ao site</a>
+</nav>
+
 <main>
   <div class="card">
 
-    <!-- STEP 1 -->
-    <div id="step1">
-      <div class="progress-bar">
-        <div class="progress-step active"></div>
-        <div class="progress-step"></div>
-        <div class="progress-step"></div>
+    <!-- ── STEP 1: Modo (nova compra ou recuperar) ── -->
+    <div id="step-modo">
+      <div class="step-label">Passo 1 de 3</div>
+      <h2>Ativar seu acesso</h2>
+      <p class="sub">Você acabou de comprar ou precisa recuperar sua chave?</p>
+      <div class="modo-tabs">
+        <button class="modo-tab ativo" id="tab-nova" onclick="selecionarModo('nova')">Nova compra</button>
+        <button class="modo-tab" id="tab-recuperar" onclick="selecionarModo('recuperar')">Recuperar chave</button>
       </div>
-      <div class="card-step">Passo 1 de 3</div>
-      <div class="card-title">Confirme seu email</div>
-      <div class="card-sub">Use o mesmo email informado na compra no Hotmart.</div>
-      <div class="field">
-        <label>Email da compra *</label>
-        <input type="email" id="input-email" placeholder="seuemail@exemplo.com">
+      <!-- Nova compra -->
+      <div id="modo-nova">
+        <div class="field">
+          <label>Email usado na compra</label>
+          <input type="email" id="email-nova" placeholder="seu@email.com">
+        </div>
+        <div class="field">
+          <label>Plano adquirido</label>
+          <select id="produto-select">
+            <option value="">Selecione...</option>
+            <option value="7316102">Básico Mensal — R$29,90/mês</option>
+            <option value="7316135">Básico Anual — R$299,90/ano</option>
+            <option value="7316157">Completo Mensal — R$49,90/mês</option>
+            <option value="7316169">Completo Anual — R$499,90/ano</option>
+          </select>
+        </div>
+        <div id="campo-segmento" style="display:none;" class="field">
+          <label>Segmento de atuação</label>
+          <select id="segmento-select">
+            <option value="">Selecione...</option>
+            <option>Construção Civil</option>
+            <option>Saúde e Hospitalar</option>
+            <option>Educação e Capacitação</option>
+            <option>Tecnologia da Informação</option>
+            <option>Serviços Gerais</option>
+            <option>Engenharia e Meio Ambiente</option>
+            <option>Alimentação e Nutrição</option>
+            <option>Mobiliário e Equipamentos</option>
+            <option>Segurança e Vigilância</option>
+            <option>Consultoria e Assessoria</option>
+          </select>
+        </div>
+        <div class="erro-box" id="erro-nova"></div>
+        <button class="btn" onclick="irParaConfirmacao()">Continuar →</button>
       </div>
-      <button class="btn-ativar" onclick="irStep2()">Continuar →</button>
-      <div class="status-msg erro" id="msg-step1"><span>⚠️</span><span id="txt-step1"></span></div>
+      <!-- Recuperar -->
+      <div id="modo-recuperar" style="display:none;">
+        <div class="field">
+          <label>Email usado na compra</label>
+          <input type="email" id="email-recuperar" placeholder="seu@email.com">
+        </div>
+        <div class="erro-box" id="erro-recuperar"></div>
+        <button class="btn" onclick="recuperarChave()">Recuperar minha chave →</button>
+        <div class="loading" id="loading-recuperar">
+          <div class="spinner"></div><span>Buscando sua chave...</span>
+        </div>
+      </div>
     </div>
 
-    <!-- STEP 2 -->
-    <div id="step2" style="display:none;">
-      <div class="progress-bar">
-        <div class="progress-step active"></div>
-        <div class="progress-step active"></div>
-        <div class="progress-step"></div>
+    <!-- ── STEP 2: Confirmação ── -->
+    <div id="step-confirmar" style="display:none;">
+      <div class="steps">
+        <div class="step-bar ativo"></div>
+        <div class="step-bar ativo"></div>
+        <div class="step-bar"></div>
       </div>
-      <div class="card-step">Passo 2 de 3</div>
-      <div class="card-title">Escolha seu segmento</div>
-      <div class="card-sub" id="sub-step2">Selecione o segmento de licitações que deseja monitorar.</div>
-      <div class="seg-grid" id="seg-grid">
-        <button class="seg-btn" data-seg="Obras e Engenharias" onclick="selecionarSeg(this)"><span>🏗️</span>Obras e Engenharias</button>
-        <button class="seg-btn" data-seg="Saude" onclick="selecionarSeg(this)"><span>🏥</span>Saúde</button>
-        <button class="seg-btn" data-seg="Limpeza e Conservacao" onclick="selecionarSeg(this)"><span>🧹</span>Limpeza e Conservação</button>
-        <button class="seg-btn" data-seg="Vigilancia e Seguranca" onclick="selecionarSeg(this)"><span>🔒</span>Vigilância e Segurança</button>
-        <button class="seg-btn" data-seg="Tecnologia da Informacao" onclick="selecionarSeg(this)"><span>💻</span>Tecnologia da Informação</button>
-        <button class="seg-btn" data-seg="Alimentacao e Nutricao" onclick="selecionarSeg(this)"><span>🍽️</span>Alimentação e Nutrição</button>
-        <button class="seg-btn" data-seg="Transporte e Logistica" onclick="selecionarSeg(this)"><span>🚛</span>Transporte e Logística</button>
-        <button class="seg-btn" data-seg="Manutencao de Equipamentos" onclick="selecionarSeg(this)"><span>🔧</span>Manutenção de Equip.</button>
-        <button class="seg-btn" data-seg="Educacao e Capacitacao" onclick="selecionarSeg(this)"><span>📚</span>Educação e Capacitação</button>
-        <button class="seg-btn" data-seg="Consultoria e Assessoria" onclick="selecionarSeg(this)"><span>📑</span>Consultoria e Assessoria</button>
-      </div>
-      <button class="btn-ativar" id="btn-step2" onclick="irStep3()" disabled>Confirmar segmento →</button>
-      <div class="status-msg erro" id="msg-step2"><span>⚠️</span><span id="txt-step2"></span></div>
-    </div>
-
-    <!-- STEP 3 -->
-    <div id="step3" style="display:none;">
-      <div class="progress-bar">
-        <div class="progress-step active"></div>
-        <div class="progress-step active"></div>
-        <div class="progress-step active"></div>
-      </div>
-      <div class="card-step">Passo 3 de 3</div>
-      <div class="card-title">Confirme seus dados</div>
-      <div class="card-sub">Verifique as informações antes de gerar sua chave de acesso.</div>
-      <div style="background:rgba(240,165,0,0.06);border:1px solid var(--borda);border-radius:10px;padding:20px;margin-bottom:24px;">
-        <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
-          <span style="color:var(--cinza);font-size:.85rem;">Email</span>
-          <span id="conf-email" style="font-size:.85rem;font-weight:500;"></span>
+      <div class="step-label">Passo 2 de 3</div>
+      <h2>Confirme seus dados</h2>
+      <p class="sub">Verifique as informações antes de gerar sua chave de acesso.</p>
+      <div class="confirm-box">
+        <div class="confirm-row">
+          <span class="confirm-label">Email</span>
+          <span class="confirm-val" id="conf-email"></span>
         </div>
-        <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
-          <span style="color:var(--cinza);font-size:.85rem;">Plano</span>
-          <span id="conf-plano" style="font-size:.85rem;font-weight:500;color:var(--gold);"></span>
+        <div class="confirm-row">
+          <span class="confirm-label">Plano</span>
+          <span class="confirm-val gold" id="conf-plano"></span>
         </div>
-        <div style="display:flex;justify-content:space-between;">
-          <span style="color:var(--cinza);font-size:.85rem;">Segmento</span>
-          <span id="conf-seg" style="font-size:.85rem;font-weight:500;"></span>
+        <div class="confirm-row" id="conf-seg-row">
+          <span class="confirm-label">Segmento</span>
+          <span class="confirm-val" id="conf-segmento"></span>
         </div>
       </div>
-      <button class="btn-ativar" id="btn-gerar" onclick="gerarChave()">Gerar minha chave de acesso</button>
-      <div class="status-msg carregando" id="msg-carregando" style="display:none;">
+      <div class="erro-box" id="erro-confirmar"></div>
+      <div class="loading" id="loading-gerar">
         <div class="spinner"></div><span>Gerando sua chave, aguarde...</span>
       </div>
-      <div class="status-msg erro" id="msg-step3" style="display:none;"><span>⚠️</span><span id="txt-step3"></span></div>
+      <button class="btn" id="btn-gerar" onclick="gerarChave()">Gerar minha chave de acesso</button>
     </div>
 
-    <!-- SUCESSO -->
-    <div class="sucesso-card" id="step-sucesso">
+    <!-- ── STEP 3: Sucesso ── -->
+    <div id="step-sucesso" style="display:none;">
+      <div class="steps">
+        <div class="step-bar ativo"></div>
+        <div class="step-bar ativo"></div>
+        <div class="step-bar ativo"></div>
+      </div>
       <div class="sucesso-icon">✓</div>
       <div class="sucesso-title">Acesso liberado!</div>
-      <div class="sucesso-sub">
-        Sua chave foi gerada e enviada para <strong id="email-conf"></strong>.<br>
-        Verifique sua caixa de entrada (e o spam).
+      <div class="sucesso-sub">Chave gerada com sucesso para <strong id="email-conf"></strong>.</div>
+      <div class="aviso-email" id="aviso-email"></div>
+      <div class="chave-box" id="chave-box" style="display:none;">
+        <div class="chave-label">Sua chave de acesso</div>
+        <div class="chave-val" id="chave-display"></div>
+        <div class="chave-hint">Anote esta chave — ela também foi enviada para seu email.</div>
       </div>
-      <div id="aviso-email" style="display:none;background:rgba(240,165,0,0.15);border:1px solid rgba(240,165,0,0.4);border-radius:8px;padding:12px 16px;margin:16px 0;color:#F0A500;font-size:.9rem;"></div>
-      <div id="chave-wrapper" style="display:none;margin:20px 0;">
-        <div style="font-size:.8rem;color:#8A9BBE;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Sua chave de acesso</div>
-        <div id="chave-display" style="background:rgba(240,165,0,0.1);border:1px solid rgba(240,165,0,0.4);border-radius:8px;padding:14px 20px;font-family:monospace;font-size:1.1rem;color:#F0A500;letter-spacing:2px;word-break:break-all;"></div>
-        <div style="font-size:.75rem;color:#8A9BBE;margin-top:8px;">Anote esta chave — ela tambem sera enviada para seu email.</div>
-      </div>
-      <a href="https://github.com/qjunior100/QLicitacoes/releases/download/1.0/QLicitacoes.zip" class="download-btn">⬇️ Baixar QLicitacoes</a>
-      <div class="sucesso-info">
+      <a href="https://github.com/qjunior100/QLicitacoes/releases/download/1.0/QLicitacoes.zip" class="download-btn">⬇️ Baixar QLicitações</a>
+      <div class="info-box">
         <strong>Como ativar:</strong><br>
         1. Baixe e extraia o arquivo .zip<br>
-        2. Execute o QLicitacoes.exe<br>
-        3. Se o Windows alertar, clique em "Mais informacoes" e depois "Executar assim mesmo"<br>
-        4. Insira a chave acima no app e configure sua empresa
+        2. Execute o <strong>QLicitacoes.exe</strong><br>
+        3. Se o Windows alertar, clique em "Mais informações" → "Executar assim mesmo"<br>
+        4. Insira a chave acima e configure sua empresa
+      </div>
+    </div>
+
+    <!-- ── Recuperar sucesso ── -->
+    <div id="step-recuperar-sucesso" style="display:none;">
+      <div class="sucesso-icon">🔑</div>
+      <div class="sucesso-title">Chave encontrada!</div>
+      <div class="sucesso-sub">Sua chave foi reenviada para <strong id="email-rec-conf"></strong>.</div>
+      <div class="chave-box" id="chave-rec-box" style="display:none;">
+        <div class="chave-label">Sua chave de acesso</div>
+        <div class="chave-val" id="chave-rec-display"></div>
+        <div class="chave-hint">Anote esta chave — ela também foi enviada para seu email.</div>
+      </div>
+      <a href="https://github.com/qjunior100/QLicitacoes/releases/download/1.0/QLicitacoes.zip" class="download-btn">⬇️ Baixar QLicitações</a>
+      <div class="info-box">
+        <strong>Como ativar:</strong><br>
+        1. Baixe e extraia o arquivo .zip<br>
+        2. Execute o <strong>QLicitacoes.exe</strong><br>
+        3. Insira a chave acima e configure sua empresa
       </div>
     </div>
 
@@ -169,104 +219,167 @@
 </main>
 
 <footer>
-  <a href="/">QLicitações</a> &nbsp;·&nbsp;
-  <a href="/cdn-cgi/l/email-protection#9be8eeebf4e9effedbeaf7f2f8f2effaf8f4fee8b5f8f4f6b5f9e9"><span class="__cf_email__" data-cfemail="a8dbddd8c7dadccde8d9c4c1cbc1dcc9cbc7cddb86cbc7c586cada">[email&#160;protected]</span></a>
+  <a href="/">QLicitações</a> &nbsp;·&nbsp; suporte@qlicitacoes.com.br
 </footer>
 
 <script>
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0l_8SucreoK86Sn3nZ3rqrJuVVJMCTHEzMnL4tQjN3QFq8i8SWYdUk5SLyOSAVd3v/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0l_8SucreoK86Sn3nZ3rqrJuVVJMCTHEzMnL4tQjN3QFq8i8SWYdUk5SLyOSAVd3v/exec";
 
-  const PLANOS_HOTMART = {
-    "7316102": { plano: "Basico",   dias: 30,  nome: "Básico Mensal"   },
-    "7316135": { plano: "Basico",   dias: 365, nome: "Básico Anual"    },
-    "7316157": { plano: "Completo", dias: 30,  nome: "Completo Mensal" },
-    "7316169": { plano: "Completo", dias: 365, nome: "Completo Anual"  },
-  };
+const PLANOS_HOTMART = {
+  "7316102": { plano: "Basico",   dias: 30,  nome: "Básico Mensal"   },
+  "7316135": { plano: "Basico",   dias: 365, nome: "Básico Anual"    },
+  "7316157": { plano: "Completo", segmento: "*", dias: 30,  nome: "Completo Mensal" },
+  "7316169": { plano: "Completo", segmento: "*", dias: 365, nome: "Completo Anual"  }
+};
 
-  let dadosCompra = { email:"", plano:"Basico", planoNome:"Básico", segmento:"", dias:30, produtoId:"" };
+let dadosCompra = {};
+let modoAtual = "nova";
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const produtoParam = urlParams.get("produto") || "";
-  if (PLANOS_HOTMART[produtoParam]) {
-    dadosCompra.plano     = PLANOS_HOTMART[produtoParam].plano;
-    dadosCompra.planoNome = PLANOS_HOTMART[produtoParam].nome;
-    dadosCompra.dias      = PLANOS_HOTMART[produtoParam].dias;
-    dadosCompra.produtoId = produtoParam;
-  }
-
-  if (dadosCompra.plano === "Completo") {
-    document.getElementById("sub-step2").textContent = "Plano Completo — todos os segmentos estão liberados automaticamente.";
-    document.getElementById("seg-grid").style.display = "none";
-    dadosCompra.segmento = "*";
-    document.getElementById("btn-step2").disabled = false;
-  }
-
-  function irStep2() {
-    const email = document.getElementById("input-email").value.trim().toLowerCase();
-    if (!email || !email.includes("@") || !email.includes(".")) { mostrarErro("step1","Informe um email válido."); return; }
-    dadosCompra.email = email;
-    document.getElementById("step1").style.display = "none";
-    document.getElementById("step2").style.display = "block";
-  }
-
-  function selecionarSeg(btn) {
-    document.querySelectorAll(".seg-btn").forEach(b => b.classList.remove("selected"));
-    btn.classList.add("selected");
-    dadosCompra.segmento = btn.dataset.seg;
-    document.getElementById("btn-step2").disabled = false;
-  }
-
-  function irStep3() {
-    if (dadosCompra.plano === "Basico" && !dadosCompra.segmento) { mostrarErro("step2","Selecione um segmento."); return; }
-    document.getElementById("conf-email").textContent = dadosCompra.email;
-    document.getElementById("conf-plano").textContent = dadosCompra.planoNome;
-    document.getElementById("conf-seg").textContent = dadosCompra.segmento === "*" ? "Todos os segmentos" : dadosCompra.segmento;
-    document.getElementById("step2").style.display = "none";
-    document.getElementById("step3").style.display = "block";
-  }
-
-  async function gerarChave() {
-    document.getElementById("btn-gerar").disabled = true;
-    document.getElementById("msg-carregando").style.display = "flex";
-    document.getElementById("msg-step3").style.display = "none";
-    try {
-      const params = new URLSearchParams({
-        acao:"gerar_web", email:dadosCompra.email, plano:dadosCompra.plano,
-        dias:dadosCompra.dias, segmentos:dadosCompra.segmento, produto:dadosCompra.produtoId
-      });
-      const resp = await fetch(APPS_SCRIPT_URL + "?" + params.toString());
-      const data = await resp.json();
-      document.getElementById("msg-carregando").style.display = "none";
-      if (data.ok) {
-        document.getElementById("step3").style.display = "none";
-        document.getElementById("email-conf").textContent = dadosCompra.email;
-        // Mostrar chave diretamente na tela
-        if (data.chave) {
-          const chaveEl = document.getElementById("chave-display");
-          if (chaveEl) {
-            chaveEl.textContent = data.chave;
-            document.getElementById("chave-wrapper").style.display = "block";
-          }
-        }
-        if (data.avisoEmail) {
-          const avisoEl = document.getElementById("aviso-email");
-          if (avisoEl) {
-            avisoEl.textContent = data.avisoEmail;
-            avisoEl.style.display = "block";
-          }
-        }
-        document.getElementById("step-sucesso").style.display = "block";
-      } else {
-        mostrarErro("step3", data.motivo || "Erro ao gerar chave. Contate o suporte.");
-        document.getElementById("btn-gerar").disabled = false;
-      }
-    } catch(err) {
-      document.getElementById("msg-carregando").style.display = "none";
-      mostrarErro("step3","Erro de conexão. Verifique sua internet e tente novamente.");
-      document.getElementById("btn-gerar").disabled = false;
+// Verificar parâmetros da URL (acesso via Hotmart)
+(function() {
+  const p = new URLSearchParams(window.location.search);
+  const produto = p.get("produto");
+  const email = p.get("email");
+  if (produto && PLANOS_HOTMART[produto]) {
+    const cfg = PLANOS_HOTMART[produto];
+    dadosCompra = { email: email || "", produtoId: produto, plano: cfg.plano, dias: cfg.dias, segmento: cfg.segmento || "", nomeP: cfg.nome };
+    // Pular direto para confirmação
+    if (email) {
+      document.getElementById("step-modo").style.display = "none";
+      preencherConfirmacao();
+      document.getElementById("step-confirmar").style.display = "block";
+    } else {
+      document.getElementById("email-nova").value = "";
+      document.getElementById("produto-select").value = produto;
+      atualizarSegmento();
     }
   }
+})();
 
-  function mostrarErro(step, msg) {
-    const el = document.getElementById("msg-"+step);
-    const tx
+function selecionarModo(modo) {
+  modoAtual = modo;
+  document.getElementById("tab-nova").classList.toggle("ativo", modo === "nova");
+  document.getElementById("tab-recuperar").classList.toggle("ativo", modo === "recuperar");
+  document.getElementById("modo-nova").style.display = modo === "nova" ? "block" : "none";
+  document.getElementById("modo-recuperar").style.display = modo === "recuperar" ? "block" : "none";
+}
+
+function atualizarSegmento() {
+  const sel = document.getElementById("produto-select").value;
+  const campoSeg = document.getElementById("campo-segmento");
+  if (sel && PLANOS_HOTMART[sel] && PLANOS_HOTMART[sel].plano === "Basico") {
+    campoSeg.style.display = "block";
+  } else {
+    campoSeg.style.display = "none";
+  }
+}
+document.getElementById("produto-select").addEventListener("change", atualizarSegmento);
+
+function mostrarErro(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.style.display = "block";
+}
+function limparErro(id) {
+  document.getElementById(id).style.display = "none";
+}
+
+function irParaConfirmacao() {
+  limparErro("erro-nova");
+  const email = document.getElementById("email-nova").value.trim().toLowerCase();
+  const prodId = document.getElementById("produto-select").value;
+  if (!email || !email.includes("@")) return mostrarErro("erro-nova", "Informe um email válido.");
+  if (!prodId) return mostrarErro("erro-nova", "Selecione o plano adquirido.");
+  const cfg = PLANOS_HOTMART[prodId];
+  let segmento = cfg.segmento || "";
+  if (cfg.plano === "Basico") {
+    segmento = document.getElementById("segmento-select").value;
+    if (!segmento) return mostrarErro("erro-nova", "Selecione seu segmento de atuação.");
+  }
+  dadosCompra = { email, produtoId: prodId, plano: cfg.plano, dias: cfg.dias, segmento, nomeP: cfg.nome };
+  preencherConfirmacao();
+  document.getElementById("step-modo").style.display = "none";
+  document.getElementById("step-confirmar").style.display = "block";
+}
+
+function preencherConfirmacao() {
+  document.getElementById("conf-email").textContent = dadosCompra.email;
+  document.getElementById("conf-plano").textContent = dadosCompra.nomeP || dadosCompra.plano;
+  const segRow = document.getElementById("conf-seg-row");
+  if (dadosCompra.segmento && dadosCompra.segmento !== "*") {
+    document.getElementById("conf-segmento").textContent = dadosCompra.segmento;
+    segRow.style.display = "flex";
+  } else {
+    segRow.style.display = "none";
+  }
+}
+
+async function gerarChave() {
+  limparErro("erro-confirmar");
+  document.getElementById("btn-gerar").disabled = true;
+  document.getElementById("loading-gerar").style.display = "flex";
+  try {
+    const params = new URLSearchParams({
+      acao: "gerar_web",
+      email: dadosCompra.email,
+      plano: dadosCompra.plano,
+      dias: dadosCompra.dias,
+      segmentos: dadosCompra.segmento,
+      produto: dadosCompra.produtoId
+    });
+    const resp = await fetch(APPS_SCRIPT_URL + "?" + params.toString());
+    const data = await resp.json();
+    document.getElementById("loading-gerar").style.display = "none";
+    if (data.ok) {
+      document.getElementById("step-confirmar").style.display = "none";
+      document.getElementById("email-conf").textContent = dadosCompra.email;
+      if (data.chave) {
+        document.getElementById("chave-display").textContent = data.chave;
+        document.getElementById("chave-box").style.display = "block";
+      }
+      if (data.avisoEmail) {
+        const av = document.getElementById("aviso-email");
+        av.textContent = data.avisoEmail;
+        av.style.display = "block";
+      }
+      document.getElementById("step-sucesso").style.display = "block";
+    } else {
+      mostrarErro("erro-confirmar", data.motivo || "Erro ao gerar chave. Contate o suporte.");
+      document.getElementById("btn-gerar").disabled = false;
+    }
+  } catch(e) {
+    document.getElementById("loading-gerar").style.display = "none";
+    mostrarErro("erro-confirmar", "Erro de conexão. Verifique sua internet e tente novamente.");
+    document.getElementById("btn-gerar").disabled = false;
+  }
+}
+
+async function recuperarChave() {
+  limparErro("erro-recuperar");
+  const email = document.getElementById("email-recuperar").value.trim().toLowerCase();
+  if (!email || !email.includes("@")) return mostrarErro("erro-recuperar", "Informe um email válido.");
+  document.getElementById("loading-recuperar").style.display = "flex";
+  try {
+    const params = new URLSearchParams({ acao: "recuperar", email });
+    const resp = await fetch(APPS_SCRIPT_URL + "?" + params.toString());
+    const data = await resp.json();
+    document.getElementById("loading-recuperar").style.display = "none";
+    if (data.ok) {
+      document.getElementById("step-modo").style.display = "none";
+      document.getElementById("email-rec-conf").textContent = email;
+      if (data.chave) {
+        document.getElementById("chave-rec-display").textContent = data.chave;
+        document.getElementById("chave-rec-box").style.display = "block";
+      }
+      document.getElementById("step-recuperar-sucesso").style.display = "block";
+    } else {
+      mostrarErro("erro-recuperar", data.motivo || "Nenhuma chave encontrada para esse email.");
+    }
+  } catch(e) {
+    document.getElementById("loading-recuperar").style.display = "none";
+    mostrarErro("erro-recuperar", "Erro de conexão. Tente novamente.");
+  }
+}
+</script>
+</body>
+</html>

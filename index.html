@@ -84,6 +84,18 @@
 
     .nav-links a:hover { color: var(--branco); }
 
+    .nav-ativar {
+      border: 1px solid rgba(240,165,0,0.5);
+      color: var(--gold) !important;
+      border-radius: 6px;
+      padding: 6px 14px !important;
+      font-size: .85rem !important;
+      transition: all .2s;
+    }
+    .nav-ativar:hover {
+      background: rgba(240,165,0,0.1);
+      border-color: var(--gold);
+    }
     .nav-cta {
       background: var(--gold);
       color: var(--azul) !important;
@@ -719,6 +731,7 @@
     <li><a href="#segmentos">Segmentos</a></li>
     <li><a href="#afiliados">Afiliados</a></li>
     <li><a href="#contato">Contato</a></li>
+    <li><a href="/ativar" class="nav-ativar">Ativar / Download</a></li>
     <li><a href="#planos" class="nav-cta">Começar agora</a></li>
   </ul>
 </nav>
