@@ -179,7 +179,7 @@
         <div class="chave-val" id="chave-display"></div>
         <div class="chave-hint">Anote esta chave — ela também foi enviada para seu email.</div>
       </div>
-      <a href="https://github.com/qjunior100/QLicitacoes/releases/download/1.0/QLicitacoes.zip" class="download-btn">⬇️ Baixar QLicitações</a>
+      <a href="https://github.com/qjunior100/QLicitacoes/releases/download/1.0/QLicitacoes_V1.0.zip" class="download-btn">⬇️ Baixar QLicitações</a>
       <div class="info-box">
         <strong>Como ativar:</strong><br>
         1. Baixe e extraia o arquivo .zip<br>
@@ -199,7 +199,7 @@
         <div class="chave-val" id="chave-rec-display"></div>
         <div class="chave-hint">Anote esta chave — ela também foi enviada para seu email.</div>
       </div>
-      <a href="https://github.com/qjunior100/QLicitacoes/releases/download/1.0/QLicitacoes.zip" class="download-btn">⬇️ Baixar QLicitações</a>
+      <a href="https://github.com/qjunior100/QLicitacoes/releases/download/1.0/QLicitacoes_V1.0.zip" class="download-btn">⬇️ Baixar QLicitações</a>
       <div class="info-box">
         <strong>Como ativar:</strong><br>
         1. Baixe e extraia o .zip<br>
@@ -212,10 +212,10 @@
 </main>
 
 <footer>
-  <a href="/">QLicitações</a> &nbsp;·&nbsp; suporte@qlicitacoes.com.br
+  <a href="/">QLicitações</a> &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a9dadcd9c6dbddcce9d8c5c0cac0ddc8cac6ccda87cac6c487cbdb">[email&#160;protected]</a>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0l_8SucreoK86Sn3nZ3rqrJuVVJMCTHEzMnL4tQjN3QFq8i8SWYdUk5SLyOSAVd3v/exec";
 
 const PLANOS = {
@@ -377,14 +377,4 @@ function recuperarChave() {
         }
         document.getElementById("step-recuperar-sucesso").style.display = "block";
       } else {
-        mostrarErro("erro-recuperar", data.motivo || "Nenhuma chave encontrada para esse email.");
-      }
-    })
-    .catch(function() {
-      document.getElementById("loading-recuperar").style.display = "none";
-      mostrarErro("erro-recuperar", "Erro de conexão. Tente novamente.");
-    });
-}
-</script>
-</body>
-</html>
+        mostrarErro("erro-recuperar", data.motivo || "Nenhuma chave encontrada para ess
