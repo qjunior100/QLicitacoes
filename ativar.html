@@ -12,65 +12,50 @@
     body{background:var(--azul);color:var(--branco);font-family:"DM Sans",sans-serif;min-height:100vh;display:flex;flex-direction:column;}
     nav{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;border-bottom:1px solid var(--borda);}
     .nav-logo{font-family:"Syne",sans-serif;font-weight:800;font-size:1.4rem;color:var(--gold);text-decoration:none;}
-    .nav-back{color:var(--cinza);text-decoration:none;font-size:.9rem;transition:color .2s;}
+    .nav-back{color:var(--cinza);text-decoration:none;font-size:.9rem;}
     .nav-back:hover{color:var(--branco);}
     main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
     .card{background:var(--card-bg);border:1px solid var(--borda);border-radius:20px;padding:48px 44px;width:100%;max-width:520px;}
-    /* Steps */
     .steps{display:flex;gap:8px;margin-bottom:36px;}
     .step-bar{height:3px;flex:1;border-radius:99px;background:rgba(240,165,0,0.15);transition:background .3s;}
     .step-bar.ativo{background:var(--gold);}
     .step-label{font-size:.72rem;color:var(--gold);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
     h2{font-family:"Syne",sans-serif;font-size:1.9rem;font-weight:800;margin-bottom:10px;line-height:1.15;}
     .sub{color:var(--cinza);font-size:.92rem;font-weight:300;line-height:1.6;margin-bottom:28px;}
-    /* Input */
     .field{margin-bottom:16px;}
     .field label{display:block;font-size:.82rem;color:var(--cinza);margin-bottom:7px;font-weight:500;}
     .field input,.field select{width:100%;padding:13px 16px;background:rgba(255,255,255,0.05);border:1px solid var(--borda);border-radius:8px;color:var(--branco);font-family:"DM Sans",sans-serif;font-size:.95rem;outline:none;transition:border-color .2s;}
     .field input:focus,.field select:focus{border-color:var(--gold);}
     .field select option{background:#0D1F3C;}
-    /* Botão */
     .btn{width:100%;padding:15px;background:var(--gold);color:var(--azul);font-family:"Syne",sans-serif;font-weight:700;font-size:1rem;border:none;border-radius:8px;cursor:pointer;transition:background .2s;margin-top:8px;}
     .btn:hover{background:var(--gold2);}
     .btn:disabled{opacity:.5;cursor:not-allowed;}
-    /* Confirmação */
     .confirm-box{background:rgba(255,255,255,0.03);border:1px solid var(--borda);border-radius:12px;padding:20px 24px;margin-bottom:24px;}
     .confirm-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;}
     .confirm-row:not(:last-child){border-bottom:1px solid rgba(255,255,255,0.05);}
     .confirm-label{color:var(--cinza);font-size:.88rem;}
     .confirm-val{font-weight:600;font-size:.92rem;}
     .confirm-val.gold{color:var(--gold);}
-    /* Chave */
-    .chave-box{background:rgba(240,165,0,0.08);border:1px solid rgba(240,165,0,0.3);border-radius:12px;padding:20px 24px;margin:20px 0;text-align:center;}
+    .chave-box{background:rgba(240,165,0,0.08);border:2px solid rgba(240,165,0,0.4);border-radius:12px;padding:20px 24px;margin:20px 0;text-align:center;}
     .chave-label{font-size:.75rem;color:var(--cinza);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;}
-    .chave-val{font-family:monospace;font-size:1.2rem;color:var(--gold);letter-spacing:3px;word-break:break-all;font-weight:700;}
+    .chave-val{font-family:monospace;font-size:1.3rem;color:var(--gold);letter-spacing:3px;word-break:break-all;font-weight:700;}
     .chave-hint{font-size:.75rem;color:var(--cinza);margin-top:10px;}
-    /* Sucesso icon */
     .sucesso-icon{width:64px;height:64px;background:rgba(240,165,0,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 20px;}
     .sucesso-title{font-family:"Syne",sans-serif;font-size:1.6rem;font-weight:800;text-align:center;margin-bottom:10px;}
     .sucesso-sub{color:var(--cinza);font-size:.9rem;text-align:center;line-height:1.6;margin-bottom:24px;}
-    /* Download */
     .download-btn{display:block;text-align:center;padding:15px;background:var(--gold);color:var(--azul);font-family:"Syne",sans-serif;font-weight:700;font-size:1rem;border-radius:8px;text-decoration:none;transition:background .2s;margin-bottom:20px;}
     .download-btn:hover{background:var(--gold2);}
-    /* Info */
     .info-box{background:rgba(255,255,255,0.03);border:1px solid var(--borda);border-radius:10px;padding:18px 20px;font-size:.83rem;color:var(--cinza);line-height:1.8;}
     .info-box strong{color:var(--branco);}
-    /* Erro */
-    #campo-segmento.obrigatorio label::after {
-      content: " *";
-      color: var(--erro);
-    }
     .erro-box{background:rgba(255,90,90,0.1);border:1px solid rgba(255,90,90,0.3);border-radius:8px;padding:12px 16px;font-size:.85rem;color:var(--erro);display:none;margin-top:12px;}
-    /* Aviso email */
     .aviso-email{background:rgba(240,165,0,0.1);border:1px solid rgba(240,165,0,0.3);border-radius:8px;padding:12px 16px;font-size:.85rem;color:var(--gold);display:none;margin-bottom:16px;}
-    /* Loading */
     .loading{display:none;align-items:center;justify-content:center;gap:12px;padding:16px;color:var(--cinza);font-size:.9rem;}
     .spinner{width:20px;height:20px;border:2px solid var(--borda);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;}
     @keyframes spin{to{transform:rotate(360deg);}}
-    /* Tabs modo */
     .modo-tabs{display:flex;gap:8px;margin-bottom:28px;}
     .modo-tab{flex:1;padding:10px;border:1px solid var(--borda);border-radius:8px;background:transparent;color:var(--cinza);font-family:"DM Sans",sans-serif;font-size:.88rem;cursor:pointer;transition:all .2s;text-align:center;}
     .modo-tab.ativo{border-color:var(--gold);color:var(--gold);background:rgba(240,165,0,0.08);}
+    .seg-destaque{background:rgba(240,165,0,0.06);border:1px solid rgba(240,165,0,0.25);border-radius:10px;padding:14px;margin-bottom:16px;}
     footer{text-align:center;padding:24px;border-top:1px solid var(--borda);color:var(--cinza);font-size:.82rem;}
     footer a{color:var(--cinza);text-decoration:none;}
     @media(max-width:560px){nav{padding:16px 20px;}.card{padding:32px 24px;}}
@@ -85,7 +70,7 @@
 <main>
   <div class="card">
 
-    <!-- ── STEP 1: Modo (nova compra ou recuperar) ── -->
+    <!-- STEP 1 -->
     <div id="step-modo">
       <div class="step-label">Passo 1 de 3</div>
       <h2>Ativar seu acesso</h2>
@@ -94,11 +79,12 @@
         <button class="modo-tab ativo" id="tab-nova" onclick="selecionarModo('nova')">Nova compra</button>
         <button class="modo-tab" id="tab-recuperar" onclick="selecionarModo('recuperar')">Recuperar chave</button>
       </div>
+
       <!-- Nova compra -->
       <div id="modo-nova">
         <div class="field">
           <label>Email usado na compra</label>
-          <input type="email" id="email-nova" placeholder="seu@email.com">
+          <input type="email" id="email-nova" placeholder="seu@email.com" autocomplete="email">
         </div>
         <div class="field">
           <label>Plano adquirido</label>
@@ -110,25 +96,28 @@
             <option value="7316169">Completo Anual — R$499,90/ano</option>
           </select>
         </div>
-        <div id="campo-segmento" style="display:none;" class="field">
-          <label>Segmento de atuação <span style="color:#FF5A5A;font-size:.8rem;">(obrigatório para Plano Básico)</span></label>
-          <select id="segmento-select">
-            <option value="">Selecione...</option>
-            <option>Construção Civil</option>
-            <option>Saúde e Hospitalar</option>
-            <option>Educação e Capacitação</option>
-            <option>Tecnologia da Informação</option>
-            <option>Serviços Gerais</option>
-            <option>Engenharia e Meio Ambiente</option>
-            <option>Alimentação e Nutrição</option>
-            <option>Mobiliário e Equipamentos</option>
-            <option>Segurança e Vigilância</option>
-            <option>Consultoria e Assessoria</option>
-          </select>
+        <div id="campo-segmento" class="seg-destaque" style="display:none;">
+          <div class="field" style="margin-bottom:0;">
+            <label>Segmento de atuação <span style="color:#FF5A5A;font-size:.78rem;">* obrigatório</span></label>
+            <select id="segmento-select">
+              <option value="">Selecione seu segmento...</option>
+              <option>Construção Civil</option>
+              <option>Saúde e Hospitalar</option>
+              <option>Educação e Capacitação</option>
+              <option>Tecnologia da Informação</option>
+              <option>Serviços Gerais</option>
+              <option>Engenharia e Meio Ambiente</option>
+              <option>Alimentação e Nutrição</option>
+              <option>Mobiliário e Equipamentos</option>
+              <option>Segurança e Vigilância</option>
+              <option>Consultoria e Assessoria</option>
+            </select>
+          </div>
         </div>
         <div class="erro-box" id="erro-nova"></div>
-        <button class="btn" onclick="irParaConfirmacao()">Continuar →</button>
+        <button class="btn" id="btn-continuar" onclick="irParaConfirmacao()">Continuar →</button>
       </div>
+
       <!-- Recuperar -->
       <div id="modo-recuperar" style="display:none;">
         <div class="field">
@@ -143,7 +132,7 @@
       </div>
     </div>
 
-    <!-- ── STEP 2: Confirmação ── -->
+    <!-- STEP 2 -->
     <div id="step-confirmar" style="display:none;">
       <div class="steps">
         <div class="step-bar ativo"></div>
@@ -152,7 +141,7 @@
       </div>
       <div class="step-label">Passo 2 de 3</div>
       <h2>Confirme seus dados</h2>
-      <p class="sub">Verifique as informações antes de gerar sua chave de acesso.</p>
+      <p class="sub">Verifique antes de gerar sua chave de acesso.</p>
       <div class="confirm-box">
         <div class="confirm-row">
           <span class="confirm-label">Email</span>
@@ -162,7 +151,7 @@
           <span class="confirm-label">Plano</span>
           <span class="confirm-val gold" id="conf-plano"></span>
         </div>
-        <div class="confirm-row" id="conf-seg-row">
+        <div class="confirm-row" id="conf-seg-row" style="display:none;">
           <span class="confirm-label">Segmento</span>
           <span class="confirm-val" id="conf-segmento"></span>
         </div>
@@ -174,7 +163,7 @@
       <button class="btn" id="btn-gerar" onclick="gerarChave()">Gerar minha chave de acesso</button>
     </div>
 
-    <!-- ── STEP 3: Sucesso ── -->
+    <!-- STEP 3 sucesso -->
     <div id="step-sucesso" style="display:none;">
       <div class="steps">
         <div class="step-bar ativo"></div>
@@ -183,7 +172,7 @@
       </div>
       <div class="sucesso-icon">✓</div>
       <div class="sucesso-title">Acesso liberado!</div>
-      <div class="sucesso-sub">Chave gerada com sucesso para <strong id="email-conf"></strong>.</div>
+      <div class="sucesso-sub">Chave gerada para <strong id="email-conf"></strong>.</div>
       <div class="aviso-email" id="aviso-email"></div>
       <div class="chave-box" id="chave-box" style="display:none;">
         <div class="chave-label">Sua chave de acesso</div>
@@ -195,16 +184,16 @@
         <strong>Como ativar:</strong><br>
         1. Baixe e extraia o arquivo .zip<br>
         2. Execute o <strong>QLicitacoes.exe</strong><br>
-        3. Se o Windows alertar, clique em "Mais informações" → "Executar assim mesmo"<br>
+        3. Se o Windows alertar → "Mais informações" → "Executar assim mesmo"<br>
         4. Insira a chave acima e configure sua empresa
       </div>
     </div>
 
-    <!-- ── Recuperar sucesso ── -->
+    <!-- Recuperar sucesso -->
     <div id="step-recuperar-sucesso" style="display:none;">
       <div class="sucesso-icon">🔑</div>
       <div class="sucesso-title">Chave encontrada!</div>
-      <div class="sucesso-sub">Sua chave foi reenviada para <strong id="email-rec-conf"></strong>.</div>
+      <div class="sucesso-sub">Reenviada para <strong id="email-rec-conf"></strong>.</div>
       <div class="chave-box" id="chave-rec-box" style="display:none;">
         <div class="chave-label">Sua chave de acesso</div>
         <div class="chave-val" id="chave-rec-display"></div>
@@ -213,7 +202,7 @@
       <a href="https://github.com/qjunior100/QLicitacoes/releases/download/1.0/QLicitacoes.zip" class="download-btn">⬇️ Baixar QLicitações</a>
       <div class="info-box">
         <strong>Como ativar:</strong><br>
-        1. Baixe e extraia o arquivo .zip<br>
+        1. Baixe e extraia o .zip<br>
         2. Execute o <strong>QLicitacoes.exe</strong><br>
         3. Insira a chave acima e configure sua empresa
       </div>
@@ -223,167 +212,179 @@
 </main>
 
 <footer>
-  <a href="/">QLicitações</a> &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="077472776875736247766b6e646e7366646862742964686a296575">[email&#160;protected]</a>
+  <a href="/">QLicitações</a> &nbsp;·&nbsp; suporte@qlicitacoes.com.br
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0l_8SucreoK86Sn3nZ3rqrJuVVJMCTHEzMnL4tQjN3QFq8i8SWYdUk5SLyOSAVd3v/exec";
 
-const PLANOS_HOTMART = {
-  "7318490": { plano: "Basico",   dias: 30,  nome: "Básico Mensal"   },
-  "7316135": { plano: "Basico",   dias: 365, nome: "Básico Anual"    },
-  "7318600": { plano: "Completo", segmento: "*", dias: 30,  nome: "Completo Mensal" },
-  "7316169": { plano: "Completo", segmento: "*", dias: 365, nome: "Completo Anual"  }
+const PLANOS = {
+  "7318490": { plano:"Basico",   dias:30,  nome:"Básico Mensal"    },
+  "7316135": { plano:"Basico",   dias:365, nome:"Básico Anual"     },
+  "7318600": { plano:"Completo", dias:30,  nome:"Completo Mensal", segmento:"*" },
+  "7316169": { plano:"Completo", dias:365, nome:"Completo Anual",  segmento:"*" }
 };
 
-let dadosCompra = {};
-let modoAtual = "nova";
+var dadosCompra = {};
 
-// Verificar parâmetros da URL (acesso via Hotmart)
-window.addEventListener("load", function() {
-  const p = new URLSearchParams(window.location.search);
-  const produto = p.get("produto");
-  const emailUrl = p.get("email");
-  if (!produto || !PLANOS_HOTMART[produto]) return;
+// Inicializar com parâmetros da URL
+document.addEventListener("DOMContentLoaded", function() {
+  var params = new URLSearchParams(window.location.search);
+  var produto = params.get("produto");
+  var emailUrl = params.get("email") || "";
 
-  const cfg = PLANOS_HOTMART[produto];
-  dadosCompra = { email: emailUrl || "", produtoId: produto, plano: cfg.plano, dias: cfg.dias, segmento: cfg.segmento || "", nomeP: cfg.nome };
-
-  if (emailUrl) {
-    // Veio com email — pular direto para confirmação
-    document.getElementById("step-modo").style.display = "none";
-    preencherConfirmacao();
-    document.getElementById("step-confirmar").style.display = "block";
-  } else {
-    // Sem email — mostrar formulário pré-preenchido
-    const sel = document.getElementById("produto-select");
-    sel.value = produto;
-    // Disparar evento change para acionar atualizarSegmento corretamente
-    sel.dispatchEvent(new Event("change"));
+  if (produto && PLANOS[produto]) {
+    var cfg = PLANOS[produto];
+    // Preencher select
+    document.getElementById("produto-select").value = produto;
+    // Mostrar campo segmento se for Basico
+    if (cfg.plano === "Basico") {
+      document.getElementById("campo-segmento").style.display = "block";
+    }
+    // Preencher email se veio na URL
+    if (emailUrl) {
+      document.getElementById("email-nova").value = emailUrl;
+    }
   }
 });
 
+// Mostrar/ocultar campo segmento ao trocar plano
+document.getElementById("produto-select").addEventListener("change", function() {
+  var val = this.value;
+  var mostrar = val && PLANOS[val] && PLANOS[val].plano === "Basico";
+  document.getElementById("campo-segmento").style.display = mostrar ? "block" : "none";
+  document.getElementById("segmento-select").style.borderColor = "";
+});
+
 function selecionarModo(modo) {
-  modoAtual = modo;
   document.getElementById("tab-nova").classList.toggle("ativo", modo === "nova");
   document.getElementById("tab-recuperar").classList.toggle("ativo", modo === "recuperar");
   document.getElementById("modo-nova").style.display = modo === "nova" ? "block" : "none";
   document.getElementById("modo-recuperar").style.display = modo === "recuperar" ? "block" : "none";
 }
 
-function atualizarSegmento() {
-  const sel = document.getElementById("produto-select").value;
-  const campoSeg = document.getElementById("campo-segmento");
-  if (sel && PLANOS_HOTMART[sel] && PLANOS_HOTMART[sel].plano === "Basico") {
-    campoSeg.style.display = "block";
-  } else {
-    campoSeg.style.display = "none";
-  }
-}
-document.getElementById("produto-select").addEventListener("change", atualizarSegmento);
-
 function mostrarErro(id, msg) {
-  const el = document.getElementById(id);
+  var el = document.getElementById(id);
   el.textContent = msg;
   el.style.display = "block";
 }
-function limparErro(id) {
+function esconderErro(id) {
   document.getElementById(id).style.display = "none";
 }
 
 function irParaConfirmacao() {
-  limparErro("erro-nova");
-  const email = document.getElementById("email-nova").value.trim().toLowerCase();
-  const prodId = document.getElementById("produto-select").value;
-  if (!email || !email.includes("@")) return mostrarErro("erro-nova", "Informe um email válido.");
-  if (!prodId) return mostrarErro("erro-nova", "Selecione o plano adquirido.");
-  const cfg = PLANOS_HOTMART[prodId];
-  let segmento = cfg.segmento || "";
+  esconderErro("erro-nova");
+  var email = document.getElementById("email-nova").value.trim().toLowerCase();
+  var prodId = document.getElementById("produto-select").value;
+
+  if (!email || !email.includes("@") || !email.includes(".")) {
+    return mostrarErro("erro-nova", "Informe um email válido.");
+  }
+  if (!prodId) {
+    return mostrarErro("erro-nova", "Selecione o plano adquirido.");
+  }
+
+  var cfg = PLANOS[prodId];
+  var segmento = cfg.segmento || "";
+
   if (cfg.plano === "Basico") {
     segmento = document.getElementById("segmento-select").value;
     if (!segmento) {
-      mostrarErro("erro-nova", "⚠️ Selecione seu segmento de atuação antes de continuar.");
       document.getElementById("segmento-select").style.borderColor = "#FF5A5A";
-      document.getElementById("campo-segmento").scrollIntoView({behavior:"smooth",block:"center"});
-      return;
+      document.getElementById("campo-segmento").scrollIntoView({behavior:"smooth", block:"center"});
+      return mostrarErro("erro-nova", "⚠️ Selecione seu segmento de atuação.");
     }
     document.getElementById("segmento-select").style.borderColor = "";
   }
-  dadosCompra = { email, produtoId: prodId, plano: cfg.plano, dias: cfg.dias, segmento, nomeP: cfg.nome };
-  preencherConfirmacao();
-  document.getElementById("step-modo").style.display = "none";
-  document.getElementById("step-confirmar").style.display = "block";
-}
 
-function preencherConfirmacao() {
-  document.getElementById("conf-email").textContent = dadosCompra.email;
-  document.getElementById("conf-plano").textContent = dadosCompra.nomeP || dadosCompra.plano;
-  const segRow = document.getElementById("conf-seg-row");
-  if (dadosCompra.segmento && dadosCompra.segmento !== "*") {
-    document.getElementById("conf-segmento").textContent = dadosCompra.segmento;
+  dadosCompra = { email:email, produtoId:prodId, plano:cfg.plano, dias:cfg.dias, segmento:segmento, nomeP:cfg.nome };
+
+  document.getElementById("conf-email").textContent = email;
+  document.getElementById("conf-plano").textContent = cfg.nome;
+  var segRow = document.getElementById("conf-seg-row");
+  if (segmento && segmento !== "*") {
+    document.getElementById("conf-segmento").textContent = segmento;
     segRow.style.display = "flex";
   } else {
     segRow.style.display = "none";
   }
+
+  document.getElementById("step-modo").style.display = "none";
+  document.getElementById("step-confirmar").style.display = "block";
 }
 
-async function gerarChave() {
-  limparErro("erro-confirmar");
+function gerarChave() {
+  esconderErro("erro-confirmar");
   document.getElementById("btn-gerar").disabled = true;
   document.getElementById("loading-gerar").style.display = "flex";
-  try {
-    const params = new URLSearchParams({
-      acao: "gerar_web",
-      email: dadosCompra.email,
-      plano: dadosCompra.plano,
-      dias: dadosCompra.dias,
-      segmentos: dadosCompra.segmento,
-      produto: dadosCompra.produtoId
-    });
-    const resp = await fetch(APPS_SCRIPT_URL + "?" + params.toString());
-    const data = await resp.json();
-    document.getElementById("loading-gerar").style.display = "none";
-    if (data.ok) {
-      document.getElementById("step-confirmar").style.display = "none";
-      document.getElementById("email-conf").textContent = dadosCompra.email;
-      if (data.chave) {
-        document.getElementById("chave-display").textContent = data.chave;
-        document.getElementById("chave-box").style.display = "block";
+
+  var params = new URLSearchParams({
+    acao: "gerar_web",
+    email: dadosCompra.email,
+    plano: dadosCompra.plano,
+    dias: dadosCompra.dias,
+    segmentos: dadosCompra.segmento,
+    produto: dadosCompra.produtoId
+  });
+
+  fetch(APPS_SCRIPT_URL + "?" + params.toString())
+    .then(function(r){ return r.json(); })
+    .then(function(data) {
+      document.getElementById("loading-gerar").style.display = "none";
+      if (data.ok) {
+        document.getElementById("step-confirmar").style.display = "none";
+        document.getElementById("email-conf").textContent = dadosCompra.email;
+        if (data.chave) {
+          document.getElementById("chave-display").textContent = data.chave;
+          document.getElementById("chave-box").style.display = "block";
+        }
+        if (data.avisoEmail) {
+          var av = document.getElementById("aviso-email");
+          av.textContent = data.avisoEmail;
+          av.style.display = "block";
+        }
+        document.getElementById("step-sucesso").style.display = "block";
+      } else {
+        mostrarErro("erro-confirmar", data.motivo || "Erro ao gerar chave. Contate o suporte.");
+        document.getElementById("btn-gerar").disabled = false;
       }
-      if (data.avisoEmail) {
-        const av = document.getElementById("aviso-email");
-        av.textContent = data.avisoEmail;
-        av.style.display = "block";
-      }
-      document.getElementById("step-sucesso").style.display = "block";
-    } else {
-      mostrarErro("erro-confirmar", data.motivo || "Erro ao gerar chave. Contate o suporte.");
+    })
+    .catch(function() {
+      document.getElementById("loading-gerar").style.display = "none";
+      mostrarErro("erro-confirmar", "Erro de conexão. Verifique sua internet e tente novamente.");
       document.getElementById("btn-gerar").disabled = false;
-    }
-  } catch(e) {
-    document.getElementById("loading-gerar").style.display = "none";
-    mostrarErro("erro-confirmar", "Erro de conexão. Verifique sua internet e tente novamente.");
-    document.getElementById("btn-gerar").disabled = false;
-  }
+    });
 }
 
-async function recuperarChave() {
-  limparErro("erro-recuperar");
-  const email = document.getElementById("email-recuperar").value.trim().toLowerCase();
-  if (!email || !email.includes("@")) return mostrarErro("erro-recuperar", "Informe um email válido.");
+function recuperarChave() {
+  esconderErro("erro-recuperar");
+  var email = document.getElementById("email-recuperar").value.trim().toLowerCase();
+  if (!email || !email.includes("@")) {
+    return mostrarErro("erro-recuperar", "Informe um email válido.");
+  }
   document.getElementById("loading-recuperar").style.display = "flex";
-  try {
-    const params = new URLSearchParams({ acao: "recuperar", email });
-    const resp = await fetch(APPS_SCRIPT_URL + "?" + params.toString());
-    const data = await resp.json();
-    document.getElementById("loading-recuperar").style.display = "none";
-    if (data.ok) {
-      document.getElementById("step-modo").style.display = "none";
-      document.getElementById("email-rec-conf").textContent = email;
-      if (data.chave) {
-        document.getElementById("chave-rec-display").textContent = data.chave;
-        document.getElementById("chave-rec-box").style.display = "block";
+
+  fetch(APPS_SCRIPT_URL + "?" + new URLSearchParams({ acao:"recuperar", email:email }))
+    .then(function(r){ return r.json(); })
+    .then(function(data) {
+      document.getElementById("loading-recuperar").style.display = "none";
+      if (data.ok) {
+        document.getElementById("step-modo").style.display = "none";
+        document.getElementById("email-rec-conf").textContent = email;
+        if (data.chave) {
+          document.getElementById("chave-rec-display").textContent = data.chave;
+          document.getElementById("chave-rec-box").style.display = "block";
+        }
+        document.getElementById("step-recuperar-sucesso").style.display = "block";
+      } else {
+        mostrarErro("erro-recuperar", data.motivo || "Nenhuma chave encontrada para esse email.");
       }
-      document.getElementById("step-recuperar-sucesso").style.display = "block";
-    } else {
-      mostrarErro("erro-recuperar", data.motivo || "Nenhum
+    })
+    .catch(function() {
+      document.getElementById("loading-recuperar").style.display = "none";
+      mostrarErro("erro-recuperar", "Erro de conexão. Tente novamente.");
+    });
+}
+</script>
+</body>
+</html>
