@@ -79,8 +79,6 @@
         <button class="modo-tab ativo" id="tab-nova" onclick="selecionarModo('nova')">Nova compra</button>
         <button class="modo-tab" id="tab-recuperar" onclick="selecionarModo('recuperar')">Recuperar chave</button>
       </div>
-
-      <!-- Nova compra -->
       <div id="modo-nova">
         <div class="field">
           <label>Email usado na compra</label>
@@ -90,10 +88,10 @@
           <label>Plano adquirido</label>
           <select id="produto-select">
             <option value="">Selecione...</option>
-            <option value="7318490">Básico Mensal — R$29,90/mês</option>
-            <option value="7316135">Básico Anual — R$299,90/ano</option>
-            <option value="7318600">Completo Mensal — R$49,90/mês</option>
-            <option value="7316169">Completo Anual — R$499,90/ano</option>
+            <option value="7318490">Básico Mensal</option>
+            <option value="7316135">Básico Anual</option>
+            <option value="7318600">Completo Mensal</option>
+            <option value="7316169">Completo Anual</option>
           </select>
         </div>
         <div id="campo-segmento" class="seg-destaque" style="display:none;">
@@ -117,8 +115,6 @@
         <div class="erro-box" id="erro-nova"></div>
         <button class="btn" id="btn-continuar" onclick="irParaConfirmacao()">Continuar →</button>
       </div>
-
-      <!-- Recuperar -->
       <div id="modo-recuperar" style="display:none;">
         <div class="field">
           <label>Email usado na compra</label>
@@ -163,7 +159,7 @@
       <button class="btn" id="btn-gerar" onclick="gerarChave()">Gerar minha chave de acesso</button>
     </div>
 
-    <!-- STEP 3 sucesso -->
+    <!-- STEP 3 -->
     <div id="step-sucesso" style="display:none;">
       <div class="steps">
         <div class="step-bar ativo"></div>
@@ -184,7 +180,7 @@
         <strong>Como ativar:</strong><br>
         1. Baixe e extraia o arquivo .zip<br>
         2. Execute o <strong>QLicitacoes.exe</strong><br>
-        3. Se o Windows alertar → "Mais informações" → "Executar assim mesmo"<br>
+        3. Se o Windows alertar: "Mais informações" e depois "Executar assim mesmo"<br>
         4. Insira a chave acima e configure sua empresa
       </div>
     </div>
@@ -212,55 +208,48 @@
 </main>
 
 <footer>
-  <a href="/">QLicitações</a> &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a9dadcd9c6dbddcce9d8c5c0cac0ddc8cac6ccda87cac6c487cbdb">[email&#160;protected]</a>
+  <a href="/">QLicitações</a> &nbsp;·&nbsp; suporte@qlicitacoes.com.br
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0l_8SucreoK86Sn3nZ3rqrJuVVJMCTHEzMnL4tQjN3QFq8i8SWYdUk5SLyOSAVd3v/exec";
+<script>
+var APPS_URL = "https://script.google.com/macros/s/AKfycbx0l_8SucreoK86Sn3nZ3rqrJuVVJMCTHEzMnL4tQjN3QFq8i8SWYdUk5SLyOSAVd3v/exec";
 
-const PLANOS = {
-  "7318490": { plano:"Basico",   dias:30,  nome:"Básico Mensal"    },
-  "7316135": { plano:"Basico",   dias:365, nome:"Básico Anual"     },
+var PLANOS = {
+  "7318490": { plano:"Basico",   dias:30,  nome:"Basico Mensal"    },
+  "7316135": { plano:"Basico",   dias:365, nome:"Basico Anual"     },
   "7318600": { plano:"Completo", dias:30,  nome:"Completo Mensal", segmento:"*" },
   "7316169": { plano:"Completo", dias:365, nome:"Completo Anual",  segmento:"*" }
 };
 
 var dadosCompra = {};
 
-// Inicializar com parâmetros da URL
-document.addEventListener("DOMContentLoaded", function() {
-  var params = new URLSearchParams(window.location.search);
-  var produto = params.get("produto");
-  var emailUrl = params.get("email") || "";
-
-  if (produto && PLANOS[produto]) {
-    var cfg = PLANOS[produto];
-    // Preencher select
-    document.getElementById("produto-select").value = produto;
-    // Mostrar campo segmento se for Basico
-    if (cfg.plano === "Basico") {
-      document.getElementById("campo-segmento").style.display = "block";
-    }
-    // Preencher email se veio na URL
-    if (emailUrl) {
-      document.getElementById("email-nova").value = emailUrl;
-    }
-  }
-});
-
-// Mostrar/ocultar campo segmento ao trocar plano
 document.getElementById("produto-select").addEventListener("change", function() {
   var val = this.value;
-  var mostrar = val && PLANOS[val] && PLANOS[val].plano === "Basico";
-  document.getElementById("campo-segmento").style.display = mostrar ? "block" : "none";
+  var isBasico = val && PLANOS[val] && PLANOS[val].plano === "Basico";
+  document.getElementById("campo-segmento").style.display = isBasico ? "block" : "none";
   document.getElementById("segmento-select").style.borderColor = "";
 });
 
+window.onload = function() {
+  var p = new URLSearchParams(window.location.search);
+  var prod = p.get("produto");
+  var eml = p.get("email") || "";
+  if (!prod || !PLANOS[prod]) return;
+  document.getElementById("produto-select").value = prod;
+  if (PLANOS[prod].plano === "Basico") {
+    document.getElementById("campo-segmento").style.display = "block";
+  }
+  if (eml) {
+    document.getElementById("email-nova").value = eml;
+  }
+};
+
 function selecionarModo(modo) {
-  document.getElementById("tab-nova").classList.toggle("ativo", modo === "nova");
-  document.getElementById("tab-recuperar").classList.toggle("ativo", modo === "recuperar");
-  document.getElementById("modo-nova").style.display = modo === "nova" ? "block" : "none";
-  document.getElementById("modo-recuperar").style.display = modo === "recuperar" ? "block" : "none";
+  var nova = modo === "nova";
+  document.getElementById("tab-nova").className = "modo-tab" + (nova ? " ativo" : "");
+  document.getElementById("tab-recuperar").className = "modo-tab" + (!nova ? " ativo" : "");
+  document.getElementById("modo-nova").style.display = nova ? "block" : "none";
+  document.getElementById("modo-recuperar").style.display = nova ? "none" : "block";
 }
 
 function mostrarErro(id, msg) {
@@ -268,6 +257,7 @@ function mostrarErro(id, msg) {
   el.textContent = msg;
   el.style.display = "block";
 }
+
 function esconderErro(id) {
   document.getElementById(id).style.display = "none";
 }
@@ -277,11 +267,13 @@ function irParaConfirmacao() {
   var email = document.getElementById("email-nova").value.trim().toLowerCase();
   var prodId = document.getElementById("produto-select").value;
 
-  if (!email || !email.includes("@") || !email.includes(".")) {
-    return mostrarErro("erro-nova", "Informe um email válido.");
+  if (!email || email.indexOf("@") < 0) {
+    mostrarErro("erro-nova", "Informe um email valido.");
+    return;
   }
   if (!prodId) {
-    return mostrarErro("erro-nova", "Selecione o plano adquirido.");
+    mostrarErro("erro-nova", "Selecione o plano adquirido.");
+    return;
   }
 
   var cfg = PLANOS[prodId];
@@ -292,7 +284,8 @@ function irParaConfirmacao() {
     if (!segmento) {
       document.getElementById("segmento-select").style.borderColor = "#FF5A5A";
       document.getElementById("campo-segmento").scrollIntoView({behavior:"smooth", block:"center"});
-      return mostrarErro("erro-nova", "⚠️ Selecione seu segmento de atuação.");
+      mostrarErro("erro-nova", "Selecione seu segmento de atuacao.");
+      return;
     }
     document.getElementById("segmento-select").style.borderColor = "";
   }
@@ -301,6 +294,7 @@ function irParaConfirmacao() {
 
   document.getElementById("conf-email").textContent = email;
   document.getElementById("conf-plano").textContent = cfg.nome;
+
   var segRow = document.getElementById("conf-seg-row");
   if (segmento && segmento !== "*") {
     document.getElementById("conf-segmento").textContent = segmento;
@@ -318,17 +312,15 @@ function gerarChave() {
   document.getElementById("btn-gerar").disabled = true;
   document.getElementById("loading-gerar").style.display = "flex";
 
-  var params = new URLSearchParams({
-    acao: "gerar_web",
-    email: dadosCompra.email,
-    plano: dadosCompra.plano,
-    dias: dadosCompra.dias,
-    segmentos: dadosCompra.segmento,
-    produto: dadosCompra.produtoId
-  });
+  var url = APPS_URL + "?acao=gerar_web"
+    + "&email=" + encodeURIComponent(dadosCompra.email)
+    + "&plano=" + encodeURIComponent(dadosCompra.plano)
+    + "&dias=" + encodeURIComponent(dadosCompra.dias)
+    + "&segmentos=" + encodeURIComponent(dadosCompra.segmento)
+    + "&produto=" + encodeURIComponent(dadosCompra.produtoId);
 
-  fetch(APPS_SCRIPT_URL + "?" + params.toString())
-    .then(function(r){ return r.json(); })
+  fetch(url)
+    .then(function(r) { return r.json(); })
     .then(function(data) {
       document.getElementById("loading-gerar").style.display = "none";
       if (data.ok) {
@@ -351,7 +343,7 @@ function gerarChave() {
     })
     .catch(function() {
       document.getElementById("loading-gerar").style.display = "none";
-      mostrarErro("erro-confirmar", "Erro de conexão. Verifique sua internet e tente novamente.");
+      mostrarErro("erro-confirmar", "Erro de conexao. Verifique sua internet e tente novamente.");
       document.getElementById("btn-gerar").disabled = false;
     });
 }
@@ -359,13 +351,16 @@ function gerarChave() {
 function recuperarChave() {
   esconderErro("erro-recuperar");
   var email = document.getElementById("email-recuperar").value.trim().toLowerCase();
-  if (!email || !email.includes("@")) {
-    return mostrarErro("erro-recuperar", "Informe um email válido.");
+  if (!email || email.indexOf("@") < 0) {
+    mostrarErro("erro-recuperar", "Informe um email valido.");
+    return;
   }
   document.getElementById("loading-recuperar").style.display = "flex";
 
-  fetch(APPS_SCRIPT_URL + "?" + new URLSearchParams({ acao:"recuperar", email:email }))
-    .then(function(r){ return r.json(); })
+  var url = APPS_URL + "?acao=recuperar&email=" + encodeURIComponent(email);
+
+  fetch(url)
+    .then(function(r) { return r.json(); })
     .then(function(data) {
       document.getElementById("loading-recuperar").style.display = "none";
       if (data.ok) {
@@ -377,4 +372,14 @@ function recuperarChave() {
         }
         document.getElementById("step-recuperar-sucesso").style.display = "block";
       } else {
-        mostrarErro("erro-recuperar", data.motivo || "Nenhuma chave encontrada para ess
+        mostrarErro("erro-recuperar", data.motivo || "Nenhuma chave encontrada para esse email.");
+      }
+    })
+    .catch(function() {
+      document.getElementById("loading-recuperar").style.display = "none";
+      mostrarErro("erro-recuperar", "Erro de conexao. Tente novamente.");
+    });
+}
+</script>
+</body>
+</html>
