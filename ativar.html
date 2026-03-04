@@ -240,36 +240,28 @@ let dadosCompra = {};
 let modoAtual = "nova";
 
 // Verificar parâmetros da URL (acesso via Hotmart)
-(function() {
+window.addEventListener("load", function() {
   const p = new URLSearchParams(window.location.search);
   const produto = p.get("produto");
-  const email = p.get("email");
-  if (produto && PLANOS_HOTMART[produto]) {
-    const cfg = PLANOS_HOTMART[produto];
-    dadosCompra = { email: email || "", produtoId: produto, plano: cfg.plano, dias: cfg.dias, segmento: cfg.segmento || "", nomeP: cfg.nome };
-    if (email) {
-      document.getElementById("step-modo").style.display = "none";
-      preencherConfirmacao();
-      document.getElementById("step-confirmar").style.display = "block";
-    } else {
-      // Pre-preencher email e plano vindos da URL
-      if (email) document.getElementById("email-nova").value = email;
-      document.getElementById("produto-select").value = produto;
-      // Forçar exibição do campo segmento se for plano Basico
-      const isBasico = cfg.plano === "Basico";
-      const campoSeg = document.getElementById("campo-segmento");
-      campoSeg.style.display = isBasico ? "block" : "none";
-      // Destacar segmento para o cliente não perder
-      if (isBasico) {
-        campoSeg.style.border = "1px solid rgba(240,165,0,0.4)";
-        campoSeg.style.borderRadius = "8px";
-        campoSeg.style.padding = "12px";
-        campoSeg.style.background = "rgba(240,165,0,0.05)";
-        campoSeg.style.marginBottom = "16px";
-      }
-    }
+  const emailUrl = p.get("email");
+  if (!produto || !PLANOS_HOTMART[produto]) return;
+
+  const cfg = PLANOS_HOTMART[produto];
+  dadosCompra = { email: emailUrl || "", produtoId: produto, plano: cfg.plano, dias: cfg.dias, segmento: cfg.segmento || "", nomeP: cfg.nome };
+
+  if (emailUrl) {
+    // Veio com email — pular direto para confirmação
+    document.getElementById("step-modo").style.display = "none";
+    preencherConfirmacao();
+    document.getElementById("step-confirmar").style.display = "block";
+  } else {
+    // Sem email — mostrar formulário pré-preenchido
+    const sel = document.getElementById("produto-select");
+    sel.value = produto;
+    // Disparar evento change para acionar atualizarSegmento corretamente
+    sel.dispatchEvent(new Event("change"));
   }
-})();
+});
 
 function selecionarModo(modo) {
   modoAtual = modo;
