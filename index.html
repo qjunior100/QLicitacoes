@@ -904,7 +904,7 @@
           <li>Agendamento diário</li>
           <li>Suporte por email</li>
         </ul>
-        <a id="link-basico" href="https://pay.hotmart.com/A104736102I" style="display:block;text-align:center;padding:16px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;text-decoration:none;margin-top:16px;background:transparent;color:#F0F4FA;border:2px solid rgba(240,240,255,0.5);position:relative;z-index:2;">Assinar Básico →</a>
+        <a id="link-basico" href="https://pay.hotmart.com/A104736102I" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;padding:16px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;text-decoration:none;margin-top:16px;background:transparent;color:#F0F4FA;border:2px solid rgba(240,240,255,0.5);position:relative;z-index:2;">Assinar Básico →</a>
       </div>
 
       <div class="plano-card destaque reveal">
@@ -922,7 +922,7 @@
           <li>Agendamento diário</li>
           <li>Prioridade no suporte</li>
         </ul>
-        <a id="link-completo" href="https://pay.hotmart.com/H104736327R" style="display:block;text-align:center;padding:16px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;text-decoration:none;margin-top:16px;background:#F0A500;color:#0D1F3C;position:relative;z-index:2;">Assinar Completo →</a>
+        <a id="link-completo" href="https://pay.hotmart.com/H104736327R" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;padding:16px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;text-decoration:none;margin-top:16px;background:#F0A500;color:#0D1F3C;position:relative;z-index:2;">Assinar Completo →</a>
       </div>
 
     </div>
@@ -1125,7 +1125,9 @@ function togglePlanos() {
   var k = isAnual ? 'ano' : 'mes';
   document.getElementById('preco-basico').innerHTML = dadosP.basico[k].p;
   document.getElementById('sub-basico').textContent = dadosP.basico[k].s;
-  document.getElementById('link-basico').href = dadosP.basico[k].l;
+  document.getElementById('link-basico').href   = dadosP.basico[k].l;
+  document.getElementById('link-basico').target  = '_blank';
+  document.getElementById('link-completo').target = '_blank';
   document.getElementById('preco-completo').innerHTML = dadosP.completo[k].p;
   document.getElementById('sub-completo').textContent = dadosP.completo[k].s;
   document.getElementById('link-completo').href = dadosP.completo[k].l;
