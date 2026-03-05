@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ativar Licença — QLicitações</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root{--azul:#0D1F3C;--gold:#F0A500;--gold2:#FFB830;--branco:#F0F4FA;--cinza:#8A9BBE;--borda:rgba(240,165,0,0.15);--card-bg:rgba(255,255,255,0.04);--erro:#FF5A5A;}
     *{margin:0;padding:0;box-sizing:border-box;}
-    body{background:var(--azul);color:var(--branco);font-family:"DM Sans",sans-serif;min-height:100vh;display:flex;flex-direction:column;}
+    body{background:var(--azul);color:var(--branco);font-family:"Inter",sans-serif;min-height:100vh;display:flex;flex-direction:column;}
     nav{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;border-bottom:1px solid var(--borda);}
-    .nav-logo{font-family:"Syne",sans-serif;font-weight:800;font-size:1.4rem;color:var(--gold);text-decoration:none;}
+    .nav-logo{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:1.4rem;color:var(--gold);text-decoration:none;}
     .nav-back{color:var(--cinza);text-decoration:none;font-size:.9rem;}
     .nav-back:hover{color:var(--branco);}
     main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
@@ -20,14 +20,14 @@
     .step-bar{height:3px;flex:1;border-radius:99px;background:rgba(240,165,0,0.15);transition:background .3s;}
     .step-bar.ativo{background:var(--gold);}
     .step-label{font-size:.72rem;color:var(--gold);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
-    h2{font-family:"Syne",sans-serif;font-size:1.9rem;font-weight:800;margin-bottom:10px;line-height:1.15;}
+    h2{font-family:"Plus Jakarta Sans",sans-serif;font-size:1.9rem;font-weight:800;margin-bottom:10px;line-height:1.15;}
     .sub{color:var(--cinza);font-size:.92rem;font-weight:300;line-height:1.6;margin-bottom:28px;}
     .field{margin-bottom:16px;}
     .field label{display:block;font-size:.82rem;color:var(--cinza);margin-bottom:7px;font-weight:500;}
-    .field input,.field select{width:100%;padding:13px 16px;background:rgba(255,255,255,0.05);border:1px solid var(--borda);border-radius:8px;color:var(--branco);font-family:"DM Sans",sans-serif;font-size:.95rem;outline:none;transition:border-color .2s;}
+    .field input,.field select{width:100%;padding:13px 16px;background:rgba(255,255,255,0.05);border:1px solid var(--borda);border-radius:8px;color:var(--branco);font-family:"Inter",sans-serif;font-size:.95rem;outline:none;transition:border-color .2s;}
     .field input:focus,.field select:focus{border-color:var(--gold);}
     .field select option{background:#0D1F3C;}
-    .btn{width:100%;padding:15px;background:var(--gold);color:var(--azul);font-family:"Syne",sans-serif;font-weight:700;font-size:1rem;border:none;border-radius:8px;cursor:pointer;transition:background .2s;margin-top:8px;}
+    .btn{width:100%;padding:15px;background:var(--gold);color:var(--azul);font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:1rem;border:none;border-radius:8px;cursor:pointer;transition:background .2s;margin-top:8px;}
     .btn:hover{background:var(--gold2);}
     .btn:disabled{opacity:.5;cursor:not-allowed;}
     .confirm-box{background:rgba(255,255,255,0.03);border:1px solid var(--borda);border-radius:12px;padding:20px 24px;margin-bottom:24px;}
@@ -41,9 +41,9 @@
     .chave-val{font-family:monospace;font-size:1.3rem;color:var(--gold);letter-spacing:3px;word-break:break-all;font-weight:700;}
     .chave-hint{font-size:.75rem;color:var(--cinza);margin-top:10px;}
     .sucesso-icon{width:64px;height:64px;background:rgba(240,165,0,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 20px;}
-    .sucesso-title{font-family:"Syne",sans-serif;font-size:1.6rem;font-weight:800;text-align:center;margin-bottom:10px;}
+    .sucesso-title{font-family:"Plus Jakarta Sans",sans-serif;font-size:1.6rem;font-weight:800;text-align:center;margin-bottom:10px;}
     .sucesso-sub{color:var(--cinza);font-size:.9rem;text-align:center;line-height:1.6;margin-bottom:24px;}
-    .download-btn{display:block;text-align:center;padding:15px;background:var(--gold);color:var(--azul);font-family:"Syne",sans-serif;font-weight:700;font-size:1rem;border-radius:8px;text-decoration:none;transition:background .2s;margin-bottom:20px;}
+    .download-btn{display:block;text-align:center;padding:15px;background:var(--gold);color:var(--azul);font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:1rem;border-radius:8px;text-decoration:none;transition:background .2s;margin-bottom:20px;}
     .download-btn:hover{background:var(--gold2);}
     .info-box{background:rgba(255,255,255,0.03);border:1px solid var(--borda);border-radius:10px;padding:18px 20px;font-size:.83rem;color:var(--cinza);line-height:1.8;}
     .info-box strong{color:var(--branco);}
@@ -53,7 +53,7 @@
     .spinner{width:20px;height:20px;border:2px solid var(--borda);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;}
     @keyframes spin{to{transform:rotate(360deg);}}
     .modo-tabs{display:flex;gap:8px;margin-bottom:28px;}
-    .modo-tab{flex:1;padding:10px;border:1px solid var(--borda);border-radius:8px;background:transparent;color:var(--cinza);font-family:"DM Sans",sans-serif;font-size:.88rem;cursor:pointer;transition:all .2s;text-align:center;}
+    .modo-tab{flex:1;padding:10px;border:1px solid var(--borda);border-radius:8px;background:transparent;color:var(--cinza);font-family:"Inter",sans-serif;font-size:.88rem;cursor:pointer;transition:all .2s;text-align:center;}
     .modo-tab.ativo{border-color:var(--gold);color:var(--gold);background:rgba(240,165,0,0.08);}
     .seg-destaque{background:rgba(240,165,0,0.06);border:1px solid rgba(240,165,0,0.25);border-radius:10px;padding:14px;margin-bottom:16px;}
     footer{text-align:center;padding:24px;border-top:1px solid var(--borda);color:var(--cinza);font-size:.82rem;}

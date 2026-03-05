@@ -7,7 +7,7 @@
   <meta name="description" content="Monitore licitações públicas automaticamente. O QLicitações rastreia o PNCP todos os dias e entrega as melhores oportunidades para o seu negócio.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -26,7 +26,7 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Inter', sans-serif;
       background: var(--azul);
       color: var(--branco);
       overflow-x: hidden;
@@ -59,7 +59,7 @@
     }
 
     .nav-logo {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1.4rem;
       font-weight: 800;
       color: var(--gold);
@@ -129,7 +129,7 @@
       transform: translateX(-50%);
       width: 800px;
       height: 800px;
-      background: radial-gradient(circle, rgba(240,165,0,0.12) 0%, transparent 610%);
+      background: radial-gradient(circle, rgba(240,165,0,0.14) 0%, rgba(240,165,0,0.04) 40%, transparent 70%);
       pointer-events: none;
     }
 
@@ -175,12 +175,12 @@
     }
 
     .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(2.6rem, 6vw, 4.4rem);
       font-weight: 800;
-      line-height: 1.1;
+      line-height: 1.08;
       margin-bottom: 24px;
-      letter-spacing: -1px;
+      letter-spacing: -2px;
     }
 
     .hero h1 em {
@@ -207,7 +207,7 @@
     .btn-primary {
       background: var(--gold);
       color: var(--azul);
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 700;
       font-size: 1rem;
       padding: 16px 36px;
@@ -253,7 +253,7 @@
     .stat-item { text-align: center; }
 
     .stat-num {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 2rem;
       font-weight: 800;
       color: var(--gold);
@@ -287,12 +287,12 @@
     }
 
     .section-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
       font-weight: 800;
-      line-height: 1.15;
+      line-height: 1.1;
       margin-bottom: 16px;
-      letter-spacing: -0.5px;
+      letter-spacing: -1.5px;
     }
 
     .section-sub {
@@ -324,7 +324,7 @@
     .step:hover { background: #162540; }
 
     .step-num {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 3.5rem;
       font-weight: 800;
       color: rgba(240,165,0,0.12);
@@ -338,7 +338,7 @@
     }
 
     .step h3 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1.05rem;
       font-weight: 700;
       margin-bottom: 10px;
@@ -378,6 +378,7 @@
     .feature-card:hover {
       border-color: rgba(240,165,0,0.4);
       transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(240,165,0,0.07);
     }
 
     .feature-icon {
@@ -392,7 +393,7 @@
     }
 
     .feature-card h3 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1rem;
       font-weight: 700;
       margin-bottom: 10px;
@@ -421,12 +422,24 @@
       border-radius: 16px;
       padding: 40px 36px;
       position: relative;
-      transition: border-color .2s;
+      transition: border-color .3s, box-shadow .3s, transform .3s;
+    }
+
+    .plano-card:hover {
+      border-color: rgba(240,165,0,0.35);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+      transform: translateY(-3px);
     }
 
     .plano-card.destaque {
       border-color: var(--gold);
-      background: linear-gradient(135deg, #162540 0%, #111E35 100%);
+      background: linear-gradient(145deg, #162845 0%, #111E35 60%, #13233f 100%);
+      box-shadow: 0 0 0 1px rgba(240,165,0,0.15), 0 12px 48px rgba(240,165,0,0.08);
+    }
+
+    .plano-card.destaque:hover {
+      box-shadow: 0 0 0 1px rgba(240,165,0,0.4), 0 16px 56px rgba(240,165,0,0.14);
+      transform: translateY(-5px);
     }
 
     .plano-badge {
@@ -435,7 +448,7 @@
       transform: translateX(-50%);
       background: var(--gold);
       color: var(--azul);
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: .72rem;
       font-weight: 700;
       padding: 5px 18px;
@@ -446,7 +459,7 @@
     }
 
     .plano-nome {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1.1rem;
       font-weight: 700;
       color: var(--cinza);
@@ -456,7 +469,7 @@
     }
 
     .plano-preco {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 3rem;
       font-weight: 800;
       color: var(--branco);
@@ -516,7 +529,7 @@
       text-align: center;
       padding: 16px;
       border-radius: 8px;
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 700;
       font-size: .95rem;
       text-decoration: none;
@@ -599,7 +612,7 @@
     }
 
     .afil-val {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 2rem;
       font-weight: 800;
       color: var(--gold);
@@ -622,7 +635,7 @@
     }
 
     .faq-pergunta {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1rem;
       font-weight: 700;
       cursor: pointer;
@@ -683,7 +696,7 @@
     }
 
     .footer-logo {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1.3rem;
       font-weight: 800;
       color: var(--gold);
@@ -731,7 +744,8 @@
     <li><a href="#segmentos">Segmentos</a></li>
     <li><a href="#afiliados">Afiliados</a></li>
     <li><a href="#contato">Contato</a></li>
-    <li><a href="/ativar" class="nav-ativar">Ativar / Download</a></li>
+    <li><a href="/instrucoes">Como usar</a></li>
+      <li><a href="/ativar" class="nav-ativar">Ativar / Download</a></li>
     <li><a href="#planos" class="nav-cta">Começar agora</a></li>
   </ul>
 </nav>
@@ -872,47 +886,44 @@
 <section id="planos">
   <div class="container">
     <div class="section-tag">Preços</div>
-    <h2 class="section-title">Escolha o plano<br>ideal para você</h2>
-    <p class="section-sub">Sem contrato de fidelidade. Cancele quando quiser.</p>
+    <h2 class="section-title">Um plano. Acesso completo.</h2>
+    <p class="section-sub">Escolha pagar mês a mês ou economize com o anual. Sem contrato de fidelidade.</p>
 
-    <!-- Toggle Mensal / Anual -->
-    <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:48px;">
-      <span id="label-mensal" style="font-size:.95rem;font-weight:600;color:var(--gold);">Mensal</span>
-      <div onclick="togglePlanos()" id="toggle-wrap"
-        style="width:56px;height:28px;background:rgba(240,165,0,0.2);border:1px solid var(--gold);border-radius:99px;cursor:pointer;position:relative;transition:background .3s;z-index:10;">
-        <div id="toggle-ball"
-          style="width:22px;height:22px;background:var(--gold);border-radius:50%;position:absolute;top:2px;left:2px;transition:left .3s;"></div>
-      </div>
-      <span id="label-anual" style="font-size:.95rem;font-weight:500;color:var(--cinza);">
-        Anual <span style="background:rgba(240,165,0,0.15);color:var(--gold);font-size:.75rem;padding:2px 8px;border-radius:99px;margin-left:4px;">até 17% off</span>
-      </span>
-    </div>
+    <div class="planos-grid" style="position:relative;z-index:2;max-width:860px;margin:0 auto;">
 
-    <div class="planos-grid" style="position:relative;z-index:2;">
-
+      <!-- Mensal -->
       <div class="plano-card reveal">
-        <div class="plano-nome">Básico</div>
-        <div class="plano-preco" id="preco-basico">R$29<span>,90/mês</span></div>
-        <div class="plano-anual" id="sub-basico">Faturado mensalmente</div>
-        <div class="plano-desc">Monitoramento de licitações para um segmento específico do seu ramo de atuação.</div>
+        <div class="plano-nome">Completo Mensal</div>
+        <div class="plano-preco">R$39<span>,90/mês</span></div>
+        <div class="plano-anual">Faturado mensalmente</div>
+        <div class="plano-desc">Acesso a todos os segmentos e funcionalidades. Cancele quando quiser.</div>
         <ul class="plano-lista">
-          <li>1 segmento de atuação</li>
+          <li>Todos os 10 segmentos</li>
           <li>Todos os 27 estados</li>
-          <li>Palavras-chave personalizadas</li>
+          <li>Palavras-chave ilimitadas</li>
           <li>Relatório Excel automático</li>
           <li>Envio por email</li>
           <li>Agendamento diário</li>
           <li>Suporte por email</li>
         </ul>
-        <a id="link-basico" href="https://pay.hotmart.com/A104736102I" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;padding:16px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;text-decoration:none;margin-top:16px;background:transparent;color:#F0F4FA;border:2px solid rgba(240,240,255,0.5);position:relative;z-index:2;">Assinar Básico →</a>
+        <a href="https://pay.hotmart.com/H104736327R" target="_blank" rel="noopener noreferrer"
+          style="display:block;text-align:center;padding:16px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.95rem;text-decoration:none;margin-top:24px;background:transparent;color:#F0F4FA;border:2px solid rgba(240,240,255,0.25);position:relative;z-index:2;transition:border-color .2s,background .2s;"
+          onmouseover="this.style.borderColor='rgba(240,165,0,0.5)';this.style.background='rgba(240,165,0,0.06)'"
+          onmouseout="this.style.borderColor='rgba(240,240,255,0.25)';this.style.background='transparent'">
+          Assinar Mensal →
+        </a>
       </div>
 
+      <!-- Anual -->
       <div class="plano-card destaque reveal">
-        <div class="plano-badge">⭐ MAIS POPULAR</div>
-        <div class="plano-nome">Completo</div>
-        <div class="plano-preco" id="preco-completo">R$49<span>,90/mês</span></div>
-        <div class="plano-anual" id="sub-completo">Faturado mensalmente</div>
-        <div class="plano-desc">Acesso total a todos os segmentos. Ideal para empresas que atuam em múltiplas frentes.</div>
+        <div class="plano-badge">💰 MELHOR VALOR</div>
+        <div class="plano-nome">Completo Anual</div>
+        <div class="plano-preco">R$399<span>,90/ano</span></div>
+        <div class="plano-anual" style="display:flex;align-items:center;gap:8px;">
+          Equivale a R$33,32/mês
+          <span style="background:rgba(240,165,0,0.15);color:var(--gold);font-size:.72rem;padding:2px 8px;border-radius:99px;font-weight:600;">2 meses grátis</span>
+        </div>
+        <div class="plano-desc">Tudo do plano mensal com desconto anual. Ideal para quem usa o QLicitações como ferramenta de trabalho.</div>
         <ul class="plano-lista">
           <li class="destaque-item">Todos os 10 segmentos</li>
           <li class="destaque-item">Todos os 27 estados</li>
@@ -922,7 +933,12 @@
           <li>Agendamento diário</li>
           <li>Prioridade no suporte</li>
         </ul>
-        <a id="link-completo" href="https://pay.hotmart.com/H104736327R" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;padding:16px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;text-decoration:none;margin-top:16px;background:#F0A500;color:#0D1F3C;position:relative;z-index:2;">Assinar Completo →</a>
+        <a href="https://pay.hotmart.com/H104736327R" target="_blank" rel="noopener noreferrer"
+          style="display:block;text-align:center;padding:16px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.95rem;text-decoration:none;margin-top:24px;background:var(--gold);color:var(--azul);position:relative;z-index:2;transition:background .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(240,165,0,0.3);"
+          onmouseover="this.style.background='#FFB830';this.style.boxShadow='0 6px 28px rgba(240,165,0,0.45)'"
+          onmouseout="this.style.background='#F0A500';this.style.boxShadow='0 4px 20px rgba(240,165,0,0.3)'">
+          Assinar Anual →
+        </a>
       </div>
 
     </div>
@@ -1017,15 +1033,15 @@
           <p style="display:none;"><input name="bot-field"></p>
           <div style="margin-bottom:18px;">
             <label style="display:block;font-size:.82rem;font-weight:500;color:var(--cinza);margin-bottom:8px;">Nome *</label>
-            <input type="text" name="nome" required placeholder="Seu nome" style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(240,165,0,0.2);border-radius:8px;padding:13px 16px;color:var(--branco);font-family:'DM Sans',sans-serif;font-size:.95rem;outline:none;" onfocus="this.style.borderColor='#F0A500'" onblur="this.style.borderColor='rgba(240,165,0,0.2)'">
+            <input type="text" name="nome" required placeholder="Seu nome" style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(240,165,0,0.2);border-radius:8px;padding:13px 16px;color:var(--branco);font-family:'Inter',sans-serif;font-size:.95rem;outline:none;" onfocus="this.style.borderColor='#F0A500'" onblur="this.style.borderColor='rgba(240,165,0,0.2)'">
           </div>
           <div style="margin-bottom:18px;">
             <label style="display:block;font-size:.82rem;font-weight:500;color:var(--cinza);margin-bottom:8px;">Email *</label>
-            <input type="email" name="email" required placeholder="seuemail@exemplo.com" style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(240,165,0,0.2);border-radius:8px;padding:13px 16px;color:var(--branco);font-family:'DM Sans',sans-serif;font-size:.95rem;outline:none;" onfocus="this.style.borderColor='#F0A500'" onblur="this.style.borderColor='rgba(240,165,0,0.2)'">
+            <input type="email" name="email" required placeholder="seuemail@exemplo.com" style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(240,165,0,0.2);border-radius:8px;padding:13px 16px;color:var(--branco);font-family:'Inter',sans-serif;font-size:.95rem;outline:none;" onfocus="this.style.borderColor='#F0A500'" onblur="this.style.borderColor='rgba(240,165,0,0.2)'">
           </div>
           <div style="margin-bottom:18px;">
             <label style="display:block;font-size:.82rem;font-weight:500;color:var(--cinza);margin-bottom:8px;">Assunto *</label>
-            <select name="assunto" required style="width:100%;background:rgba(18,36,71,0.95);border:1px solid rgba(240,165,0,0.2);border-radius:8px;padding:13px 16px;color:#F0F4FA;font-family:'DM Sans',sans-serif;font-size:.95rem;outline:none;">
+            <select name="assunto" required style="width:100%;background:rgba(18,36,71,0.95);border:1px solid rgba(240,165,0,0.2);border-radius:8px;padding:13px 16px;color:#F0F4FA;font-family:'Inter',sans-serif;font-size:.95rem;outline:none;">
               <option value="" disabled selected>Selecione...</option>
               <option value="Suporte tecnico">Suporte tecnico</option>
               <option value="Duvida antes da compra">Duvida antes da compra</option>
@@ -1036,9 +1052,9 @@
           </div>
           <div style="margin-bottom:24px;">
             <label style="display:block;font-size:.82rem;font-weight:500;color:var(--cinza);margin-bottom:8px;">Mensagem *</label>
-            <textarea name="mensagem" required rows="5" placeholder="Descreva sua duvida ou mensagem..." style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(240,165,0,0.2);border-radius:8px;padding:13px 16px;color:var(--branco);font-family:'DM Sans',sans-serif;font-size:.95rem;outline:none;resize:vertical;" onfocus="this.style.borderColor='#F0A500'" onblur="this.style.borderColor='rgba(240,165,0,0.2)'"></textarea>
+            <textarea name="mensagem" required rows="5" placeholder="Descreva sua duvida ou mensagem..." style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(240,165,0,0.2);border-radius:8px;padding:13px 16px;color:var(--branco);font-family:'Inter',sans-serif;font-size:.95rem;outline:none;resize:vertical;" onfocus="this.style.borderColor='#F0A500'" onblur="this.style.borderColor='rgba(240,165,0,0.2)'"></textarea>
           </div>
-          <button type="submit" style="width:100%;background:#F0A500;color:#0D1F3C;border:none;border-radius:8px;padding:16px;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 0 24px rgba(240,165,0,0.25);" onmouseover="this.style.background='#FFB830'" onmouseout="this.style.background='#F0A500'">Enviar mensagem →</button>
+          <button type="submit" style="width:100%;background:#F0A500;color:#0D1F3C;border:none;border-radius:8px;padding:16px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 0 24px rgba(240,165,0,0.25);" onmouseover="this.style.background='#FFB830'" onmouseout="this.style.background='#F0A500'">Enviar mensagem →</button>
         </form>
       </div>
     </div>
@@ -1103,35 +1119,5 @@
   });
 </script>
 
-<script>
-var isAnual = false;
-var dadosP = {
-  basico: {
-    mes: { p: 'R$39<span>,90/mes</span>', s: 'Faturado mensalmente', l: 'https://pay.hotmart.com/A104736102I' },
-    ano: { p: 'R$399<span>,90/ano</span>', s: 'R$24,99/mes - economize 16%', l: 'https://go.hotmart.com/L104730161T?dp=1' }
-  },
-  completo: {
-    mes: { p: 'R$39<span>,90/mes</span>', s: 'Faturado mensalmente', l: 'https://pay.hotmart.com/H104736327R' },
-    ano: { p: 'R$399<span>,90/ano</span>', s: 'R$41,66/mes - economize 17%', l: 'https://go.hotmart.com/I104730232F?dp=1' }
-  }
-};
-function togglePlanos() {
-  isAnual = !isAnual;
-  document.getElementById('toggle-ball').style.left = isAnual ? '32px' : '2px';
-  document.getElementById('label-mensal').style.color = isAnual ? '#8A9BBE' : '#F0A500';
-  document.getElementById('label-mensal').style.fontWeight = isAnual ? '500' : '600';
-  document.getElementById('label-anual').style.color = isAnual ? '#F0A500' : '#8A9BBE';
-  document.getElementById('label-anual').style.fontWeight = isAnual ? '600' : '500';
-  var k = isAnual ? 'ano' : 'mes';
-  document.getElementById('preco-basico').innerHTML = dadosP.basico[k].p;
-  document.getElementById('sub-basico').textContent = dadosP.basico[k].s;
-  document.getElementById('link-basico').href   = dadosP.basico[k].l;
-  document.getElementById('link-basico').target  = '_blank';
-  document.getElementById('link-completo').target = '_blank';
-  document.getElementById('preco-completo').innerHTML = dadosP.completo[k].p;
-  document.getElementById('sub-completo').textContent = dadosP.completo[k].s;
-  document.getElementById('link-completo').href = dadosP.completo[k].l;
-}
-</script>
 </body>
 </html>

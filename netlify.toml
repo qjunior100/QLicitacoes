@@ -15,3 +15,8 @@
   from = "/afiliados"
   to = "/afiliados.html"
   status = 200
+
+[[redirects]]
+  from = "/instrucoes"
+  to = "/instrucoes.html"
+  status = 200
