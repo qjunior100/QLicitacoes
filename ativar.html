@@ -9,9 +9,9 @@
   <style>
     :root{--azul:#0D1F3C;--gold:#F0A500;--gold2:#FFB830;--branco:#F0F4FA;--cinza:#8A9BBE;--borda:rgba(240,165,0,0.15);--card-bg:rgba(255,255,255,0.04);--erro:#FF5A5A;}
     *{margin:0;padding:0;box-sizing:border-box;}
-    body{background:var(--azul);color:var(--branco);font-family:"Inter",sans-serif;min-height:100vh;display:flex;flex-direction:column;}
+    body{background:var(--azul);color:var(--branco);font-family:'Inter',sans-serif;min-height:100vh;display:flex;flex-direction:column;}
     nav{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;border-bottom:1px solid var(--borda);}
-    .nav-logo{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:1.4rem;color:var(--gold);text-decoration:none;}
+    .nav-logo{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.4rem;color:var(--gold);text-decoration:none;letter-spacing:-0.5px;}
     .nav-back{color:var(--cinza);text-decoration:none;font-size:.9rem;}
     .nav-back:hover{color:var(--branco);}
     main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
@@ -20,14 +20,14 @@
     .step-bar{height:3px;flex:1;border-radius:99px;background:rgba(240,165,0,0.15);transition:background .3s;}
     .step-bar.ativo{background:var(--gold);}
     .step-label{font-size:.72rem;color:var(--gold);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
-    h2{font-family:"Plus Jakarta Sans",sans-serif;font-size:1.9rem;font-weight:800;margin-bottom:10px;line-height:1.15;}
+    h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.9rem;font-weight:800;margin-bottom:10px;line-height:1.15;letter-spacing:-1px;}
     .sub{color:var(--cinza);font-size:.92rem;font-weight:300;line-height:1.6;margin-bottom:28px;}
     .field{margin-bottom:16px;}
     .field label{display:block;font-size:.82rem;color:var(--cinza);margin-bottom:7px;font-weight:500;}
-    .field input,.field select{width:100%;padding:13px 16px;background:rgba(255,255,255,0.05);border:1px solid var(--borda);border-radius:8px;color:var(--branco);font-family:"Inter",sans-serif;font-size:.95rem;outline:none;transition:border-color .2s;}
+    .field input,.field select{width:100%;padding:13px 16px;background:rgba(255,255,255,0.05);border:1px solid var(--borda);border-radius:8px;color:var(--branco);font-family:'Inter',sans-serif;font-size:.95rem;outline:none;transition:border-color .2s;}
     .field input:focus,.field select:focus{border-color:var(--gold);}
     .field select option{background:#0D1F3C;}
-    .btn{width:100%;padding:15px;background:var(--gold);color:var(--azul);font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:1rem;border:none;border-radius:8px;cursor:pointer;transition:background .2s;margin-top:8px;}
+    .btn{width:100%;padding:15px;background:var(--gold);color:var(--azul);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1rem;border:none;border-radius:8px;cursor:pointer;transition:background .2s;margin-top:8px;}
     .btn:hover{background:var(--gold2);}
     .btn:disabled{opacity:.5;cursor:not-allowed;}
     .confirm-box{background:rgba(255,255,255,0.03);border:1px solid var(--borda);border-radius:12px;padding:20px 24px;margin-bottom:24px;}
@@ -41,9 +41,9 @@
     .chave-val{font-family:monospace;font-size:1.3rem;color:var(--gold);letter-spacing:3px;word-break:break-all;font-weight:700;}
     .chave-hint{font-size:.75rem;color:var(--cinza);margin-top:10px;}
     .sucesso-icon{width:64px;height:64px;background:rgba(240,165,0,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 20px;}
-    .sucesso-title{font-family:"Plus Jakarta Sans",sans-serif;font-size:1.6rem;font-weight:800;text-align:center;margin-bottom:10px;}
+    .sucesso-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.6rem;font-weight:800;text-align:center;margin-bottom:10px;}
     .sucesso-sub{color:var(--cinza);font-size:.9rem;text-align:center;line-height:1.6;margin-bottom:24px;}
-    .download-btn{display:block;text-align:center;padding:15px;background:var(--gold);color:var(--azul);font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:1rem;border-radius:8px;text-decoration:none;transition:background .2s;margin-bottom:20px;}
+    .download-btn{display:block;text-align:center;padding:15px;background:var(--gold);color:var(--azul);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1rem;border-radius:8px;text-decoration:none;transition:background .2s;margin-bottom:20px;}
     .download-btn:hover{background:var(--gold2);}
     .info-box{background:rgba(255,255,255,0.03);border:1px solid var(--borda);border-radius:10px;padding:18px 20px;font-size:.83rem;color:var(--cinza);line-height:1.8;}
     .info-box strong{color:var(--branco);}
@@ -53,7 +53,7 @@
     .spinner{width:20px;height:20px;border:2px solid var(--borda);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;}
     @keyframes spin{to{transform:rotate(360deg);}}
     .modo-tabs{display:flex;gap:8px;margin-bottom:28px;}
-    .modo-tab{flex:1;padding:10px;border:1px solid var(--borda);border-radius:8px;background:transparent;color:var(--cinza);font-family:"Inter",sans-serif;font-size:.88rem;cursor:pointer;transition:all .2s;text-align:center;}
+    .modo-tab{flex:1;padding:10px;border:1px solid var(--borda);border-radius:8px;background:transparent;color:var(--cinza);font-family:'Inter',sans-serif;font-size:.88rem;cursor:pointer;transition:all .2s;text-align:center;}
     .modo-tab.ativo{border-color:var(--gold);color:var(--gold);background:rgba(240,165,0,0.08);}
     .seg-destaque{background:rgba(240,165,0,0.06);border:1px solid rgba(240,165,0,0.25);border-radius:10px;padding:14px;margin-bottom:16px;}
     footer{text-align:center;padding:24px;border-top:1px solid var(--borda);color:var(--cinza);font-size:.82rem;}
@@ -79,6 +79,7 @@
         <button class="modo-tab ativo" id="tab-nova" onclick="selecionarModo('nova')">Nova compra</button>
         <button class="modo-tab" id="tab-recuperar" onclick="selecionarModo('recuperar')">Recuperar chave</button>
       </div>
+
       <div id="modo-nova">
         <div class="field">
           <label>Email usado na compra</label>
@@ -92,27 +93,10 @@
             <option value="7316169">Completo Anual — R$399,90/ano</option>
           </select>
         </div>
-        <div id="campo-segmento" class="seg-destaque" style="display:none;">
-          <div class="field" style="margin-bottom:0;">
-            <label>Segmento de atuação <span style="color:#FF5A5A;font-size:.78rem;">* obrigatório</span></label>
-            <select id="segmento-select">
-              <option value="">Selecione seu segmento...</option>
-              <option>Construção Civil</option>
-              <option>Saúde e Hospitalar</option>
-              <option>Educação e Capacitação</option>
-              <option>Tecnologia da Informação</option>
-              <option>Serviços Gerais</option>
-              <option>Engenharia e Meio Ambiente</option>
-              <option>Alimentação e Nutrição</option>
-              <option>Mobiliário e Equipamentos</option>
-              <option>Segurança e Vigilância</option>
-              <option>Consultoria e Assessoria</option>
-            </select>
-          </div>
-        </div>
         <div class="erro-box" id="erro-nova"></div>
         <button class="btn" id="btn-continuar" onclick="irParaConfirmacao()">Continuar →</button>
       </div>
+
       <div id="modo-recuperar" style="display:none;">
         <div class="field">
           <label>Email usado na compra</label>
@@ -145,10 +129,6 @@
           <span class="confirm-label">Plano</span>
           <span class="confirm-val gold" id="conf-plano"></span>
         </div>
-        <div class="confirm-row" id="conf-seg-row" style="display:none;">
-          <span class="confirm-label">Segmento</span>
-          <span class="confirm-val" id="conf-segmento"></span>
-        </div>
       </div>
       <div class="erro-box" id="erro-confirmar"></div>
       <div class="loading" id="loading-gerar">
@@ -157,7 +137,7 @@
       <button class="btn" id="btn-gerar" onclick="gerarChave()">Gerar minha chave de acesso</button>
     </div>
 
-    <!-- STEP 3 -->
+    <!-- STEP 3 sucesso -->
     <div id="step-sucesso" style="display:none;">
       <div class="steps">
         <div class="step-bar ativo"></div>
@@ -178,7 +158,7 @@
         <strong>Como ativar:</strong><br>
         1. Baixe e extraia o arquivo .zip<br>
         2. Execute o <strong>QLicitacoes.exe</strong><br>
-        3. Se o Windows alertar: "Mais informações" e depois "Executar assim mesmo"<br>
+        3. Se o Windows alertar: "Mais informações" → "Executar assim mesmo"<br>
         4. Insira a chave acima e configure sua empresa
       </div>
     </div>
@@ -206,48 +186,34 @@
 </main>
 
 <footer>
-  <a href="/">QLicitações</a> &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b6c5c3c6d9c4c2d3f6c7dadfd5dfc2d7d5d9d3c598d5d9db98d4c4">[email&#160;protected]</a>
+  <a href="/">QLicitações</a> &nbsp;·&nbsp; qlicitacoes.com.br
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 var APPS_URL = "https://script.google.com/macros/s/AKfycbx0l_8SucreoK86Sn3nZ3rqrJuVVJMCTHEzMnL4tQjN3QFq8i8SWYdUk5SLyOSAVd3v/exec";
 
 var PLANOS = {
-  
-  
   "7318600": { plano:"Completo", dias:30,  nome:"Completo Mensal", segmento:"*" },
   "7316169": { plano:"Completo", dias:365, nome:"Completo Anual",  segmento:"*" }
 };
 
 var dadosCompra = {};
 
-document.getElementById("produto-select").addEventListener("change", function() {
-  var val = this.value;
-  var isBasico = val && PLANOS[val] && PLANOS[val].plano === "Basico";
-  document.getElementById("campo-segmento").style.display = isBasico ? "block" : "none";
-  document.getElementById("segmento-select").style.borderColor = "";
-});
-
 window.onload = function() {
   var p = new URLSearchParams(window.location.search);
   var prod = p.get("produto");
-  var eml = p.get("email") || "";
+  var eml  = p.get("email") || "";
   if (!prod || !PLANOS[prod]) return;
   document.getElementById("produto-select").value = prod;
-  if (PLANOS[prod].plano === "Basico") {
-    document.getElementById("campo-segmento").style.display = "block";
-  }
-  if (eml) {
-    document.getElementById("email-nova").value = eml;
-  }
+  if (eml) document.getElementById("email-nova").value = eml;
 };
 
 function selecionarModo(modo) {
   var nova = modo === "nova";
-  document.getElementById("tab-nova").className = "modo-tab" + (nova ? " ativo" : "");
+  document.getElementById("tab-nova").className      = "modo-tab" + (nova ? " ativo" : "");
   document.getElementById("tab-recuperar").className = "modo-tab" + (!nova ? " ativo" : "");
-  document.getElementById("modo-nova").style.display = nova ? "block" : "none";
-  document.getElementById("modo-recuperar").style.display = nova ? "none" : "block";
+  document.getElementById("modo-nova").style.display      = nova ? "block" : "none";
+  document.getElementById("modo-recuperar").style.display = nova ? "none"  : "block";
 }
 
 function mostrarErro(id, msg) {
@@ -262,11 +228,12 @@ function esconderErro(id) {
 
 function irParaConfirmacao() {
   esconderErro("erro-nova");
-  var email = document.getElementById("email-nova").value.trim().toLowerCase();
+
+  var email  = document.getElementById("email-nova").value.trim().toLowerCase();
   var prodId = document.getElementById("produto-select").value;
 
   if (!email || email.indexOf("@") < 0) {
-    mostrarErro("erro-nova", "Informe um email valido.");
+    mostrarErro("erro-nova", "Informe um email válido.");
     return;
   }
   if (!prodId) {
@@ -275,33 +242,12 @@ function irParaConfirmacao() {
   }
 
   var cfg = PLANOS[prodId];
-  var segmento = cfg.segmento || "";
-
-  if (cfg.plano === "Basico") {
-    segmento = document.getElementById("segmento-select").value;
-    if (!segmento) {
-      document.getElementById("segmento-select").style.borderColor = "#FF5A5A";
-      document.getElementById("campo-segmento").scrollIntoView({behavior:"smooth", block:"center"});
-      mostrarErro("erro-nova", "Selecione seu segmento de atuacao.");
-      return;
-    }
-    document.getElementById("segmento-select").style.borderColor = "";
-  }
-
-  dadosCompra = { email:email, produtoId:prodId, plano:cfg.plano, dias:cfg.dias, segmento:segmento, nomeP:cfg.nome };
+  dadosCompra = { email:email, produtoId:prodId, plano:cfg.plano, dias:cfg.dias, segmento:cfg.segmento, nomeP:cfg.nome };
 
   document.getElementById("conf-email").textContent = email;
   document.getElementById("conf-plano").textContent = cfg.nome;
 
-  var segRow = document.getElementById("conf-seg-row");
-  if (segmento && segmento !== "*") {
-    document.getElementById("conf-segmento").textContent = segmento;
-    segRow.style.display = "flex";
-  } else {
-    segRow.style.display = "none";
-  }
-
-  document.getElementById("step-modo").style.display = "none";
+  document.getElementById("step-modo").style.display      = "none";
   document.getElementById("step-confirmar").style.display = "block";
 }
 
@@ -310,12 +256,13 @@ function gerarChave() {
   document.getElementById("btn-gerar").disabled = true;
   document.getElementById("loading-gerar").style.display = "flex";
 
-  var url = APPS_URL + "?acao=gerar_web"
-    + "&email=" + encodeURIComponent(dadosCompra.email)
-    + "&plano=" + encodeURIComponent(dadosCompra.plano)
-    + "&dias=" + encodeURIComponent(dadosCompra.dias)
+  var url = APPS_URL
+    + "?acao=gerar_web"
+    + "&email="     + encodeURIComponent(dadosCompra.email)
+    + "&plano="     + encodeURIComponent(dadosCompra.plano)
+    + "&dias="      + encodeURIComponent(dadosCompra.dias)
     + "&segmentos=" + encodeURIComponent(dadosCompra.segmento)
-    + "&produto=" + encodeURIComponent(dadosCompra.produtoId);
+    + "&produto="   + encodeURIComponent(dadosCompra.produtoId);
 
   fetch(url)
     .then(function(r) { return r.json(); })
@@ -341,7 +288,7 @@ function gerarChave() {
     })
     .catch(function() {
       document.getElementById("loading-gerar").style.display = "none";
-      mostrarErro("erro-confirmar", "Erro de conexao. Verifique sua internet e tente novamente.");
+      mostrarErro("erro-confirmar", "Erro de conexão. Verifique sua internet e tente novamente.");
       document.getElementById("btn-gerar").disabled = false;
     });
 }
@@ -350,14 +297,12 @@ function recuperarChave() {
   esconderErro("erro-recuperar");
   var email = document.getElementById("email-recuperar").value.trim().toLowerCase();
   if (!email || email.indexOf("@") < 0) {
-    mostrarErro("erro-recuperar", "Informe um email valido.");
+    mostrarErro("erro-recuperar", "Informe um email válido.");
     return;
   }
   document.getElementById("loading-recuperar").style.display = "flex";
 
-  var url = APPS_URL + "?acao=recuperar&email=" + encodeURIComponent(email);
-
-  fetch(url)
+  fetch(APPS_URL + "?acao=recuperar&email=" + encodeURIComponent(email))
     .then(function(r) { return r.json(); })
     .then(function(data) {
       document.getElementById("loading-recuperar").style.display = "none";
@@ -370,4 +315,14 @@ function recuperarChave() {
         }
         document.getElementById("step-recuperar-sucesso").style.display = "block";
       } else {
-        mostrarErro("erro-recuperar", data.motivo || "Nenhuma chave encontrada para es
+        mostrarErro("erro-recuperar", data.motivo || "Nenhuma chave encontrada para esse email.");
+      }
+    })
+    .catch(function() {
+      document.getElementById("loading-recuperar").style.display = "none";
+      mostrarErro("erro-recuperar", "Erro de conexão. Tente novamente.");
+    });
+}
+</script>
+</body>
+</html>
