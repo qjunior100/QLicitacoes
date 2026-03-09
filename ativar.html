@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ativar Licença — QLicitações</title>
-  <meta name="description" content="Ative sua licença do QLicitações e faça o download do sistema. Insira o email da compra e receba sua chave de acesso.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -57,6 +56,12 @@
     .modo-tab{flex:1;padding:10px;border:1px solid var(--borda);border-radius:8px;background:transparent;color:var(--cinza);font-family:'Inter',sans-serif;font-size:.88rem;cursor:pointer;transition:all .2s;text-align:center;}
     .modo-tab.ativo{border-color:var(--gold);color:var(--gold);background:rgba(240,165,0,0.08);}
     .seg-destaque{background:rgba(240,165,0,0.06);border:1px solid rgba(240,165,0,0.25);border-radius:10px;padding:14px;margin-bottom:16px;}
+    .termo-check{display:flex;align-items:flex-start;gap:12px;background:rgba(255,255,255,0.03);border:1px solid var(--borda);border-radius:8px;padding:14px 16px;margin-bottom:16px;cursor:pointer;transition:border-color .2s;}
+    .termo-check:hover{border-color:rgba(240,165,0,0.35);}
+    .termo-check input[type=checkbox]{width:18px;height:18px;min-width:18px;accent-color:var(--gold);cursor:pointer;margin-top:2px;}
+    .termo-check-label{font-size:.85rem;color:var(--cinza);line-height:1.55;cursor:pointer;user-select:none;}
+    .termo-check-label a{color:var(--gold);text-decoration:none;font-weight:600;}
+    .termo-check-label a:hover{text-decoration:underline;}
     footer{text-align:center;padding:24px;border-top:1px solid var(--borda);color:var(--cinza);font-size:.82rem;}
     footer a{color:var(--cinza);text-decoration:none;}
     @media(max-width:560px){nav{padding:16px 20px;}.card{padding:32px 24px;}}
@@ -135,11 +140,19 @@
           <span class="confirm-val gold" id="conf-plano"></span>
         </div>
       </div>
+      <label class="termo-check">
+        <input type="checkbox" id="check-termos" onchange="toggleBtnGerar()">
+        <span class="termo-check-label">
+          Li e aceito os <a href="/termo" target="_blank">Termos de Uso e Contrato de Licença</a>.
+          Estou ciente de que a licença ativa em <strong style="color:var(--branco);">uma única máquina</strong>
+          e é pessoal e intransferível.
+        </span>
+      </label>
       <div class="erro-box" id="erro-confirmar"></div>
       <div class="loading" id="loading-gerar">
         <div class="spinner"></div><span>Gerando sua chave, aguarde...</span>
       </div>
-      <button class="btn" id="btn-gerar" onclick="gerarChave()">Gerar minha chave de acesso</button>
+      <button class="btn" id="btn-gerar" onclick="gerarChave()" disabled>Gerar minha chave de acesso</button>
     </div>
 
     <!-- STEP 3 sucesso -->
@@ -212,6 +225,11 @@ window.onload = function() {
   document.getElementById("produto-select").value = prod;
   if (eml) document.getElementById("email-nova").value = eml;
 };
+
+function toggleBtnGerar() {
+  var checked = document.getElementById("check-termos").checked;
+  document.getElementById("btn-gerar").disabled = !checked;
+}
 
 function selecionarModo(modo) {
   var nova = modo === "nova";
