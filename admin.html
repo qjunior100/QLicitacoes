@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QLicitações — Painel Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul:    #1B3A6B;
+    --azul2:   #2E6DA4;
+    --gold:    #F0A500;
+    --verde:   #27AE60;
+    --vermelho:#E74C3C;
+    --amarelo: #F39C12;
+    --cinza:   #F4F6F9;
+    --borda:   #DDE3EA;
+    --texto:   #1A1A2E;
+    --sub:     #6B7280;
+    --branco:  #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: #0F1A2E;
+    color: var(--texto);
+    min-height: 100vh;
+  }
+
+  /* ── LOGIN ── */
+  #tela-login {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0F1A2E 0%, #1B3A6B 100%);
+  }
+  .login-card {
+    background: var(--branco);
+    border-radius: 12px;
+    padding: 48px 40px;
+    width: 380px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+  }
+  .login-logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--azul);
+    margin-bottom: 4px;
+  }
+  .login-logo span { color: var(--gold); }
+  .login-sub {
+    font-size: 12px;
+    color: var(--sub);
+    margin-bottom: 32px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .login-card label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--sub);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .login-card input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--borda);
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: 'IBM Plex Mono', monospace;
+    margin-bottom: 20px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .login-card input:focus { border-color: var(--azul2); }
+  .btn-login {
+    width: 100%;
+    padding: 14px;
+    background: var(--azul);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .btn-login:hover { background: var(--azul2); }
+  #msg-login {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--vermelho);
+    text-align: center;
+    min-height: 18px;
+  }
+
+  /* ── PAINEL ── */
+  #painel { display: none; }
+
+  .topbar {
+    background: var(--azul);
+    padding: 0 32px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+  .topbar-logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .topbar-logo span { color: var(--gold); }
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .topbar-tag {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+  .btn-sair {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    background: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .btn-sair:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+  .main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 24px;
+  }
+
+  /* ── CARDS RESUMO ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .card {
+    background: var(--branco);
+    border-radius: 10px;
+    padding: 20px;
+    border-left: 4px solid transparent;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .card-total    { border-color: var(--azul2); }
+  .card-ativo    { border-color: var(--verde); }
+  .card-vencendo { border-color: var(--amarelo); }
+  .card-vencido  { border-color: var(--vermelho); }
+  .card-bloqueado{ border-color: #94A3B8; }
+  .card-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--azul);
+    line-height: 1;
+  }
+  .card-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--sub);
+    margin-top: 6px;
+  }
+
+  /* ── TOOLBAR ── */
+  .toolbar {
+    background: var(--branco);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    flex-wrap: wrap;
+  }
+  .busca-input {
+    flex: 1;
+    min-width: 200px;
+    padding: 9px 14px;
+    border: 1.5px solid var(--borda);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .busca-input:focus { border-color: var(--azul2); }
+  .filtro-select {
+    padding: 9px 12px;
+    border: 1.5px solid var(--borda);
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    outline: none;
+    background: #fff;
+    cursor: pointer;
+  }
+  .btn-refresh {
+    padding: 9px 16px;
+    background: var(--cinza);
+    border: 1.5px solid var(--borda);
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .2s;
+    white-space: nowrap;
+  }
+  .btn-refresh:hover { background: var(--borda); }
+  .count-label {
+    font-size: 12px;
+    color: var(--sub);
+    white-space: nowrap;
+  }
+
+  /* ── TABELA ── */
+  .tabela-wrap {
+    background: var(--branco);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead tr {
+    background: var(--azul);
+    color: #fff;
+  }
+  th {
+    padding: 12px 14px;
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+  th:hover { background: var(--azul2); }
+  td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--borda);
+    color: var(--texto);
+    vertical-align: middle;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #F8FAFC; }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .badge-ativa     { background: #D1FAE5; color: #065F46; }
+  .badge-pendente  { background: #FEF3C7; color: #92400E; }
+  .badge-bloqueada { background: #FEE2E2; color: #991B1B; }
+  .badge-cancelada { background: #F1F5F9; color: #475569; }
+  .badge-vencida   { background: #FEE2E2; color: #991B1B; }
+
+  .mono { font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+
+  .acoes { display: flex; gap: 6px; }
+  .btn-acao {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: opacity .2s;
+  }
+  .btn-acao:hover { opacity: 0.8; }
+  .btn-estender { background: #DBEAFE; color: #1D4ED8; }
+  .btn-resetar  { background: #E0F2FE; color: #0369A1; }
+  .btn-bloquear { background: #FEE2E2; color: #B91C1C; }
+  .btn-ativar   { background: #D1FAE5; color: #065F46; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.aberto { display: flex; }
+  .modal {
+    background: #fff;
+    border-radius: 12px;
+    padding: 32px;
+    width: 420px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+    animation: fadeUp .2s ease;
+  }
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(12px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  .modal h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--azul);
+    margin-bottom: 8px;
+  }
+  .modal p {
+    font-size: 13px;
+    color: var(--sub);
+    margin-bottom: 20px;
+  }
+  .modal label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--sub);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .modal input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid var(--borda);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    margin-bottom: 20px;
+    outline: none;
+  }
+  .modal input:focus { border-color: var(--azul2); }
+  .modal-btns {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+  .btn-cancelar {
+    padding: 10px 18px;
+    background: var(--cinza);
+    border: 1.5px solid var(--borda);
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .btn-confirmar {
+    padding: 10px 20px;
+    background: var(--azul);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn-confirmar:hover { background: var(--azul2); }
+  .btn-confirmar.perigo { background: var(--vermelho); }
+
+  /* ── TOAST ── */
+  #toast {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: var(--azul);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    z-index: 999;
+    display: none;
+    animation: fadeUp .25s ease;
+  }
+  #toast.erro { background: var(--vermelho); }
+  #toast.ok   { background: var(--verde); }
+
+  /* ── LOADING ── */
+  .loading {
+    text-align: center;
+    padding: 60px;
+    color: var(--sub);
+    font-size: 14px;
+  }
+  .spinner {
+    display: inline-block;
+    width: 28px; height: 28px;
+    border: 3px solid var(--borda);
+    border-top-color: var(--azul2);
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+    margin-bottom: 12px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .vencendo-badge {
+    font-size: 10px;
+    background: #FEF3C7;
+    color: #92400E;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 4px;
+  }
+
+  @media (max-width: 900px) {
+    .cards { grid-template-columns: repeat(3, 1fr); }
+    .main { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── TELA DE LOGIN ── -->
+<div id="tela-login">
+  <div class="login-card">
+    <div class="login-logo">QL<span>icitações</span></div>
+    <div class="login-sub">Painel Administrativo</div>
+    <label>Senha de acesso</label>
+    <input type="password" id="input-senha" placeholder="••••••••••••" autocomplete="current-password">
+    <button class="btn-login" onclick="login()">Entrar</button>
+    <div id="msg-login"></div>
+  </div>
+</div>
+
+<!-- ── PAINEL PRINCIPAL ── -->
+<div id="painel">
+  <div class="topbar">
+    <div class="topbar-logo">QL<span>icitações</span></div>
+    <div class="topbar-right">
+      <span class="topbar-tag">Painel Admin</span>
+      <button class="btn-sair" onclick="sair()">Sair</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- Cards -->
+    <div class="cards">
+      <div class="card card-total">
+        <div class="card-num" id="c-total">—</div>
+        <div class="card-label">Total Clientes</div>
+      </div>
+      <div class="card card-ativo">
+        <div class="card-num" id="c-ativos">—</div>
+        <div class="card-label">Ativos</div>
+      </div>
+      <div class="card card-vencendo">
+        <div class="card-num" id="c-vencendo">—</div>
+        <div class="card-label">Vencendo em 7d</div>
+      </div>
+      <div class="card card-vencido">
+        <div class="card-num" id="c-vencidos">—</div>
+        <div class="card-label">Vencidos</div>
+      </div>
+      <div class="card card-bloqueado">
+        <div class="card-num" id="c-bloqueados">—</div>
+        <div class="card-label">Bloqueados</div>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <input class="busca-input" id="busca" type="text" placeholder="Buscar por email, empresa, nome, chave..." oninput="filtrar()">
+      <select class="filtro-select" id="filtro-status" onchange="filtrar()">
+        <option value="">Todos os status</option>
+        <option value="ativa">Ativa</option>
+        <option value="pendente">Pendente</option>
+        <option value="bloqueada">Bloqueada</option>
+        <option value="cancelada">Cancelada</option>
+        <option value="vencida">Vencida</option>
+      </select>
+      <select class="filtro-select" id="filtro-plano" onchange="filtrar()">
+        <option value="">Todos os planos</option>
+        <option value="Completo">Completo</option>
+      </select>
+      <button class="btn-refresh" onclick="carregarDados()">↻ Atualizar</button>
+      <span class="count-label" id="count-label"></span>
+    </div>
+
+    <!-- Tabela -->
+    <div class="tabela-wrap">
+      <div id="corpo-tabela" class="loading">
+        <div><div class="spinner"></div><br>Carregando...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL ESTENDER ── -->
+<div class="modal-overlay" id="modal-estender">
+  <div class="modal">
+    <h3>➕ Estender Licença</h3>
+    <p id="modal-estender-info">Adiciona dias ao vencimento atual.</p>
+    <label>Quantidade de dias</label>
+    <input type="number" id="input-dias" value="30" min="1" max="365">
+    <div class="modal-btns">
+      <button class="btn-cancelar" onclick="fecharModal('modal-estender')">Cancelar</button>
+      <button class="btn-confirmar" onclick="confirmarEstender()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL BLOQUEAR ── -->
+<div class="modal-overlay" id="modal-bloquear">
+  <div class="modal">
+    <h3>🚫 Bloquear Licença</h3>
+    <p id="modal-bloquear-info">O cliente perderá acesso imediatamente.</p>
+    <div class="modal-btns">
+      <button class="btn-cancelar" onclick="fecharModal('modal-bloquear')">Cancelar</button>
+      <button class="btn-confirmar perigo" onclick="confirmarBloquear()">Bloquear</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL RESETAR UUID ── -->
+<div class="modal-overlay" id="modal-resetar">
+  <div class="modal">
+    <h3>🔄 Resetar Máquina</h3>
+    <p id="modal-resetar-info">O cliente poderá ativar em um novo computador.</p>
+    <div class="modal-btns">
+      <button class="btn-cancelar" onclick="fecharModal('modal-resetar')">Cancelar</button>
+      <button class="btn-confirmar" onclick="confirmarResetar()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOAST ── -->
+<div id="toast"></div>
+
+<script>
+const APPS_URL = "https://script.google.com/macros/s/AKfycbx0l_8SucreoK86Sn3nZ3rqrJuVVJMCTHEzMnL4tQjN3QFq8i8SWYdUk5SLyOSAVd3v/exec";
+let SENHA = "";
+let todosClientes = [];
+let chaveAtual = "";
+
+// ── LOGIN ──
+document.getElementById("input-senha").addEventListener("keydown", e => {
+  if (e.key === "Enter") login();
+});
+
+async function login() {
+  const senha = document.getElementById("input-senha").value.trim();
+  if (!senha) return;
+  document.querySelector(".btn-login").textContent = "Verificando...";
+  document.getElementById("msg-login").textContent = "";
+
+  try {
+    const r = await fetch(`${APPS_URL}?acao=admin_resumo&senha=${encodeURIComponent(senha)}`);
+    const d = await r.json();
+    if (d.ok) {
+      SENHA = senha;
+      document.getElementById("tela-login").style.display = "none";
+      document.getElementById("painel").style.display = "block";
+      atualizarCards(d);
+      carregarDados();
+    } else {
+      document.getElementById("msg-login").textContent = "Senha incorreta.";
+    }
+  } catch(e) {
+    document.getElementById("msg-login").textContent = "Erro de conexão.";
+  }
+  document.querySelector(".btn-login").textContent = "Entrar";
+}
+
+function sair() {
+  SENHA = "";
+  todosClientes = [];
+  document.getElementById("tela-login").style.display = "flex";
+  document.getElementById("painel").style.display = "none";
+  document.getElementById("input-senha").value = "";
+}
+
+// ── CARDS ──
+function atualizarCards(d) {
+  document.getElementById("c-total").textContent     = d.total     ?? "—";
+  document.getElementById("c-ativos").textContent    = d.ativos    ?? "—";
+  document.getElementById("c-vencendo").textContent  = d.vencendo7 ?? "—";
+  document.getElementById("c-vencidos").textContent  = d.vencidos  ?? "—";
+  document.getElementById("c-bloqueados").textContent= d.bloqueados?? "—";
+}
+
+// ── CARREGAR DADOS ──
+async function carregarDados() {
+  document.getElementById("corpo-tabela").innerHTML = `<div class="loading"><div class="spinner"></div><br>Carregando clientes...</div>`;
+  try {
+    const [r1, r2] = await Promise.all([
+      fetch(`${APPS_URL}?acao=admin_listar&senha=${encodeURIComponent(SENHA)}`).then(r=>r.json()),
+      fetch(`${APPS_URL}?acao=admin_resumo&senha=${encodeURIComponent(SENHA)}`).then(r=>r.json()),
+    ]);
+    if (r1.ok) {
+      todosClientes = r1.clientes;
+      filtrar();
+    }
+    if (r2.ok) atualizarCards(r2);
+  } catch(e) {
+    document.getElementById("corpo-tabela").innerHTML = `<div class="loading">Erro ao carregar dados. Tente novamente.</div>`;
+  }
+}
+
+// ── FILTRAR ──
+function filtrar() {
+  const busca  = document.getElementById("busca").value.toLowerCase();
+  const status = document.getElementById("filtro-status").value.toLowerCase();
+  const plano  = document.getElementById("filtro-plano").value.toLowerCase();
+  const hoje   = new Date(); hoje.setHours(0,0,0,0);
+
+  const filtrados = todosClientes.filter(c => {
+    const termoBusca = (c.email+c.empresa+c.nome+c.chave+c.telefone).toLowerCase();
+    if (busca && !termoBusca.includes(busca)) return false;
+    if (plano && c.plano.toLowerCase() !== plano) return false;
+
+    // Status calculado
+    const st = calcStatus(c, hoje);
+    if (status && st !== status) return false;
+    return true;
+  });
+
+  document.getElementById("count-label").textContent = `${filtrados.length} cliente${filtrados.length !== 1 ? 's' : ''}`;
+  renderTabela(filtrados, hoje);
+}
+
+function calcStatus(c, hoje) {
+  const st = c.status.toLowerCase();
+  if (st === "bloqueada" || st === "cancelada") return st;
+  const venc = parseData(c.vencimento);
+  if (venc && hoje > venc) return "vencida";
+  return st; // ativa ou pendente
+}
+
+function parseData(s) {
+  if (!s) return null;
+  // dd/MM/yyyy
+  const m = s.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+  if (m) return new Date(m[3], m[2]-1, m[1]);
+  return new Date(s);
+}
+
+function diasParaVencer(vencStr) {
+  const v = parseData(vencStr);
+  if (!v) return null;
+  const hoje = new Date(); hoje.setHours(0,0,0,0);
+  return Math.ceil((v - hoje) / (1000*60*60*24));
+}
+
+// ── RENDERIZAR TABELA ──
+function renderTabela(lista, hoje) {
+  if (!lista.length) {
+    document.getElementById("corpo-tabela").innerHTML = `<div class="loading">Nenhum cliente encontrado.</div>`;
+    return;
+  }
+
+  const badges = {
+    ativa:     '<span class="badge badge-ativa">Ativa</span>',
+    pendente:  '<span class="badge badge-pendente">Pendente</span>',
+    bloqueada: '<span class="badge badge-bloqueada">Bloqueada</span>',
+    cancelada: '<span class="badge badge-cancelada">Cancelada</span>',
+    vencida:   '<span class="badge badge-vencida">Vencida</span>',
+  };
+
+  let html = `<table>
+    <thead><tr>
+      <th>Status</th>
+      <th>Cliente</th>
+      <th>Chave</th>
+      <th>Plano</th>
+      <th>Vencimento</th>
+      <th>Último Acesso</th>
+      <th>Ações</th>
+    </tr></thead><tbody>`;
+
+  for (const c of lista) {
+    const st = calcStatus(c, hoje);
+    const dias = diasParaVencer(c.vencimento);
+    const vencBadge = (dias !== null && dias >= 0 && dias <= 7)
+      ? `<span class="vencendo-badge">⚠ ${dias}d</span>` : "";
+
+    const nome    = c.nome    || "—";
+    const empresa = c.empresa || "—";
+    const email   = c.email   || "—";
+
+    const ativaBloqueada = st === "bloqueada" || st === "cancelada";
+    const btnBloquear = ativaBloqueada
+      ? `<button class="btn-acao btn-ativar" onclick="abrirEstender('${c.chave}','${email}')">Reativar</button>`
+      : `<button class="btn-acao btn-bloquear" onclick="abrirBloquear('${c.chave}','${email}')">Bloquear</button>`;
+
+    html += `<tr>
+      <td>${badges[st] || st}</td>
+      <td>
+        <div style="font-weight:500">${nome}</div>
+        <div style="font-size:11px;color:var(--sub)">${empresa}</div>
+        <div style="font-size:11px;color:var(--azul2)">${email}</div>
+      </td>
+      <td><span class="mono">${c.chave}</span></td>
+      <td>${c.plano || "—"}</td>
+      <td>${c.vencimento || "—"} ${vencBadge}</td>
+      <td style="font-size:12px;color:var(--sub)">${c.ultimo_acesso || "—"}</td>
+      <td>
+        <div class="acoes">
+          <button class="btn-acao btn-estender" onclick="abrirEstender('${c.chave}','${email}')">+Dias</button>
+          <button class="btn-acao btn-resetar" onclick="abrirResetar('${c.chave}','${email}')">Resetar PC</button>
+          ${btnBloquear}
+        </div>
+      </td>
+    </tr>`;
+  }
+
+  html += `</tbody></table>`;
+  document.getElementById("corpo-tabela").innerHTML = html;
+}
+
+// ── MODAIS ──
+function abrirEstender(chave, email) {
+  chaveAtual = chave;
+  document.getElementById("modal-estender-info").textContent = `Cliente: ${email} | Chave: ${chave}`;
+  document.getElementById("input-dias").value = 30;
+  document.getElementById("modal-estender").classList.add("aberto");
+}
+function abrirBloquear(chave, email) {
+  chaveAtual = chave;
+  document.getElementById("modal-bloquear-info").textContent = `Cliente: ${email} | Chave: ${chave}`;
+  document.getElementById("modal-bloquear").classList.add("aberto");
+}
+function abrirResetar(chave, email) {
+  chaveAtual = chave;
+  document.getElementById("modal-resetar-info").textContent = `Cliente: ${email} | Chave: ${chave}`;
+  document.getElementById("modal-resetar").classList.add("aberto");
+}
+function fecharModal(id) {
+  document.getElementById(id).classList.remove("aberto");
+}
+
+async function confirmarEstender() {
+  const dias = parseInt(document.getElementById("input-dias").value);
+  if (!dias || dias < 1) return;
+  fecharModal("modal-estender");
+  await acao("admin_estender", { chave: chaveAtual, dias });
+}
+async function confirmarBloquear() {
+  fecharModal("modal-bloquear");
+  await acao("admin_bloquear", { chave: chaveAtual });
+}
+async function confirmarResetar() {
+  fecharModal("modal-resetar");
+  await acao("admin_resetar_uuid", { chave: chaveAtual });
+}
+
+// ── AÇÃO GENÉRICA ──
+async function acao(tipo, params) {
+  let url = `${APPS_URL}?acao=${tipo}&senha=${encodeURIComponent(SENHA)}`;
+  for (const [k, v] of Object.entries(params)) url += `&${k}=${encodeURIComponent(v)}`;
+  try {
+    const r = await fetch(url);
+    const d = await r.json();
+    if (d.ok) {
+      toast(d.msg || "Operação realizada.", "ok");
+      await carregarDados();
+    } else {
+      toast(d.motivo || "Erro na operação.", "erro");
+    }
+  } catch(e) {
+    toast("Erro de conexão.", "erro");
+  }
+}
+
+// ── TOAST ──
+function toast(msg, tipo = "") {
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.className = tipo;
+  el.style.display = "block";
+  setTimeout(() => el.style.display = "none", 3500);
+}
+
+// Fechar modal clicando fora
+document.querySelectorAll(".modal-overlay").forEach(el => {
+  el.addEventListener("click", e => { if (e.target === el) el.classList.remove("aberto"); });
+});
+</script>
+</body>
+</html>
