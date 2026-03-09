@@ -279,13 +279,20 @@ function gerarChave() {
   document.getElementById("btn-gerar").disabled = true;
   document.getElementById("loading-gerar").style.display = "flex";
 
+  // Timestamp do aceite no formato brasileiro
+  var agora = new Date();
+  var pad = function(n) { return n.toString().padStart(2, "0"); };
+  var tsAceite = pad(agora.getDate()) + "/" + pad(agora.getMonth()+1) + "/" + agora.getFullYear()
+               + " " + pad(agora.getHours()) + ":" + pad(agora.getMinutes());
+
   var url = APPS_URL
     + "?acao=gerar_web"
-    + "&email="     + encodeURIComponent(dadosCompra.email)
-    + "&plano="     + encodeURIComponent(dadosCompra.plano)
-    + "&dias="      + encodeURIComponent(dadosCompra.dias)
-    + "&segmentos=" + encodeURIComponent(dadosCompra.segmento)
-    + "&produto="   + encodeURIComponent(dadosCompra.produtoId);
+    + "&email="        + encodeURIComponent(dadosCompra.email)
+    + "&plano="        + encodeURIComponent(dadosCompra.plano)
+    + "&dias="         + encodeURIComponent(dadosCompra.dias)
+    + "&segmentos="    + encodeURIComponent(dadosCompra.segmento)
+    + "&produto="      + encodeURIComponent(dadosCompra.produtoId)
+    + "&aceite_termos=" + encodeURIComponent(tsAceite);
 
   fetch(url)
     .then(function(r) { return r.json(); })
