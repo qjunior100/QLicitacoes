@@ -690,6 +690,7 @@ function renderTabela(lista, hoje) {
     <thead><tr>
       <th>Status</th>
       <th>Cliente</th>
+      <th>Telefone</th>
       <th>Chave</th>
       <th>Plano</th>
       <th>Vencimento</th>
@@ -719,6 +720,7 @@ function renderTabela(lista, hoje) {
         <div style="font-size:11px;color:var(--sub)">${empresa}</div>
         <div style="font-size:11px;color:var(--azul2)">${email}</div>
       </td>
+      <td style="font-size:12px;white-space:nowrap">${c.telefone || "—"}</td>
       <td><span class="mono">${c.chave}</span></td>
       <td>${c.plano || "—"}</td>
       <td>${c.vencimento || "—"} ${vencBadge}</td>
