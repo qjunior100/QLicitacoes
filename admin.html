@@ -241,8 +241,9 @@
   .tabela-wrap {
     background: var(--branco);
     border-radius: 10px;
-    overflow: hidden;
+    overflow-x: auto;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    -webkit-overflow-scrolling: touch;
   }
   table {
     width: 100%;
@@ -435,6 +436,30 @@
   @media (max-width: 900px) {
     .cards { grid-template-columns: repeat(3, 1fr); }
     .main { padding: 16px; }
+  }
+  @media (max-width: 600px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+    .topbar { padding: 0 16px; }
+    .topbar-tag { display: none; }
+    .toolbar { gap: 8px; }
+    .busca-input { min-width: 100%; }
+    table { font-size: 12px; }
+    th, td { padding: 8px 10px; }
+    /* Ocultar colunas menos críticas no mobile */
+    th:nth-child(4), td:nth-child(4),
+    th:nth-child(6), td:nth-child(6),
+    th:nth-child(7), td:nth-child(7) { display: none; }
+    .acoes { flex-direction: column; gap: 4px; }
+    .btn-acao { padding: 5px 8px; font-size: 11px; }
+    .card-num { font-size: 24px; }
+  }
+  @media (max-width: 600px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+    .topbar { padding: 0 16px; }
+    .topbar-tag { display: none; }
+    table { min-width: 700px; }
+    .toolbar { gap: 8px; }
+    .busca-input { min-width: 140px; }
   }
 </style>
 </head>

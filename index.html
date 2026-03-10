@@ -727,27 +727,41 @@
     /* ── RESPONSIVO ── */
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
-      .nav-links { display: none; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--azul); padding: 16px 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 999; gap: 4px; }
+      .nav-links.aberto { display: flex; }
+      .nav-links a { padding: 10px 0; font-size: 1rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .nav-links li:last-child a { border-bottom: none; margin-top: 8px; }
+      .nav-cta { display: block; text-align: center; }
+      .nav-ativar { display: block; text-align: center; }
+      .hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+      .hamburger span { display: block; width: 24px; height: 2px; background: var(--branco); border-radius: 2px; transition: all .3s; }
+      .hamburger.aberto span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .hamburger.aberto span:nth-child(2) { opacity: 0; }
+      .hamburger.aberto span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
       .afiliados-inner { grid-template-columns: 1fr; gap: 40px; }
       .hero-stats { gap: 32px; }
     }
+    .hamburger { display: none; }
   </style>
 </head>
 <body>
 
 <!-- ── NAVBAR ── -->
-<nav>
+<nav style="position:relative;">
   <div class="nav-logo">QL<span>icitações</span></div>
-  <ul class="nav-links">
+  <ul class="nav-links" id="nav-links">
     <li><a href="#como-funciona">Como funciona</a></li>
     <li><a href="#planos">Planos</a></li>
     <li><a href="#segmentos">Segmentos</a></li>
     <li><a href="#afiliados">Afiliados</a></li>
     <li><a href="#contato">Contato</a></li>
     <li><a href="/instrucoes">Como usar</a></li>
-      <li><a href="/ativar" class="nav-ativar">Ativar / Download</a></li>
+    <li><a href="/ativar" class="nav-ativar">Ativar / Download</a></li>
     <li><a href="#planos" class="nav-cta">Começar agora</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- ── HERO ── -->
@@ -1092,11 +1106,11 @@
 <footer>
   <div class="footer-logo">QLicitações</div>
   <p style="margin-bottom:12px;">Monitor de Licitações Públicas — Integrado ao PNCP</p>
-  <p><a href="/cdn-cgi/l/email-protection#e283868fa2938e878c85878c8a83908b83cc818d8f"><span class="__cf_email__" data-cfemail="fc9d9891bc8d9099929b9992949d8e959dd29f9391">[email&#160;protected]</span></a> &nbsp;·&nbsp; <a href="/ativar.html">Ativar licença</a></p>
+  <p><a href="mailto:adm@qlengenharia.com">adm@qlengenharia.com</a> &nbsp;·&nbsp; <a href="/ativar.html">Ativar licença</a></p>
   <p style="margin-top:24px; font-size:.75rem; opacity:.5;">© 2026 QLicitações. Todos os direitos reservados.</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   // ── Scroll reveal ──
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -1119,4 +1133,19 @@
     btn.addEventListener('click', () => {
       const item = btn.parentElement;
       const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').for
+      document.querySelectorAll('.faq-item').fo
+  // ── Hamburger menu ──
+  function toggleMenu() {
+    var nav = document.getElementById('nav-links');
+    var btn = document.getElementById('hamburger');
+    nav.classList.toggle('aberto');
+    btn.classList.toggle('aberto');
+  }
+  // Fecha menu ao clicar em link
+  document.querySelectorAll('#nav-links a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      document.getElementById('nav-links').classList.remove('aberto');
+      document.getElementById('hamburger').classList.remove('aberto');
+    });
+  });
+r
