@@ -741,7 +741,7 @@
       .afiliados-inner { grid-template-columns: 1fr; gap: 40px; }
       .hero-stats { gap: 32px; }
     }
-    .hamburger { display: none; }
+    @media (min-width: 769px) { .hamburger { display: none; } }
   </style>
 </head>
 <body>
@@ -749,6 +749,9 @@
 <!-- ── NAVBAR ── -->
 <nav style="position:relative;">
   <div class="nav-logo">QL<span>icitações</span></div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
   <ul class="nav-links" id="nav-links">
     <li><a href="#como-funciona">Como funciona</a></li>
     <li><a href="#planos">Planos</a></li>
@@ -759,9 +762,6 @@
     <li><a href="/ativar" class="nav-ativar">Ativar / Download</a></li>
     <li><a href="#planos" class="nav-cta">Começar agora</a></li>
   </ul>
-  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
 </nav>
 
 <!-- ── HERO ── -->
