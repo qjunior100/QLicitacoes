@@ -1133,7 +1133,11 @@
     btn.addEventListener('click', () => {
       const item = btn.parentElement;
       const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').fo
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
   // ── Hamburger menu ──
   function toggleMenu() {
     var nav = document.getElementById('nav-links');
@@ -1141,11 +1145,12 @@
     nav.classList.toggle('aberto');
     btn.classList.toggle('aberto');
   }
-  // Fecha menu ao clicar em link
   document.querySelectorAll('#nav-links a').forEach(function(a) {
     a.addEventListener('click', function() {
       document.getElementById('nav-links').classList.remove('aberto');
       document.getElementById('hamburger').classList.remove('aberto');
     });
   });
-r
+</script>
+</body>
+</html>
