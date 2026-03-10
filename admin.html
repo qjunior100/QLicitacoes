@@ -697,6 +697,8 @@ function diasParaVencer(vencStr) {
 }
 
 // ── RENDERIZAR TABELA ──
+const VERSAO_ATUAL = "1.4";
+
 function renderTabela(lista, hoje) {
   if (!lista.length) {
     document.getElementById("corpo-tabela").innerHTML = `<div class="loading">Nenhum cliente encontrado.</div>`;
@@ -721,6 +723,7 @@ function renderTabela(lista, hoje) {
       <th>Plano</th>
       <th>Vencimento</th>
       <th>Último Acesso</th>
+      <th>Versão</th>
       <th>Ações</th>
     </tr></thead><tbody>`;
 
@@ -755,6 +758,11 @@ function renderTabela(lista, hoje) {
       <td>${c.plano || "—"}</td>
       <td>${c.vencimento || "—"} ${vencBadge}</td>
       <td style="font-size:12px;color:var(--sub)">${c.ultimo_acesso || "—"}</td>
+      <td style="text-align:center">
+        ${c.versao_app
+          ? `<span style="font-weight:600;color:${c.versao_app === VERSAO_ATUAL ? '#27ae60' : '#e74c3c'}">${c.versao_app}</span>`
+          : '<span style="color:#ccc">—</span>'}
+      </td>
       <td>
         <div class="acoes">
           <button class="btn-acao btn-estender" onclick="abrirEstender('${c.chave}','${email}')">+Dias</button>
