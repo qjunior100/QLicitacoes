@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-944205483"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-944205483');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ativar Licença — QLicitações</title>
@@ -184,7 +192,7 @@
         <strong>Para instalar:</strong><br>
         1. Clique em <strong>"Mais informações"</strong><br>
         2. Clique em <strong>"Executar assim mesmo"</strong><br><br>
-        O QLicitações é desenvolvido por Engenheiros com registro no CREA, com CNPJ ativo e dados verificáveis. Caso tenha dúvidas, entre em contato antes de instalar: <a href="mailto:adm@qlengenharia.com" style="color:var(--gold);">adm@qlengenharia.com</a>
+        O QLicitações é desenvolvido por Engenheiros com registro no CREA, com CNPJ ativo e dados verificáveis. Caso tenha dúvidas, entre em contato antes de instalar: <a href="/cdn-cgi/l/email-protection#3756535a77465b52595052595f56455e561954585a" style="color:var(--gold);"><span class="__cf_email__" data-cfemail="bedfdad3fecfd2dbd0d9dbd0d6dfccd7df90ddd1d3">[email&#160;protected]</span></a>
       </div>
     </div>
 
@@ -214,7 +222,7 @@
   <a href="/">QLicitações</a> &nbsp;·&nbsp; qlicitacoes.com.br
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 var APPS_URL = "https://script.google.com/macros/s/AKfycbx0l_8SucreoK86Sn3nZ3rqrJuVVJMCTHEzMnL4tQjN3QFq8i8SWYdUk5SLyOSAVd3v/exec";
 
 var PLANOS = {
@@ -352,14 +360,4 @@ function recuperarChave() {
         }
         document.getElementById("step-recuperar-sucesso").style.display = "block";
       } else {
-        mostrarErro("erro-recuperar", data.motivo || "Nenhuma chave encontrada para esse email.");
-      }
-    })
-    .catch(function() {
-      document.getElementById("loading-recuperar").style.display = "none";
-      mostrarErro("erro-recuperar", "Erro de conexão. Tente novamente.");
-    });
-}
-</script>
-</body>
-</html>
+        mostrarErro("erro-recuperar", data.motivo || "Nenhuma chave encontrada 
