@@ -368,4 +368,14 @@ function recuperarChave() {
         }
         document.getElementById("step-recuperar-sucesso").style.display = "block";
       } else {
-        mostrarErro("erro-recuperar", data.motivo || "Nenhuma chave encontrada 
+        mostrarErro("erro-recuperar", data.motivo || "Nenhuma chave encontrada para este email. Verifique o email informado ou contate o suporte.");
+      }
+    })
+    .catch(function() {
+      document.getElementById("loading-recuperar").style.display = "none";
+      mostrarErro("erro-recuperar", "Erro de conexão. Verifique sua internet e tente novamente.");
+    });
+}
+</script>
+</body>
+</html>
