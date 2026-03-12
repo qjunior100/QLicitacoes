@@ -105,7 +105,7 @@ async function handleGet(event, headers) {
   let resultado;
 
   if (acao === "validar") {
-    resultado = await validarLicenca(p.chave, p.uuid, p.email);
+    resultado = await validarLicenca(p.chave, p.uuid, p.email, p.versao);
 
   } else if (acao === "ativar") {
     resultado = await ativarLicenca(p.chave, p.uuid, p.email);
@@ -171,7 +171,7 @@ async function handleWebhook(event, headers) {
 // ─────────────────────────────────────────────
 // VALIDAR LICENÇA
 // ─────────────────────────────────────────────
-async function validarLicenca(chave, uuid, email) {
+async function validarLicenca(chave, uuid, email, versao) {
   if (!chave || !uuid) return { ok: false, motivo: "Parametros invalidos" };
 
   const sb = getSupabase();
@@ -211,8 +211,10 @@ async function validarLicenca(chave, uuid, email) {
   const diasRestantes = Math.ceil((vencimento - hoje) / (1000 * 60 * 60 * 24));
 
   // Registra último acesso e versão do app (se enviada)
+  const updateData = { ultimo_acesso: new Date().toISOString() };
+  if (versao) updateData.versao_app = versao;
   await sb.from("licencas")
-    .update({ ultimo_acesso: new Date().toISOString() })
+    .update(updateData)
     .eq("chave", chave.trim());
 
   return {
@@ -435,7 +437,9 @@ async function recuperarChave(email) {
 async function processarCompra(dados) {
   const produtoId = String(dados.product?.id || "").trim();
   const email     = String(dados.buyer?.email || "").trim().toLowerCase();
-  const nome      = String(dados.buyer?.name  || "Cliente").trim();
+  const nome      = String(dados.buyer?.name  || "").trim();
+  const telefone  = String(dados.buyer?.phone || dados.buyer?.phone_number || "").trim();
+  const cpf       = String(dados.buyer?.document || "").trim();
 
   if (!produtoId || !email) {
     return { ok: false, motivo: "Produto ou email ausente no payload" };
@@ -457,17 +461,30 @@ async function processarCompra(dados) {
     .order("data_criacao", { ascending: false })
     .limit(1);
 
+  // Campos de comprador para salvar/atualizar
+  const dadosComprador = {};
+  if (nome)     dadosComprador.nome     = nome;
+  if (telefone) dadosComprador.telefone = telefone;
+  if (cpf)      dadosComprador.cpf      = cpf;
+
   if (existente && existente.length > 0) {
     const chave = existente[0].chave;
     await _renovarVencimento(sb, chave, cfg.dias);
-    await _enviarEmailChave(email, nome, chave, cfg, "renovacao");
+    if (Object.keys(dadosComprador).length > 0) {
+      await sb.from("licencas").update(dadosComprador).eq("chave", chave);
+    }
+    await _enviarEmailChave(email, nome || "Cliente", chave, cfg, "renovacao");
     return { ok: true, msg: "Licenca renovada: " + chave };
   }
 
   const resultado = await gerarChave(cfg.plano, email, cfg.dias, cfg.segmento);
   if (!resultado.ok) return resultado;
 
-  await _enviarEmailChave(email, nome, resultado.chave, cfg, "nova");
+  if (Object.keys(dadosComprador).length > 0) {
+    await sb.from("licencas").update(dadosComprador).eq("chave", resultado.chave);
+  }
+
+  await _enviarEmailChave(email, nome || "Cliente", resultado.chave, cfg, "nova");
   return { ok: true, msg: "Chave gerada: " + resultado.chave };
 }
 
@@ -493,7 +510,9 @@ async function processarCancelamento(dados) {
 // ─────────────────────────────────────────────
 async function processarRenovacao(dados) {
   const email     = String(dados.buyer?.email  || "").trim().toLowerCase();
-  const nome      = String(dados.buyer?.name   || "Cliente").trim();
+  const nome      = String(dados.buyer?.name   || "").trim();
+  const telefone  = String(dados.buyer?.phone || dados.buyer?.phone_number || "").trim();
+  const cpf       = String(dados.buyer?.document || "").trim();
   const produtoId = String(dados.product?.id   || "").trim();
 
   const cfg = PRODUTOS_HOTMART[produtoId];
@@ -514,7 +533,16 @@ async function processarRenovacao(dados) {
 
   const chave = existente[0].chave;
   await _renovarVencimento(sb, chave, cfg.dias);
-  await _enviarEmailChave(email, nome, chave, cfg, "renovacao");
+
+  const dadosComprador = {};
+  if (nome)     dadosComprador.nome     = nome;
+  if (telefone) dadosComprador.telefone = telefone;
+  if (cpf)      dadosComprador.cpf      = cpf;
+  if (Object.keys(dadosComprador).length > 0) {
+    await sb.from("licencas").update(dadosComprador).eq("chave", chave);
+  }
+
+  await _enviarEmailChave(email, nome || "Cliente", chave, cfg, "renovacao");
   return { ok: true, msg: "Renovado: " + chave };
 }
 
