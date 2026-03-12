@@ -582,7 +582,7 @@
 <div id="toast"></div>
 
 <script>
-const APPS_URL = "https://script.google.com/macros/s/AKfycbx0l_8SucreoK86Sn3nZ3rqrJuVVJMCTHEzMnL4tQjN3QFq8i8SWYdUk5SLyOSAVd3v/exec";
+const APPS_URL = "https://qlicitacoes.com.br/api/admin";
 let SENHA = "";
 let todosClientes = [];
 let chaveAtual = "";
@@ -599,7 +599,7 @@ async function login() {
   document.getElementById("msg-login").textContent = "";
 
   try {
-    const r = await fetch(`${APPS_URL}?acao=admin_resumo&senha=${encodeURIComponent(senha)}`);
+    const r = await fetch(`${APPS_URL}?acao=resumo&senha=${encodeURIComponent(senha)}`);
     const d = await r.json();
     if (d.ok) {
       SENHA = senha;
@@ -638,11 +638,11 @@ async function carregarDados() {
   document.getElementById("corpo-tabela").innerHTML = `<div class="loading"><div class="spinner"></div><br>Carregando clientes...</div>`;
   try {
     const [r1, r2] = await Promise.all([
-      fetch(`${APPS_URL}?acao=admin_listar&senha=${encodeURIComponent(SENHA)}`).then(r=>r.json()),
-      fetch(`${APPS_URL}?acao=admin_resumo&senha=${encodeURIComponent(SENHA)}`).then(r=>r.json()),
+      fetch(`${APPS_URL}?acao=listar&senha=${encodeURIComponent(SENHA)}`).then(r=>r.json()),
+      fetch(`${APPS_URL}?acao=resumo&senha=${encodeURIComponent(SENHA)}`).then(r=>r.json()),
     ]);
     if (r1.ok) {
-      todosClientes = r1.clientes;
+      todosClientes = r1.licencas;
       filtrar();
     }
     if (r2.ok) atualizarCards(r2);
@@ -802,15 +802,15 @@ async function confirmarEstender() {
   const dias = parseInt(document.getElementById("input-dias").value);
   if (!dias || dias < 1) return;
   fecharModal("modal-estender");
-  await acao("admin_estender", { chave: chaveAtual, dias });
+  await acao("estender", { chave: chaveAtual, dias });
 }
 async function confirmarBloquear() {
   fecharModal("modal-bloquear");
-  await acao("admin_bloquear", { chave: chaveAtual });
+  await acao("bloquear", { chave: chaveAtual });
 }
 async function confirmarResetar() {
   fecharModal("modal-resetar");
-  await acao("admin_resetar_uuid", { chave: chaveAtual });
+  await acao("remover_uuid", { chave: chaveAtual });
 }
 
 // ── AÇÃO GENÉRICA ──
