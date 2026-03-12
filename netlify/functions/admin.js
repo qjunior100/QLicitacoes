@@ -31,6 +31,30 @@ exports.handler = async (event) => {
 
   try {
 
+    // ── RESUMO (cards do dashboard) ──────────────────────────
+    if (acao === "resumo") {
+      const { data, error } = await sb.from("licencas").select("status, vencimento");
+      if (error) throw error;
+
+      const hoje = new Date(); hoje.setHours(0, 0, 0, 0);
+      const em7  = new Date(hoje); em7.setDate(em7.getDate() + 7);
+
+      let total = 0, ativos = 0, vencendo7 = 0, vencidos = 0, bloqueados = 0;
+      for (const r of data || []) {
+        total++;
+        const st   = (r.status || "").toLowerCase();
+        const venc = r.vencimento ? new Date(r.vencimento) : null;
+        if (venc) venc.setHours(0, 0, 0, 0);
+
+        if (st === "bloqueada" || st === "cancelada") { bloqueados++; continue; }
+        if (venc && venc < hoje)  { vencidos++; continue; }
+        if (st === "ativa")       { ativos++; }
+        if (venc && venc >= hoje && venc <= em7) vencendo7++;
+      }
+
+      return ok(headers, { total, ativos, vencendo7, vencidos, bloqueados });
+    }
+
     // ── LISTAR LICENÇAS ──────────────────────────────────────
     if (acao === "listar") {
       const { data, error } = await sb
