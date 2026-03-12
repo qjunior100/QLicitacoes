@@ -9,6 +9,7 @@ const nodemailer        = require('nodemailer');
 // CONFIGURAÇÃO
 // ─────────────────────────────────────────────
 const DIAS_AVISO_VENCIMENTO = 7;
+const VERSAO_ATUAL          = "1.5";
 
 const PRODUTOS_HOTMART = {
   "7318490": { plano: "Completo", segmento: "*", dias: 30,  preco: 39.90  }, // Mensal legado
@@ -224,6 +225,7 @@ async function validarLicenca(chave, uuid, email, versao) {
     aviso_vencimento: diasRestantes <= DIAS_AVISO_VENCIMENTO,
     vencimento:       _formatarData(vencimento),
     segmentos_permitidos: data.segmentos || "*",
+    versao_atual:     VERSAO_ATUAL,
   };
 }
 
