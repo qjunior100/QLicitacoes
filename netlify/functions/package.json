@@ -1,0 +1,9 @@
+{
+  "name": "qlicitacoes-functions",
+  "version": "1.0.0",
+  "description": "Netlify Functions — QLicitações backend",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.4",
+    "nodemailer": "^6.10.0"
+  }
+}
