@@ -1,27 +1,37 @@
+[build]
+  publish   = "."
+  functions = "netlify/functions"
+
+# ─────────────────────────────────────────────
+# API — roteamento para as Netlify Functions
+# /api/licenca → /.netlify/functions/licenca
+# /api/admin   → /.netlify/functions/admin
+# ─────────────────────────────────────────────
 [[redirects]]
-  from = "/ativar"
-  to = "/ativar.html"
+  from  = "/api/*"
+  to    = "/.netlify/functions/:splat"
+  status = 200
+  force  = true
+
+# ─────────────────────────────────────────────
+# PÁGINAS DO SITE — sem alteração
+# ─────────────────────────────────────────────
+[[redirects]]
+  from   = "/ativar"
+  to     = "/ativar.html"
   status = 200
 
 [[redirects]]
-  from = "/download"
-  to = "https://github.com/qjunior100/QLicitacoes/releases/download/1.3/QLicitacoes_V1.3.zip"
+  from   = "/download"
+  to     = "https://github.com/qjunior100/QLicitacoes/releases/download/1.2/QLicitacoes_V1.2.zip"
   status = 301
 
-[build]
-  publish = "."
-
 [[redirects]]
-  from = "/afiliados"
-  to = "/afiliados.html"
+  from   = "/afiliados"
+  to     = "/afiliados.html"
   status = 200
 
 [[redirects]]
-  from = "/instrucoes"
-  to = "/instrucoes.html"
-  status = 200
-
-[[redirects]]
-  from = "/admin"
-  to = "/admin.html"
+  from   = "/instrucoes"
+  to     = "/instrucoes.html"
   status = 200
