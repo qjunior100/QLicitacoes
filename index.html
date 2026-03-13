@@ -1789,4 +1789,12 @@
       }).join('');
     })
     .catch(function() {
-      document.getElementById('depo-grid').innerHTML = '<div style="grid-column:1/-1;te
+      document.getElementById('depo-grid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:32px 0;color:var(--cinza);font-size:.85rem;font-weight:300;">Não foi possível carregar os depoimentos.</div>';
+    });
+  }
+
+  carregarDepoimentos();
+
+</script>
+</body>
+</html>
