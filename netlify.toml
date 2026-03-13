@@ -16,6 +16,11 @@
   status = 200
   force  = true
 
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "connect-src 'self' https://*.supabase.co"
+
 # ─────────────────────────────────────────────
 # PÁGINAS DO SITE — sem alteração
 # ─────────────────────────────────────────────
@@ -38,3 +43,4 @@
   from   = "/instrucoes"
   to     = "/instrucoes.html"
   status = 200
+
