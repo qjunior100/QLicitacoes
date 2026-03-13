@@ -185,19 +185,36 @@
       color: var(--cinza); font-size: .8rem;
     }
 
-    /* app window mockup — glassmorphism */
+    /* app window mockup — dark + glow dourado */
     .app-mockup {
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: radial-gradient(ellipse at 50% 115%, rgba(240,165,0,0.09) 0%, #060D1A 58%);
       border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.12);
+      border: 1px solid rgba(240,165,0,0.28);
       overflow: hidden;
+      position: relative;
       box-shadow:
-        0 40px 100px rgba(0,0,0,0.55),
-        0 0 0 1px rgba(255,255,255,0.04),
-        inset 0 1px 0 rgba(255,255,255,0.08);
+        0 0 0 1px rgba(240,165,0,0.06),
+        0 30px 80px rgba(0,0,0,0.7),
+        0 0 40px rgba(240,165,0,0.05);
       animation: floatMockup 5s ease-in-out infinite;
+    }
+
+    /* scan line */
+    .app-mockup::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(240,165,0,0.55), transparent);
+      animation: mockupScan 3s linear infinite;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    @keyframes mockupScan {
+      0%   { top: 28px; opacity: 0.9; }
+      85%  { opacity: 0.9; }
+      100% { top: 100%; opacity: 0; }
     }
 
     @keyframes floatMockup {
@@ -205,14 +222,24 @@
       50%      { transform: translateY(-8px); }
     }
 
+    /* dots pulsando por prioridade */
+    @keyframes pulsoAlta {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.7), 0 0 6px rgba(239,68,68,0.6); }
+      60%       { box-shadow: 0 0 0 5px rgba(239,68,68,0), 0 0 6px rgba(239,68,68,0.6); }
+    }
+    @keyframes pulsoMedia {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(240,165,0,0.6), 0 0 6px rgba(240,165,0,0.5); }
+      60%       { box-shadow: 0 0 0 5px rgba(240,165,0,0), 0 0 6px rgba(240,165,0,0.5); }
+    }
+
     .app-titlebar {
-      background: rgba(255,255,255,0.04);
+      background: rgba(0,0,0,0.3);
       padding: 12px 16px;
       display: flex; align-items: center; gap: 6px;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
+      border-bottom: 1px solid rgba(240,165,0,0.1);
     }
     .app-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .app-title-text { color: rgba(255,255,255,0.3); font-size: 12px; margin-left: 8px; }
+    .app-title-text { color: rgba(240,165,0,0.32); font-size: 12px; margin-left: 8px; }
     .app-body { padding: 16px; }
 
     .app-summary {
@@ -245,8 +272,8 @@
     .app-row-baixa { background: rgba(255,255,255,0.04); }
 
     .app-priority-dot { width: 7px; height: 7px; border-radius: 50%; }
-    .dot-alta  { background: #ef4444; box-shadow: 0 0 6px rgba(239,68,68,0.6); }
-    .dot-media { background: #F0A500; box-shadow: 0 0 6px rgba(240,165,0,0.5); }
+    .dot-alta  { background: #ef4444; animation: pulsoAlta  1.8s ease-out infinite; }
+    .dot-media { background: #F0A500; animation: pulsoMedia 2.4s ease-out infinite 0.6s; }
     .dot-baixa { background: rgba(255,255,255,0.2); }
 
     .app-obj  { color: rgba(255,255,255,0.82); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -257,7 +284,7 @@
     .lbl-baixa { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.3); }
 
     .app-footer {
-      border-top: 1px solid rgba(255,255,255,0.07);
+      border-top: 1px solid rgba(240,165,0,0.1);
       margin-top: 12px; padding-top: 12px;
       display: flex; justify-content: space-between; align-items: center;
     }
@@ -1074,7 +1101,7 @@
         <div class="app-dot" style="background:#ef4444;"></div>
         <div class="app-dot" style="background:#f59e0b;"></div>
         <div class="app-dot" style="background:#22c55e;"></div>
-        <span class="app-title-text">QLicitações — Relatório</span>
+        <span class="app-title-text">QLicitações — ao vivo</span>
       </div>
       <div class="app-body">
         <div class="app-summary">
@@ -1502,7 +1529,7 @@
     </p>
     <div class="hero-btns reveal">
       <a href="#planos" class="btn-primary">Ver planos →</a>
-      <a href="mailto:adm&#64;qlengenharia.com" class="btn-secondary">Falar com suporte</a>
+      <a href="/cdn-cgi/l/email-protection#c1a0a5ace7e2f7f5fab0ada4afa6a4afa9a0b3a8a0efa2aeac" class="btn-secondary">Falar com suporte</a>
     </div>
   </div>
 </section>
@@ -1511,11 +1538,11 @@
 <footer>
   <div class="footer-logo">QLicitações</div>
   <p style="margin-bottom:12px;">Monitor de Licitações Públicas — Integrado ao PNCP</p>
-  <p><a href="mailto:adm&#64;qlengenharia.com">adm&#64;qlengenharia.com</a> &nbsp;·&nbsp; <a href="/ativar.html">Ativar licença</a></p>
+  <p><a href="/cdn-cgi/l/email-protection#a0c1c4cd868396949bd1ccc5cec7c5cec8c1d2c9c18ec3cfcd">adm&#64;qlengenharia.com</a> &nbsp;·&nbsp; <a href="/ativar.html">Ativar licença</a></p>
   <p style="margin-top:24px; font-size:.75rem; opacity:.5;">© 2026 QLicitações. Todos os direitos reservados.</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // ── Afiliado: passa o ?ref para os links do Hotmart ──
   (function() {
     const ref = new URLSearchParams(window.location.search).get('ref');
@@ -1762,12 +1789,4 @@
       }).join('');
     })
     .catch(function() {
-      document.getElementById('depo-grid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:32px 0;color:var(--cinza);font-size:.85rem;font-weight:300;">Não foi possível carregar os depoimentos.</div>';
-    });
-  }
-
-  carregarDepoimentos();
-
-</script>
-</body>
-</html>
+      document.getElementById('depo-grid').innerHTML = '<div style="grid-column:1/-1;te

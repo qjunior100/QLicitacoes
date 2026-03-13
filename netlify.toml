@@ -2,6 +2,11 @@
   publish   = "."
   functions = "netlify/functions"
 
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "connect-src 'self' https://*.supabase.co"
+
 [[plugins]]
   package = "@netlify/plugin-functions-install-core"
 
@@ -15,11 +20,6 @@
   to    = "/.netlify/functions/:splat"
   status = 200
   force  = true
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Content-Security-Policy = "connect-src 'self' https://*.supabase.co"
 
 # ─────────────────────────────────────────────
 # PÁGINAS DO SITE — sem alteração
@@ -43,4 +43,3 @@
   from   = "/instrucoes"
   to     = "/instrucoes.html"
   status = 200
-
