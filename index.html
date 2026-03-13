@@ -125,34 +125,144 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 120px 20px 80px;
-      overflow: hidden;
+      padding: 120px 40px 80px;
+      overflow: visible;
+      width: 100%;
+    }
+
+    /* partículas — canvas fixo na viewport horizontal, relativo ao hero vertical */
+    #particles-canvas {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
     }
 
     .hero-glow {
       position: absolute;
-      top: -100px;
-      left: 50%;
+      top: -100px; left: 50%;
       transform: translateX(-50%);
-      width: 800px;
-      height: 800px;
+      width: 900px; height: 900px;
       background: radial-gradient(circle, rgba(240,165,0,0.14) 0%, rgba(240,165,0,0.04) 40%, transparent 70%);
       pointer-events: none;
     }
 
     .hero-grid {
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(240,165,0,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(240,165,0,0.04) 1px, transparent 1px);
+        linear-gradient(rgba(240,165,0,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(240,165,0,0.03) 1px, transparent 1px);
       background-size: 60px 60px;
       pointer-events: none;
       mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent);
     }
 
+    /* layout 2 colunas */
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 520px;
+      gap: 64px;
+      align-items: center;
+      max-width: 1200px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
     .hero-content { position: relative; z-index: 1; max-width: 800px; }
+
+    /* trust line */
+    .hero-trust {
+      display: flex; align-items: center; gap: 20px;
+      margin-top: 20px; flex-wrap: wrap;
+    }
+    .hero-trust-item {
+      display: flex; align-items: center; gap: 6px;
+      color: var(--cinza); font-size: .8rem;
+    }
+
+    /* app window mockup — glassmorphism */
+    .app-mockup {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      overflow: hidden;
+      box-shadow:
+        0 40px 100px rgba(0,0,0,0.55),
+        0 0 0 1px rgba(255,255,255,0.04),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+      animation: floatMockup 5s ease-in-out infinite;
+    }
+
+    @keyframes floatMockup {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-8px); }
+    }
+
+    .app-titlebar {
+      background: rgba(255,255,255,0.04);
+      padding: 12px 16px;
+      display: flex; align-items: center; gap: 6px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .app-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .app-title-text { color: rgba(255,255,255,0.3); font-size: 12px; margin-left: 8px; }
+    .app-body { padding: 16px; }
+
+    .app-summary {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 12px;
+    }
+    .app-summary-count { color: rgba(255,255,255,0.4); font-size: 12px; }
+
+    .app-col-header {
+      display: grid;
+      grid-template-columns: 14px 1fr 80px 54px;
+      gap: 8px; padding: 0 8px 8px;
+    }
+    .app-col-header span {
+      font-size: 10px; color: rgba(255,255,255,0.22);
+      text-transform: uppercase; letter-spacing: 0.6px;
+    }
+    .app-col-header span:nth-child(3),
+    .app-col-header span:nth-child(4) { text-align: right; }
+
+    .app-row {
+      display: grid;
+      grid-template-columns: 14px 1fr 80px 54px;
+      gap: 8px; align-items: center;
+      padding: 9px 8px; border-radius: 7px; margin-bottom: 4px;
+      transition: background .2s;
+    }
+    .app-row-alta  { background: rgba(239,68,68,0.1); }
+    .app-row-media { background: rgba(240,165,0,0.08); }
+    .app-row-baixa { background: rgba(255,255,255,0.04); }
+
+    .app-priority-dot { width: 7px; height: 7px; border-radius: 50%; }
+    .dot-alta  { background: #ef4444; box-shadow: 0 0 6px rgba(239,68,68,0.6); }
+    .dot-media { background: #F0A500; box-shadow: 0 0 6px rgba(240,165,0,0.5); }
+    .dot-baixa { background: rgba(255,255,255,0.2); }
+
+    .app-obj  { color: rgba(255,255,255,0.82); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .app-val  { color: rgba(255,255,255,0.42); font-size: 11px; text-align: right; }
+    .app-lbl  { font-size: 10px; padding: 2px 6px; border-radius: 4px; text-align: right; font-weight: 600; }
+    .lbl-alta  { background: rgba(239,68,68,0.2); color: #fca5a5; }
+    .lbl-media { background: rgba(240,165,0,0.16); color: #F0A500; }
+    .lbl-baixa { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.3); }
+
+    .app-footer {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      margin-top: 12px; padding-top: 12px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .app-footer-l { color: rgba(255,255,255,0.22); font-size: 11px; }
+    .app-footer-r { color: #F0A500; font-size: 11px; font-weight: 600; }
 
     .hero-badge {
       display: inline-flex;
@@ -184,33 +294,25 @@
 
     .hero h1 {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(2.6rem, 6vw, 4.4rem);
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
       font-weight: 800;
       line-height: 1.08;
       margin-bottom: 24px;
       letter-spacing: -2px;
     }
 
-    .hero h1 em {
-      font-style: normal;
-      color: var(--gold);
-    }
+    .hero h1 em { font-style: normal; color: var(--gold); }
 
     .hero p {
-      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-size: clamp(.95rem, 1.6vw, 1.08rem);
       color: var(--cinza);
-      line-height: 1.7;
-      max-width: 580px;
-      margin: 0 auto 40px;
+      line-height: 1.75;
+      max-width: 480px;
+      margin: 0 0 36px;
       font-weight: 300;
     }
 
-    .hero-btns {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
 
     .btn-primary {
       background: var(--gold);
@@ -250,15 +352,14 @@
 
     .hero-stats {
       display: flex;
-      justify-content: center;
-      gap: 60px;
-      margin-top: 80px;
-      padding-top: 40px;
+      gap: 40px;
+      margin-top: 48px;
+      padding-top: 28px;
       border-top: 1px solid var(--borda);
       flex-wrap: wrap;
     }
 
-    .stat-item { text-align: center; }
+    .stat-item { text-align: left; }
 
     .stat-num {
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -722,9 +823,9 @@
 
     /* ── ANIMAÇÕES DE ENTRADA ── */
     .reveal {
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity .6s ease, transform .6s ease;
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .7s ease, transform .7s ease;
     }
 
     .reveal.visible {
@@ -732,11 +833,64 @@
       transform: translateY(0);
     }
 
+    /* ── DEPOIMENTOS ── */
+    .depoimentos { background: var(--azul2); }
+
+    .depo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px; margin-top: 48px;
+    }
+
+    .depo-card {
+      background: var(--card-bg); border: 1px solid var(--borda);
+      border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 14px;
+      transition: border-color .2s, transform .2s;
+    }
+    .depo-card:hover { border-color: rgba(240,165,0,0.3); transform: translateY(-3px); }
+    .depo-stars { display: flex; gap: 3px; }
+    .depo-star { width: 13px; height: 13px; fill: var(--gold); }
+    .depo-star-off { fill: rgba(240,165,0,0.18); }
+    .depo-texto { font-size: .91rem; color: var(--branco); line-height: 1.7; font-weight: 300; flex: 1; }
+    .depo-autor { display: flex; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px solid var(--borda); }
+    .depo-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(240,165,0,0.1); border: 1px solid rgba(240,165,0,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Plus Jakarta Sans',sans-serif; font-weight: 700; font-size: .82rem;
+      color: var(--gold); flex-shrink: 0;
+    }
+    .depo-nome { font-family: 'Plus Jakarta Sans',sans-serif; font-size: .85rem; font-weight: 700; color: var(--branco); }
+    .depo-cargo { font-size: .76rem; color: var(--cinza); margin-top: 2px; }
+    .depo-segmento {
+      font-size: .7rem; background: rgba(240,165,0,0.08); border: 1px solid rgba(240,165,0,0.2);
+      color: var(--gold); padding: 2px 8px; border-radius: 99px; font-weight: 500; margin-left: auto; flex-shrink: 0;
+    }
+
+    /* ── PLANOS ── */
+    .planos { background: var(--azul); }
+
+    /* ── FEATURE CARD accent ── */
+    .feature-card { position: relative; overflow: hidden; }
+    .feature-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(240,165,0,0.4), transparent);
+      opacity: 0; transition: opacity .25s;
+    }
+    .feature-card:hover::after { opacity: 1; }
+
     /* ── HAMBURGER (oculto no desktop) ── */
     .hamburger { display: none; }
 
+    /* nav médio — comprime antes de virar hambúrguer */
+    @media (max-width: 1100px) {
+      nav { padding: 16px 24px; }
+      .nav-links { gap: 18px; }
+      .nav-links a { font-size: .82rem; }
+    }
+
     /* ── RESPONSIVO ── */
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
 
       /* Nav */
       nav { padding: 14px 20px; }
@@ -805,12 +959,16 @@
 
       /* Hero */
       .hero { padding: 100px 20px 60px; }
-      .hero h1 { letter-spacing: -1px; }
-      .hero-btns { flex-direction: column; align-items: center; gap: 12px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero h1 { letter-spacing: -1px; font-size: clamp(2rem, 7vw, 3rem); }
+      .hero p { max-width: 100%; }
+      .hero-btns { flex-direction: column; align-items: flex-start; gap: 12px; }
       .hero-btns .btn-primary,
       .hero-btns .btn-secondary { width: 100%; max-width: 320px; text-align: center; }
-      .hero-stats { gap: 24px; margin-top: 48px; padding-top: 32px; }
+      .hero-stats { gap: 24px; margin-top: 40px; padding-top: 24px; }
+      .stat-item { text-align: left; }
       .stat-num { font-size: 1.6rem; }
+      .app-mockup { max-width: 460px; }
 
       /* Steps */
       .steps { grid-template-columns: 1fr; gap: 2px; }
@@ -874,32 +1032,100 @@
 
 <!-- ── HERO ── -->
 <section class="hero">
+  <canvas id="particles-canvas"></canvas>
   <div class="hero-glow"></div>
   <div class="hero-grid"></div>
-  <div class="hero-content">
-    <div class="hero-badge">Integrado ao PNCP — Portal Nacional de Contratações Públicas</div>
-    <h1>Nunca mais perca uma <em>licitação pública</em></h1>
-    <p>O QLicitações monitora o PNCP automaticamente todos os dias e entrega apenas as oportunidades relevantes para o seu negócio — filtradas por segmento, estado e palavras-chave.</p>
-    <div class="hero-btns">
-      <a href="#planos" class="btn-primary">Começar agora →</a>
-      <a href="#como-funciona" class="btn-secondary">Como funciona</a>
+
+  <div class="hero-inner">
+    <!-- coluna esquerda: texto -->
+    <div>
+      <div class="hero-badge">Integrado ao PNCP — Portal Nacional de Contratações Públicas</div>
+      <h1>Nunca mais perca uma <em>licitação pública</em></h1>
+      <p>O QLicitações monitora o PNCP automaticamente todos os dias e entrega apenas as oportunidades relevantes para o seu negócio — filtradas por segmento, estado e palavras-chave.</p>
+      <div class="hero-btns">
+        <a href="#planos" class="btn-primary">Começar agora →</a>
+        <a href="#como-funciona" class="btn-secondary">Como funciona</a>
+      </div>
+      <div class="hero-trust">
+        <div class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="rgba(240,165,0,0.15)"/><path d="M4 7l2 2 4-4" stroke="#F0A500" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          7 dias de garantia
+        </div>
+        <div class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="rgba(240,165,0,0.15)"/><path d="M4 7l2 2 4-4" stroke="#F0A500" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Cancele quando quiser
+        </div>
+        <div class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="rgba(240,165,0,0.15)"/><path d="M4 7l2 2 4-4" stroke="#F0A500" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Ativa em 5 minutos
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><div class="stat-num">10+</div><div class="stat-label">Segmentos monitorados</div></div>
+        <div class="stat-item"><div class="stat-num">27</div><div class="stat-label">Estados disponíveis</div></div>
+        <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Automático</div></div>
+        <div class="stat-item"><div class="stat-num">R$39</div><div class="stat-label">A partir de /mês</div></div>
+      </div>
     </div>
-    <div class="hero-stats">
-      <div class="stat-item">
-        <div class="stat-num">10+</div>
-        <div class="stat-label">Segmentos monitorados</div>
+
+    <!-- coluna direita: app mockup -->
+    <div class="app-mockup">
+      <div class="app-titlebar">
+        <div class="app-dot" style="background:#ef4444;"></div>
+        <div class="app-dot" style="background:#f59e0b;"></div>
+        <div class="app-dot" style="background:#22c55e;"></div>
+        <span class="app-title-text">QLicitações — Relatório</span>
       </div>
-      <div class="stat-item">
-        <div class="stat-num">27</div>
-        <div class="stat-label">Estados disponíveis</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">100%</div>
-        <div class="stat-label">Automático</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">R$39</div>
-        <div class="stat-label">A partir de /mês</div>
+      <div class="app-body">
+        <div class="app-summary">
+          <span class="app-summary-count">23 licitações encontradas</span>
+        </div>
+        <div class="app-col-header">
+          <span></span>
+          <span>Objeto</span>
+          <span>Valor Est.</span>
+          <span>Prior.</span>
+        </div>
+        <div class="app-row app-row-alta">
+          <div class="app-priority-dot dot-alta"></div>
+          <div class="app-obj">Obras de Engenharia</div>
+          <div class="app-val">R$ 480k</div>
+          <div class="app-lbl lbl-alta">Alta</div>
+        </div>
+        <div class="app-row app-row-alta">
+          <div class="app-priority-dot dot-alta"></div>
+          <div class="app-obj">Elaboração de Projetos</div>
+          <div class="app-val">R$ 195k</div>
+          <div class="app-lbl lbl-alta">Alta</div>
+        </div>
+        <div class="app-row app-row-media">
+          <div class="app-priority-dot dot-media"></div>
+          <div class="app-obj">Consultoria Jurídica</div>
+          <div class="app-val">R$ 140k</div>
+          <div class="app-lbl lbl-media">Média</div>
+        </div>
+        <div class="app-row app-row-media">
+          <div class="app-priority-dot dot-media"></div>
+          <div class="app-obj">Tecnologia da Informação</div>
+          <div class="app-val">R$ 98k</div>
+          <div class="app-lbl lbl-media">Média</div>
+        </div>
+        <div class="app-row app-row-baixa">
+          <div class="app-priority-dot dot-baixa"></div>
+          <div class="app-obj">Vigilância e Segurança</div>
+          <div class="app-val">R$ 76k</div>
+          <div class="app-lbl lbl-baixa">Baixa</div>
+        </div>
+        <div class="app-row app-row-baixa">
+          <div class="app-priority-dot dot-baixa"></div>
+          <div class="app-obj">Saúde</div>
+          <div class="app-val">R$ 62k</div>
+          <div class="app-lbl lbl-baixa">Baixa</div>
+        </div>
+        <div class="app-footer">
+          <span class="app-footer-l">Enviado para usuario&#64;empresa.com.br</span>
+          <span class="app-footer-r">✓ Exportado em Excel</span>
+        </div>
       </div>
     </div>
   </div>
@@ -1003,6 +1229,77 @@
     </div>
   </div>
 </section>
+
+<!-- ── DEPOIMENTOS ── -->
+<section class="depoimentos" id="depoimentos">
+  <div class="container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:8px;">
+      <div>
+        <div class="section-tag">Quem usa</div>
+        <h2 class="section-title" style="margin-bottom:0;">O que nossos clientes dizem</h2>
+      </div>
+      <button onclick="abrirFormDepo()" style="background:transparent;border:1px solid rgba(240,165,0,0.5);color:var(--gold);padding:10px 22px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:.88rem;cursor:pointer;transition:all .2s;white-space:nowrap;" onmouseover="this.style.background='rgba(240,165,0,0.08)'" onmouseout="this.style.background='transparent'">+ Enviar meu depoimento</button>
+    </div>
+    <p class="section-sub">Empresas reais usando o QLicitações para encontrar oportunidades antes da concorrência.</p>
+    <div id="depo-grid" class="depo-grid">
+      <div id="depo-loading" style="grid-column:1/-1;text-align:center;padding:48px 0;color:var(--cinza);font-size:.9rem;">Carregando depoimentos...</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MODAL DEPOIMENTO ── -->
+<div id="depo-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.78);z-index:500;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#0D1525;border:1px solid rgba(240,165,0,0.2);border-radius:16px;padding:36px;max-width:520px;width:100%;position:relative;max-height:90vh;overflow-y:auto;">
+    <button onclick="fecharFormDepo()" style="position:absolute;top:16px;right:16px;background:none;border:none;color:var(--cinza);font-size:1.6rem;cursor:pointer;line-height:1;padding:0 4px;">×</button>
+    <div class="section-tag" style="margin-bottom:8px;">Depoimento</div>
+    <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.2rem;margin-bottom:4px;">Conte sua experiência</h3>
+    <p style="color:var(--cinza);font-size:.85rem;margin-bottom:24px;font-weight:300;">Seu depoimento aparece no site após revisão. Obrigado!</p>
+    <div id="depo-form-area">
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:.8rem;font-weight:500;color:var(--cinza);margin-bottom:6px;">Nome *</label>
+        <input id="depo-nome" type="text" placeholder="Seu nome" style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(240,165,0,0.2);border-radius:8px;padding:11px 14px;color:var(--branco);font-family:'Inter',sans-serif;font-size:.9rem;outline:none;" onfocus="this.style.borderColor='#F0A500'" onblur="this.style.borderColor='rgba(240,165,0,0.2)'">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+        <div>
+          <label style="display:block;font-size:.8rem;font-weight:500;color:var(--cinza);margin-bottom:6px;">Cargo</label>
+          <input id="depo-cargo" type="text" placeholder="Ex: Sócio-diretor" style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(240,165,0,0.2);border-radius:8px;padding:11px 14px;color:var(--branco);font-family:'Inter',sans-serif;font-size:.9rem;outline:none;" onfocus="this.style.borderColor='#F0A500'" onblur="this.style.borderColor='rgba(240,165,0,0.2)'">
+        </div>
+        <div>
+          <label style="display:block;font-size:.8rem;font-weight:500;color:var(--cinza);margin-bottom:6px;">Segmento</label>
+          <select id="depo-segmento" style="width:100%;background:rgba(13,21,37,0.98);border:1px solid rgba(240,165,0,0.2);border-radius:8px;padding:11px 14px;color:#F0F4FA;font-family:'Inter',sans-serif;font-size:.9rem;outline:none;">
+            <option value="">Selecione...</option>
+            <option>Obras e Engenharias</option><option>Saúde</option><option>Limpeza e Conservação</option>
+            <option>Vigilância e Segurança</option><option>Tecnologia da Informação</option>
+            <option>Alimentação e Nutrição</option><option>Transporte e Logística</option>
+            <option>Manutenção de Equipamentos</option><option>Educação e Capacitação</option>
+            <option>Consultoria e Assessoria</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:.8rem;font-weight:500;color:var(--cinza);margin-bottom:8px;">Avaliação *</label>
+        <div id="depo-stars-select" style="display:flex;gap:8px;">
+          <span class="star-btn" data-v="1" onclick="selecionarNota(1)" style="font-size:1.8rem;cursor:pointer;color:rgba(240,165,0,0.22);transition:color .15s;">★</span>
+          <span class="star-btn" data-v="2" onclick="selecionarNota(2)" style="font-size:1.8rem;cursor:pointer;color:rgba(240,165,0,0.22);transition:color .15s;">★</span>
+          <span class="star-btn" data-v="3" onclick="selecionarNota(3)" style="font-size:1.8rem;cursor:pointer;color:rgba(240,165,0,0.22);transition:color .15s;">★</span>
+          <span class="star-btn" data-v="4" onclick="selecionarNota(4)" style="font-size:1.8rem;cursor:pointer;color:rgba(240,165,0,0.22);transition:color .15s;">★</span>
+          <span class="star-btn" data-v="5" onclick="selecionarNota(5)" style="font-size:1.8rem;cursor:pointer;color:rgba(240,165,0,0.22);transition:color .15s;">★</span>
+        </div>
+      </div>
+      <div style="margin-bottom:24px;">
+        <label style="display:block;font-size:.8rem;font-weight:500;color:var(--cinza);margin-bottom:6px;">Depoimento * <span style="font-weight:300;">(mín. 30 caracteres)</span></label>
+        <textarea id="depo-texto" rows="4" placeholder="Conte como o QLicitações ajuda no seu dia a dia..." style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(240,165,0,0.2);border-radius:8px;padding:11px 14px;color:var(--branco);font-family:'Inter',sans-serif;font-size:.9rem;outline:none;resize:vertical;" onfocus="this.style.borderColor='#F0A500'" onblur="this.style.borderColor='rgba(240,165,0,0.2)'"></textarea>
+      </div>
+      <div id="depo-erro" style="display:none;color:#fca5a5;font-size:.83rem;margin-bottom:12px;padding:10px 14px;background:rgba(239,68,68,0.1);border-radius:6px;"></div>
+      <button onclick="enviarDepoimento()" id="depo-submit-btn" style="width:100%;background:#F0A500;color:#0D1F3C;border:none;border-radius:8px;padding:14px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;transition:background .2s;" onmouseover="this.style.background='#FFB830'" onmouseout="this.style.background='#F0A500'">Enviar depoimento →</button>
+    </div>
+    <div id="depo-sucesso" style="display:none;text-align:center;padding:24px 0;">
+      <div style="width:56px;height:56px;border-radius:50%;background:rgba(240,165,0,0.12);border:1px solid rgba(240,165,0,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.5rem;color:var(--gold);">✓</div>
+      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:8px;">Depoimento enviado!</div>
+      <p style="color:var(--cinza);font-size:.88rem;font-weight:300;">Obrigado! Seu depoimento aparecerá no site após revisão.</p>
+    </div>
+  </div>
+</div>
 
 <!-- ── PLANOS ── -->
 <section id="planos">
@@ -1205,7 +1502,7 @@
     </p>
     <div class="hero-btns reveal">
       <a href="#planos" class="btn-primary">Ver planos →</a>
-      <a href="mailto:adm@qlengenharia.com" class="btn-secondary">Falar com suporte</a>
+      <a href="mailto:adm&#64;qlengenharia.com" class="btn-secondary">Falar com suporte</a>
     </div>
   </div>
 </section>
@@ -1214,11 +1511,11 @@
 <footer>
   <div class="footer-logo">QLicitações</div>
   <p style="margin-bottom:12px;">Monitor de Licitações Públicas — Integrado ao PNCP</p>
-  <p><a href="mailto:adm@qlengenharia.com">adm@qlengenharia.com</a> &nbsp;·&nbsp; <a href="/ativar.html">Ativar licença</a></p>
+  <p><a href="mailto:adm&#64;qlengenharia.com">adm&#64;qlengenharia.com</a> &nbsp;·&nbsp; <a href="/ativar.html">Ativar licença</a></p>
   <p style="margin-top:24px; font-size:.75rem; opacity:.5;">© 2026 QLicitações. Todos os direitos reservados.</p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // ── Afiliado: passa o ?ref para os links do Hotmart ──
   (function() {
     const ref = new URLSearchParams(window.location.search).get('ref');
@@ -1233,7 +1530,14 @@
     }
   })();
 
-  // ── Scroll reveal ──
+  // ── Scroll reveal com cascata ──
+  // Aplica delay escalonado para elementos no mesmo container
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    var siblings = Array.from(el.parentElement.querySelectorAll('.reveal'));
+    var idx = siblings.indexOf(el);
+    el.style.transitionDelay = (idx * 0.1) + 's';
+  });
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -1241,14 +1545,9 @@
         observer.unobserve(e.target);
       }
     });
-  }, { threshold: 0.05, rootMargin: "0px 0px -40px 0px" });
+  }, { threshold: 0.08, rootMargin: "0px 0px -60px 0px" });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  // Fallback: garante que nada fica escondido se o observer falhar
-  setTimeout(() => {
-    document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
-  }, 800);
 
   // ── FAQ accordion ──
   document.querySelectorAll('.faq-pergunta').forEach(btn => {
@@ -1267,14 +1566,208 @@
     nav.classList.toggle('aberto');
     btn.classList.toggle('aberto');
   }
-  document.querySelectorAll('#nav-links a').forEach(function(link) {
-    link.addEventListener('click', function() {
-      var nav = document.getElementById('nav-links');
-      var btn = document.getElementById('hamburger');
-      nav.classList.remove('aberto');
-      btn.classList.remove('aberto');
+  document.querySelectorAll('#nav-links a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      document.getElementById('nav-links').classList.remove('aberto');
+      document.getElementById('hamburger').classList.remove('aberto');
     });
   });
+
+  // ── Partículas canvas ──
+  (function() {
+    var canvas = document.getElementById('particles-canvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var particles = [];
+    var mouse = { x: null, y: null };
+
+    function resize() {
+      canvas.width  = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    canvas.closest('section').addEventListener('mousemove', function(e) {
+      var r = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - r.left;
+      mouse.y = e.clientY - r.top;
+    });
+    canvas.closest('section').addEventListener('mouseleave', function() {
+      mouse.x = null; mouse.y = null;
+    });
+
+    var N = 80;
+    for (var i = 0; i < N; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        r: Math.random() * 2 + 0.8
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // linhas entre pontos próximos
+      for (var i = 0; i < particles.length; i++) {
+        for (var j = i + 1; j < particles.length; j++) {
+          var dx = particles[i].x - particles[j].x;
+          var dy = particles[i].y - particles[j].y;
+          var dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < 160) {
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(240,165,0,' + (0.1 * (1 - dist/160)) + ')';
+            ctx.lineWidth = 0.7;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+        // linhas para o mouse
+        if (mouse.x !== null) {
+          var mdx = particles[i].x - mouse.x;
+          var mdy = particles[i].y - mouse.y;
+          var md  = Math.sqrt(mdx*mdx + mdy*mdy);
+          if (md < 180) {
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(240,165,0,' + (0.22 * (1 - md/180)) + ')';
+            ctx.lineWidth = 0.9;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // pontos
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(240,165,0,0.55)';
+        ctx.fill();
+
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height)  p.vy *= -1;
+      }
+
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+
+  // ── Depoimentos Supabase ──
+  var SUPA_URL = 'https://emvbnrjnbyeajksonybj.supabase.co';
+  var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVtdmJucmpuYnllanlrc29ueWJqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzMTM5MDgsImV4cCI6MjA4ODg4OTkwOH0.F0Dnvk-wwUS20j9rB3ZYJG3TSDY6xj6JwiCbRJ0FI7Y';
+  var SUPA_H   = { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json' };
+  var notaSelecionada = 0;
+
+  function selecionarNota(n) {
+    notaSelecionada = n;
+    document.querySelectorAll('.star-btn').forEach(function(s) {
+      s.style.color = parseInt(s.dataset.v) <= n ? '#F0A500' : 'rgba(240,165,0,0.22)';
+    });
+  }
+
+  function abrirFormDepo() {
+    var ov = document.getElementById('depo-overlay');
+    ov.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    notaSelecionada = 0;
+    document.querySelectorAll('.star-btn').forEach(function(s) { s.style.color = 'rgba(240,165,0,0.22)'; });
+    ['depo-nome','depo-cargo','depo-texto'].forEach(function(id) { var el = document.getElementById(id); if(el) el.value = ''; });
+    document.getElementById('depo-segmento').value = '';
+    document.getElementById('depo-erro').style.display = 'none';
+    document.getElementById('depo-form-area').style.display = 'block';
+    document.getElementById('depo-sucesso').style.display = 'none';
+    var b = document.getElementById('depo-submit-btn');
+    b.textContent = 'Enviar depoimento →'; b.disabled = false;
+  }
+
+  function fecharFormDepo() {
+    document.getElementById('depo-overlay').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('depo-overlay').addEventListener('click', function(e) {
+    if (e.target === this) fecharFormDepo();
+  });
+
+  function enviarDepoimento() {
+    var nome  = document.getElementById('depo-nome').value.trim();
+    var texto = document.getElementById('depo-texto').value.trim();
+    var cargo = document.getElementById('depo-cargo').value.trim();
+    var seg   = document.getElementById('depo-segmento').value;
+    var erro  = document.getElementById('depo-erro');
+    if (!nome)             { erro.textContent = 'Informe seu nome.'; erro.style.display = 'block'; return; }
+    if (!notaSelecionada)  { erro.textContent = 'Selecione uma avaliação.'; erro.style.display = 'block'; return; }
+    if (texto.length < 30) { erro.textContent = 'Depoimento muito curto (mínimo 30 caracteres).'; erro.style.display = 'block'; return; }
+    erro.style.display = 'none';
+    var b = document.getElementById('depo-submit-btn');
+    b.textContent = 'Enviando...'; b.disabled = true;
+    fetch(SUPA_URL + '/rest/v1/depoimentos', {
+      method: 'POST', headers: SUPA_H,
+      body: JSON.stringify({ nome: nome, cargo: cargo, segmento: seg, texto: texto, nota: notaSelecionada, status: 'pendente' })
+    }).then(function(r) {
+      if (r.status === 201 || r.ok) {
+        document.getElementById('depo-form-area').style.display = 'none';
+        document.getElementById('depo-sucesso').style.display = 'block';
+      } else {
+        erro.textContent = 'Erro ao enviar. Tente novamente.'; erro.style.display = 'block';
+        b.textContent = 'Enviar depoimento →'; b.disabled = false;
+      }
+    }).catch(function() {
+      erro.textContent = 'Erro de conexão. Tente novamente.'; erro.style.display = 'block';
+      b.textContent = 'Enviar depoimento →'; b.disabled = false;
+    });
+  }
+
+  function renderStars(nota) {
+    var h = '';
+    for (var i = 1; i <= 5; i++) {
+      h += '<svg class="depo-star' + (i > nota ? ' depo-star-off' : '') + '" viewBox="0 0 16 16"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>';
+    }
+    return h;
+  }
+
+  function iniciais(nome) {
+    var p = nome.trim().split(' ').filter(Boolean);
+    return p.length >= 2 ? (p[0][0] + p[p.length-1][0]).toUpperCase() : p[0].substring(0,2).toUpperCase();
+  }
+
+  function carregarDepoimentos() {
+    fetch(SUPA_URL + '/rest/v1/depoimentos?status=eq.aprovado&order=criado_em.desc&select=*', { headers: SUPA_H })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var grid = document.getElementById('depo-grid');
+      if (!data || !data.length) {
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:48px 0;"><p style="color:var(--cinza);font-size:.9rem;font-weight:300;">Seja o primeiro a deixar seu depoimento!</p></div>';
+        return;
+      }
+      grid.innerHTML = data.map(function(d) {
+        return '<div class="depo-card reveal visible">' +
+          '<div class="depo-stars">' + renderStars(d.nota || 5) + '</div>' +
+          '<p class="depo-texto">"' + d.texto.replace(/</g,'&lt;') + '"</p>' +
+          '<div class="depo-autor">' +
+            '<div class="depo-avatar">' + iniciais(d.nome || 'US') + '</div>' +
+            '<div><div class="depo-nome">' + d.nome.replace(/</g,'&lt;') + '</div>' +
+            (d.cargo ? '<div class="depo-cargo">' + d.cargo.replace(/</g,'&lt;') + '</div>' : '') + '</div>' +
+            (d.segmento ? '<span class="depo-segmento">' + d.segmento + '</span>' : '') +
+          '</div></div>';
+      }).join('');
+    })
+    .catch(function() {
+      document.getElementById('depo-grid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:32px 0;color:var(--cinza);font-size:.85rem;font-weight:300;">Não foi possível carregar os depoimentos.</div>';
+    });
+  }
+
+  carregarDepoimentos();
+
 </script>
 </body>
 </html>
