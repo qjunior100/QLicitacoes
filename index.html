@@ -732,30 +732,130 @@
       transform: translateY(0);
     }
 
+    /* ── HAMBURGER (oculto no desktop) ── */
+    .hamburger { display: none; }
+
     /* ── RESPONSIVO ── */
     @media (max-width: 768px) {
-      nav { padding: 16px 20px; }
-      .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--azul); padding: 16px 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 999; gap: 4px; }
-      .nav-links.aberto { display: flex; }
-      .nav-links a { padding: 10px 0; font-size: 1rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
-      .nav-links li:last-child a { border-bottom: none; margin-top: 8px; }
-      .nav-cta { display: block; text-align: center; }
-      .nav-ativar { display: block; text-align: center; }
-      .hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
-      .hamburger span { display: block; width: 24px; height: 2px; background: var(--branco); border-radius: 2px; transition: all .3s; }
+
+      /* Nav */
+      nav { padding: 14px 20px; }
+      .hamburger {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: 6px;
+        background: none;
+        border: none;
+        z-index: 200;
+      }
+      .hamburger span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: var(--branco);
+        border-radius: 2px;
+        transition: all .3s;
+      }
       .hamburger.aberto span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
       .hamburger.aberto span:nth-child(2) { opacity: 0; }
       .hamburger.aberto span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 57px;
+        left: 0;
+        right: 0;
+        background: rgba(13,31,60,0.98);
+        backdrop-filter: blur(16px);
+        padding: 16px 24px 28px;
+        border-bottom: 1px solid var(--borda);
+        z-index: 150;
+        gap: 2px;
+      }
+      .nav-links.aberto { display: flex; }
+      .nav-links li { list-style: none; }
+      .nav-links a {
+        display: block;
+        padding: 12px 0;
+        font-size: 1rem;
+        color: var(--cinza);
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+      .nav-links li:last-child a { border-bottom: none; }
+      .nav-cta {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+        padding: 12px 24px !important;
+        border-radius: 6px;
+      }
+      .nav-ativar {
+        display: block;
+        text-align: center;
+        padding: 12px 0 !important;
+      }
+
+      /* Seções — padding menor */
+      section { padding: 64px 20px; }
+      .cta-final { padding: 80px 20px; }
+
+      /* Hero */
+      .hero { padding: 100px 20px 60px; }
+      .hero h1 { letter-spacing: -1px; }
+      .hero-btns { flex-direction: column; align-items: center; gap: 12px; }
+      .hero-btns .btn-primary,
+      .hero-btns .btn-secondary { width: 100%; max-width: 320px; text-align: center; }
+      .hero-stats { gap: 24px; margin-top: 48px; padding-top: 32px; }
+      .stat-num { font-size: 1.6rem; }
+
+      /* Steps */
+      .steps { grid-template-columns: 1fr; gap: 2px; }
+      .step-connector { display: none; }
+
+      /* Features */
+      .features-grid { grid-template-columns: 1fr; }
+
+      /* Segmentos */
+      .seg-tag { font-size: .82rem; padding: 8px 14px; }
+
+      /* Planos */
+      .planos-grid { grid-template-columns: 1fr; max-width: 100% !important; }
+      .plano-card { padding: 32px 24px; }
+
+      /* Afiliados */
       .afiliados-inner { grid-template-columns: 1fr; gap: 40px; }
-      .hero-stats { gap: 32px; }
+      .afiliados-numeros { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .afil-card { padding: 20px 16px; }
+      .afil-val { font-size: 1.5rem; }
+
+      /* Contato — empilha colunas */
+      #contato .container > div > div:first-child,
+      #contato .container > div > div:last-child { width: 100%; }
+      #contato .container > div { display: flex !important; flex-direction: column; gap: 40px !important; }
+
+      /* CTA final */
+      .hero-btns.reveal { flex-direction: column; align-items: center; }
+
+      /* Footer */
+      footer { padding: 40px 20px; }
     }
-    @media (min-width: 769px) { .hamburger { display: none; } }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2.2rem; }
+      .section-title { font-size: 1.7rem; letter-spacing: -1px; }
+      .plano-preco { font-size: 2.4rem; }
+      .afiliados-numeros { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
 <!-- ── NAVBAR ── -->
-<nav style="position:relative;">
+<nav>
   <div class="nav-logo">QL<span>icitações</span></div>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -1105,7 +1205,7 @@
     </p>
     <div class="hero-btns reveal">
       <a href="#planos" class="btn-primary">Ver planos →</a>
-      <a href="/cdn-cgi/l/email-protection#0362676e43726f666d64666d6b62716a622d606c6e" class="btn-secondary">Falar com suporte</a>
+      <a href="mailto:adm@qlengenharia.com" class="btn-secondary">Falar com suporte</a>
     </div>
   </div>
 </section>
@@ -1114,11 +1214,25 @@
 <footer>
   <div class="footer-logo">QLicitações</div>
   <p style="margin-bottom:12px;">Monitor de Licitações Públicas — Integrado ao PNCP</p>
-  <p><a href="/cdn-cgi/l/email-protection#1f7e7b725f6e737a71787a71777e6d767e317c7072"><span class="__cf_email__" data-cfemail="2f4e4b426f5e434a41484a41474e5d464e014c4042">[email&#160;protected]</span></a> &nbsp;·&nbsp; <a href="/ativar.html">Ativar licença</a></p>
+  <p><a href="mailto:adm@qlengenharia.com">adm@qlengenharia.com</a> &nbsp;·&nbsp; <a href="/ativar.html">Ativar licença</a></p>
   <p style="margin-top:24px; font-size:.75rem; opacity:.5;">© 2026 QLicitações. Todos os direitos reservados.</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
+  // ── Afiliado: passa o ?ref para os links do Hotmart ──
+  (function() {
+    const ref = new URLSearchParams(window.location.search).get('ref');
+    if (ref) {
+      document.querySelectorAll('a[href*="pay.hotmart.com"]').forEach(function(a) {
+        try {
+          const url = new URL(a.href);
+          url.searchParams.set('ref', ref);
+          a.href = url.toString();
+        } catch(e) {}
+      });
+    }
+  })();
+
   // ── Scroll reveal ──
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -1153,4 +1267,14 @@
     nav.classList.toggle('aberto');
     btn.classList.toggle('aberto');
   }
-  document.querySelectorAll('#nav-links a').for
+  document.querySelectorAll('#nav-links a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      var nav = document.getElementById('nav-links');
+      var btn = document.getElementById('hamburger');
+      nav.classList.remove('aberto');
+      btn.classList.remove('aberto');
+    });
+  });
+</script>
+</body>
+</html>
