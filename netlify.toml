@@ -5,7 +5,7 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "connect-src 'self' https://*.supabase.co"
+    Content-Security-Policy = "connect-src 'self' https://*.supabase.co https://*.hotmart.com https://www.googletagmanager.com https://www.google-analytics.com"
 
 [[plugins]]
   package = "@netlify/plugin-functions-install-core"
